@@ -20,9 +20,13 @@ namespace WeSketch.App.Forms
     /// </summary>
     public partial class FormRegister : MetroWindow
     {
-        public FormRegister()
+        private MetroWindow parent;
+
+        public FormRegister(MetroWindow parent)
         {
             InitializeComponent();
+            this.parent = parent;
+            this.parent.Visibility = Visibility.Hidden;
         }
 
         private void btnRegister_Click(object sender, RoutedEventArgs e)
@@ -33,6 +37,11 @@ namespace WeSketch.App.Forms
         private void btnBack_Click(object sender, RoutedEventArgs e)
         {
             this.Close();
+        }
+
+        private void MetroWindow_Closing(object sender, System.ComponentModel.CancelEventArgs e)
+        {
+            this.parent.Visibility = Visibility.Visible;
         }
     }
 }

@@ -1,0 +1,41 @@
+﻿<Controls:MetroWindow
+        xmlns:Controls="clr-namespace:MahApps.Metro.Controls;assembly=MahApps.Metro"
+        x:Class="WeSketch.App.Forms.FormDashboard"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:iconPacks="http://metro.mahapps.com/winfx/xaml/iconpacks"
+        xmlns:local="clr-namespace:WeSketch.App.Forms"
+        mc:Ignorable="d"
+        BorderThickness="2" 
+        GlowBrush="{DynamicResource AccentColorBrush}"    
+        Title="WeSketch - Dashboard" Height="637.5" Width="1180" WindowState="Maximized">
+    <Grid>
+        <Grid x:Name="gridDashboardHeader" Height="62" Margin="8,10,8,0" VerticalAlignment="Top">
+            <Button Content="{iconPacks:PackIconMaterial ShapeSquarePlus}" Style="{StaticResource AccentedSquareButtonStyle}" HorizontalAlignment="Left" Height="32" Margin="10,10,0,0" VerticalAlignment="Top" Width="100"/>
+            <TextBox x:Name="tbxSearch" Height="32" Margin="115,10,325,0" TextWrapping="NoWrap" VerticalAlignment="Top" Controls:TextBoxHelper.Watermark="Search..." TextChanged="tbxSearch_TextChanged" FontSize="16" FontFamily="Segoe UI"/>
+            <Button Content="{iconPacks:PackIconMaterial Logout}" Height="32" Margin="0,10,10,0" VerticalAlignment="Top" HorizontalAlignment="Right" Width="100"/>
+            <Button Content="{iconPacks:PackIconMaterial Account}" Height="32" Margin="0,10,115,0" VerticalAlignment="Top" HorizontalAlignment="Right" Width="100"/>
+            <Button Content="{iconPacks:PackIconMaterial Bell}" Height="32" Margin="0,10,220,0" VerticalAlignment="Top" HorizontalAlignment="Right" Width="100"/>
+        </Grid>
+        <Grid x:Name="gridDashboardMain" Margin="67,77,67,0">
+            <TabControl Margin="0,10,0,68">
+                <TabItem Header="My boards" Margin="0,0,-12,0" Padding="0,2,16,2" FontSize="8">
+                    <Grid x:Name="gridMyBoards" Background="#FFE5E5E5" Margin="0,0,0,-48"/>
+                </TabItem>
+                <TabItem Header="My favorites" Padding="0,2,16,2" FontSize="8">
+                    <Grid x:Name="gridMyFavorites" Background="yellow" Margin="0,0,0,-3"/>
+                </TabItem>
+                <TabItem Header="Shared with me" Padding="0,2,16,2" FontSize="8">
+                    <Grid x:Name="gridSharedWithMe" Background="red" Margin="0,0,0,-3"/>
+                </TabItem>
+                <TabItem Header="Public" Padding="0,2,16,2" FontSize="8">
+                    <Grid x:Name="gridPublicBoards" Background="green" Margin="0,0,0,-3"/>
+                </TabItem>
+
+            </TabControl>
+        </Grid>
+
+    </Grid>
+</Controls:MetroWindow>

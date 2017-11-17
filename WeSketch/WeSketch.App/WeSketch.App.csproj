@@ -64,7 +64,14 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </ApplicationDefinition>
+    <Compile Include="Forms\FormDashboard.xaml.cs">
+      <DependentUpon>FormDashboard.xaml</DependentUpon>
+    </Compile>
     <Compile Include="Utilities.cs" />
+    <Page Include="Forms\FormDashboard.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
     <Page Include="Forms\FormLogin.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>

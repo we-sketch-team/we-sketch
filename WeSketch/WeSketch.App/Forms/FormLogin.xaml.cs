@@ -28,14 +28,16 @@ namespace WeSketch.App.Forms
 
         private void btnRegister_Click(object sender, RoutedEventArgs e)
         {
-            FormRegister reg = new FormRegister();
-            reg.Show();
+            FormRegister reg = new FormRegister(this);
+            reg.ShowDialog();
             
         }
 
         private void btnLogin_Click(object sender, RoutedEventArgs e)
         {
-            Utilities.DisplayMessage(this, "Can't login", "Not implemented yet!");
+            //Utilities.DisplayMessage(this, "Can't login", "Not implemented yet!");
+            FormDashboard dash = new FormDashboard();
+            dash.Show();            
         }
     }
 }
