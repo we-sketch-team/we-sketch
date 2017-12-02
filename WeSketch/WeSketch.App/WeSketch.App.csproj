@@ -64,10 +64,30 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </ApplicationDefinition>
+    <Compile Include="Controller\ISketchController.cs" />
+    <Compile Include="Controller\SketchController.cs" />
+    <Compile Include="Data\Board.cs" />
+    <Compile Include="Data\Shapes\IShape.cs" />
+    <Compile Include="Data\Shapes\Property.cs" />
+    <Compile Include="Data\Shapes\Shape.cs" />
+    <Compile Include="Data\Shapes\ShapeComposite.cs" />
+    <Compile Include="Data\Shapes\Rectangle.cs" />
+    <Compile Include="Data\Tools\ICreationalTool.cs" />
+    <Compile Include="Data\Tools\RectangleCreationalTool.cs" />
+    <Compile Include="Data\Tools\ITool.cs" />
+    <Compile Include="Data\User.cs" />
     <Compile Include="Forms\FormDashboard.xaml.cs">
       <DependentUpon>FormDashboard.xaml</DependentUpon>
     </Compile>
+    <Compile Include="Forms\FormWorkspace.xaml.cs">
+      <DependentUpon>FormWorkspace.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="IObserver.cs" />
+    <Compile Include="Model\ISketch.cs" />
+    <Compile Include="Model\Sketch.cs" />
     <Compile Include="Utilities.cs" />
+    <Compile Include="View\IView.cs" />
+    <Compile Include="View\WSViewGuest.cs" />
     <Page Include="Forms\FormDashboard.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
@@ -77,6 +97,10 @@
       <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="Forms\FormRegister.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Forms\FormWorkspace.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
@@ -132,5 +156,6 @@
   <ItemGroup>
     <Resource Include="Images\logo.png" />
   </ItemGroup>
+  <ItemGroup />
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>
