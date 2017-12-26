@@ -1,0 +1,158 @@
+﻿using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Text;
+using System.Threading.Tasks;
+using System.Data.Entity;
+using System.Data.Entity.ModelConfiguration.Configuration;
+using System.Data.Entity.Infrastructure.Annotations;
+using System.ComponentModel.DataAnnotations.Schema;
+
+namespace WeSketch.DataLayer.Model
+{
+    public class WeSketchContext : DbContext
+    {
+        public WeSketchContext() : base("Data Source=160.99.38.140,14330;Initial Catalog=db_wesketch;Persist Security Info=True;User ID=stefan81888;Password=stefan1234;")
+        {
+
+        }
+
+        #region DbSets
+        public DbSet<Board> Boards { get; set; }
+        public DbSet<ChatRoom> ChatRooms { get; set; }
+        public DbSet<Message> Messages { get; set; }
+        public DbSet<User> Users { get; set; }
+        #endregion
+
+        protected override void OnModelCreating(DbModelBuilder modelBuilder)
+        {
+            modelBuilder.HasDefaultSchema("WeSketch");
+
+            #region PrimaryKeys
+            modelBuilder.Entity<Board>().HasKey<int>(s => s.Id);
+            modelBuilder.Entity<ChatRoom>().HasKey<int>(s => s.Id);
+            modelBuilder.Entity<Message>().HasKey<int>(s => s.Id);
+            modelBuilder.Entity<User>().HasKey<int>(s => s.Id);
+            modelBuilder.Entity<UserBoards>().HasKey(s => new {s.UserId, s.BoardId});
+
+
+            #region Auto increment             
+            modelBuilder.Entity<Board>().Property(p => p.Id).HasDatabaseGeneratedOption(DatabaseGeneratedOption.Identity);
+            modelBuilder.Entity<ChatRoom>().Property(p => p.Id).HasDatabaseGeneratedOption(DatabaseGeneratedOption.Identity);
+            modelBuilder.Entity<Message>().Property(p => p.Id).HasDatabaseGeneratedOption(DatabaseGeneratedOption.Identity);
+            modelBuilder.Entity<User>().Property(p => p.Id).HasDatabaseGeneratedOption(DatabaseGeneratedOption.Identity);
+            #endregion  
+            #endregion
+            #region Columns
+            modelBuilder.Entity<Board>()
+                        .Property(s => s.Title)
+                        .HasMaxLength(20)
+                        .IsRequired();
+            modelBuilder.Entity<Board>()
+                        .Property(s => s.Desription)
+                        .HasMaxLength(50)
+                        .IsOptional();
+            modelBuilder.Entity<Board>()
+                        .Property(s => s.DateCreated)
+                        .IsOptional();
+            modelBuilder.Entity<Board>()
+                        .Property(s => s.ActiveBoard)
+                        .IsOptional();
+            modelBuilder.Entity<Board>()
+                        .Property(s => s.PublicBoard)
+                        .IsOptional();
+            modelBuilder.Entity<Board>()
+                        .Property(s => s.Content)
+                        .HasColumnType("ntext");
+
+            modelBuilder.Entity<ChatRoom>()
+                        .Property(s => s.ActiveChat)
+                        .IsOptional();
+            modelBuilder.Entity<ChatRoom>()
+                        .Property(s => s.DateCreated)
+                        .IsOptional();
+
+            modelBuilder.Entity<Message>()
+                        .Property(s => s.Content)
+                        .HasMaxLength(1000)
+                        .IsRequired();
+
+            modelBuilder.Entity<UserBoards>()
+                        .Property(s => s.Role)
+                        .HasMaxLength(1000)
+                        .IsRequired();
+
+            modelBuilder.Entity<UserBoards>()
+                        .Property(s => s.IsFavoriteToUser)
+                        .IsRequired();
+
+            modelBuilder.Entity<User>()
+                        .Property(s => s.Username)
+                        .IsRequired()
+                        .HasMaxLength(30)
+                        .HasColumnAnnotation("Index", new IndexAnnotation(new IndexAttribute("Username") { IsUnique = true }));          
+            modelBuilder.Entity<User>()
+                        .Property(s => s.Email)
+                        .IsRequired()
+                        .HasMaxLength(30)
+                        .HasColumnAnnotation("Index", new IndexAnnotation(new IndexAttribute("Email") { IsUnique = true }));
+            modelBuilder.Entity<User>()
+                        .Property(s => s.Password)                       
+                        .IsRequired();
+            modelBuilder.Entity<User>()
+                        .Property(s => s.LastName)
+                        .IsOptional();
+            modelBuilder.Entity<User>()
+                        .Property(s => s.FirstName)
+                        .IsOptional();
+            modelBuilder.Entity<User>()
+                        .Property(s => s.DateRegistered)
+                        .IsOptional();
+            modelBuilder.Entity<User>()
+                        .Property(s => s.DateOfBirth)
+                        .IsOptional();
+            modelBuilder.Entity<User>()
+                        .Property(s => s.ActiveAccount)
+                        .IsOptional();
+                        #endregion
+            #region Foreign Keys
+            modelBuilder.Entity<Board>()
+                        .HasOptional(s => s.ChatRoom)
+                        .WithOptionalPrincipal(s => s.Board);
+            modelBuilder.Entity<Board>()
+                        .HasOptional(s => s.LockedBy)
+                        .WithOptionalPrincipal(s => s.LockedBoard);          
+            
+            modelBuilder.Entity<ChatRoom>()
+                        .HasMany<User>(s => s.UsersInChatRoom)
+                        .WithMany(s => s.ChatRooms)
+                        .Map(s =>
+                        {
+                            s.MapLeftKey("ChatRooms");
+                            s.MapRightKey("Users");
+                            s.ToTable("ChatRoomUsers");
+                        });          
+
+            modelBuilder.Entity<Message>()
+                        .HasRequired<ChatRoom>(s => s.SentIn)
+                        .WithMany(s => s.Messages)
+                        .HasForeignKey<int>(s => s.ChatRoomId);
+
+            modelBuilder.Entity<Message>()
+                        .HasRequired<User>(s => s.Sender)
+                        .WithMany(s => s.Messages)
+                        .HasForeignKey<int>(s => s.UserID);      
+                    
+            modelBuilder.Entity<UserBoards>()
+                        .HasRequired(s => s.User)
+                        .WithMany(s => s.UserBoards)
+                        .HasForeignKey(s => s.UserId);
+
+            modelBuilder.Entity<UserBoards>()
+                        .HasRequired(s => s.Board)
+                        .WithMany(s => s.UserBoards)
+                        .HasForeignKey(usr => usr.BoardId);           
+            #endregion
+        }
+    }
+}
