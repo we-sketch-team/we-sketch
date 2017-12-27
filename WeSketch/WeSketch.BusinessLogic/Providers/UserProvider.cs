@@ -81,7 +81,14 @@ namespace WeSketch.BusinessLogic.Providers
                 return InvalidDTOFactory.InvalidUser();
             }
 
+            if (userDetails.DateOfBirth.Year < 1900)
+            {
+                userDetails.DateOfBirth = DateTime.Now;
+            }
+
             User createUser = ConverterFromDTO.UserFromCreateUser(userDetails);
+
+
             createUser.DateRegistered = DateTime.Now;
             createUser.ActiveAccount = true;
 
