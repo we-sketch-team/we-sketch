@@ -4,10 +4,9 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace WeSketch.App
+namespace WeSketch.App.Data.API
 {
-    public interface IObserver
+    public class Proxy
     {
-        void InvokeUpdate();
     }
 }

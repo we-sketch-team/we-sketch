@@ -7,7 +7,7 @@ using WeSketch.App.Model;
 
 namespace WeSketch.App.View
 {
-    public interface IView: IObserver
+    public interface IView
     {
         void Display();
         void Init(ISketch model);

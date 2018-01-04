@@ -21,7 +21,6 @@ namespace WeSketch.App.View
         public void Init(ISketch model)
         {
             myModel = model;
-            myModel.Attach(this);
             MakeController();
         }
 
@@ -29,12 +28,7 @@ namespace WeSketch.App.View
         {
             myController = new SketchController();
             myController.Init(myModel, this);
-            myModel.Attach(myController);
         }
 
-        public void InvokeUpdate()
-        {
-            //throw new NotImplementedException();
-        }
     }
 }

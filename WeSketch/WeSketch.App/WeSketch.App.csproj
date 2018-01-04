@@ -40,9 +40,16 @@
     <Reference Include="MahApps.Metro.IconPacks.Material, Version=1.9.1.0, Culture=neutral, processorArchitecture=MSIL">
       <HintPath>..\packages\MahApps.Metro.IconPacks.Material.1.9.1\lib\net46\MahApps.Metro.IconPacks.Material.dll</HintPath>
     </Reference>
+    <Reference Include="RestSharp, Version=106.2.0.0, Culture=neutral, PublicKeyToken=598062e77f915f75, processorArchitecture=MSIL">
+      <HintPath>..\packages\RestSharp.106.2.0\lib\net452\RestSharp.dll</HintPath>
+    </Reference>
     <Reference Include="System" />
     <Reference Include="System.Data" />
     <Reference Include="System.Drawing" />
+    <Reference Include="System.ValueTuple, Version=4.0.2.0, Culture=neutral, PublicKeyToken=cc7b13ffcd2ddd51, processorArchitecture=MSIL">
+      <HintPath>..\packages\System.ValueTuple.4.4.0\lib\net461\System.ValueTuple.dll</HintPath>
+    </Reference>
+    <Reference Include="System.Web" />
     <Reference Include="System.Windows.Interactivity, Version=4.5.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
       <HintPath>..\packages\MahApps.Metro.1.5.0\lib\net45\System.Windows.Interactivity.dll</HintPath>
     </Reference>
@@ -66,7 +73,14 @@
     </ApplicationDefinition>
     <Compile Include="Controller\ISketchController.cs" />
     <Compile Include="Controller\SketchController.cs" />
+    <Compile Include="Data\API\IAPI.cs" />
+    <Compile Include="Data\API\Proxy.cs" />
+    <Compile Include="Data\API\SketchService.cs" />
+    <Compile Include="Data\API\UserRegistrationOptions.cs" />
     <Compile Include="Data\Board.cs" />
+    <Compile Include="Data\DTO\CreateUserDTO.cs" />
+    <Compile Include="Data\DTO\UserDetailsDTO.cs" />
+    <Compile Include="Data\Shapes\Handle.cs" />
     <Compile Include="Data\Shapes\IShape.cs" />
     <Compile Include="Data\Shapes\Property.cs" />
     <Compile Include="Data\Shapes\Shape.cs" />
@@ -82,7 +96,6 @@
     <Compile Include="Forms\FormWorkspace.xaml.cs">
       <DependentUpon>FormWorkspace.xaml</DependentUpon>
     </Compile>
-    <Compile Include="IObserver.cs" />
     <Compile Include="Model\ISketch.cs" />
     <Compile Include="Model\Sketch.cs" />
     <Compile Include="Utilities.cs" />

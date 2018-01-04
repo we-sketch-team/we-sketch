@@ -13,6 +13,7 @@ using System.Windows.Input;
 using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Shapes;
+using WeSketch.App.Data.API;
 
 namespace WeSketch.App.Forms
 {
@@ -21,9 +22,12 @@ namespace WeSketch.App.Forms
     /// </summary>
     public partial class FormLogin : MetroWindow
     {
+        IAPI api;
+
         public FormLogin()
         {
             InitializeComponent();
+            api = new SketchService();
         }
 
         private void btnRegister_Click(object sender, RoutedEventArgs e)
@@ -35,9 +39,20 @@ namespace WeSketch.App.Forms
 
         private void btnLogin_Click(object sender, RoutedEventArgs e)
         {
-            //Utilities.DisplayMessage(this, "Can't login", "Not implemented yet!");
-            FormDashboard dash = new FormDashboard();
-            dash.Show();            
+            string username = tbxEmail.Text;
+            string password = tbxPassword.Password;
+
+            bool logged = api.Login(username, password);
+
+            if(logged)
+            {
+                FormDashboard dash = new FormDashboard();
+                dash.Show();
+            }
+            else
+            {
+                Utilities.DisplayMessage(this, "Can't login", "Incorrect username or password!");
+            }          
         }
     }
 }

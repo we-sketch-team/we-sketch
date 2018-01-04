@@ -12,12 +12,10 @@ namespace WeSketch.App.Model
     {
         private User user;
         private Board board;
-        private List<IObserver> observers;
 
         public Sketch()
         {
-            observers = new List<IObserver>();
-            //board = new Board();
+            board = new Board();
         }
 
         public void AddCollaborator(User u)
@@ -28,27 +26,11 @@ namespace WeSketch.App.Model
         public void AddShape(IShape shape)
         {
             board.AddShape(shape);
-            NotifyObservers();
-        }
-
-        public void Attach(IObserver observer)
-        {
-            observers.Add(observer);
-        }
-
-        public void Detach(IObserver observer)
-        {
-            observers.Remove(observer);
         }
 
         public void EditShape(IShape shape)
         {
             throw new NotImplementedException();
-        }
-
-        public void NotifyObservers()
-        {
-            observers.ForEach(obs => obs.InvokeUpdate());
         }
 
         public void OpenBoard(Board board)
@@ -64,7 +46,6 @@ namespace WeSketch.App.Model
         public void RemoveShape(IShape shape)
         {
             board.RemoveShape(shape);
-            NotifyObservers();
         }
 
         public void SetUser(User u)

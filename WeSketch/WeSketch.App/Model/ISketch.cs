@@ -10,9 +10,6 @@ namespace WeSketch.App.Model
 {
     public interface ISketch
     {
-        void Attach(IObserver observer);
-        void Detach(IObserver observer);
-        void NotifyObservers();
         void SetUser(User u);
         void OpenBoard(Board board);
         void AddCollaborator(User u);

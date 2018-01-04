@@ -25,10 +25,5 @@ namespace WeSketch.App.Controller
             myModel = model;
             myView = view;
         }
-
-        public void InvokeUpdate()
-        {
-            //throw new NotImplementedException();
-        }
     }
 }

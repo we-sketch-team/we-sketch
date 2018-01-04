@@ -17,13 +17,14 @@ using WeSketch.App.Data.Tools;
 using WeSketch.App.View;
 using WeSketch.App.Model;
 using WeSketch.App.Controller;
+using System.Windows.Markup;
 
 namespace WeSketch.App.Forms
 {
     /// <summary>
     /// Interaction logic for FormWorkspace.xaml
     /// </summary>
-    public partial class FormWorkspace : MetroWindow, IView, IObserver
+    public partial class FormWorkspace : MetroWindow, IView
     {
         private RectangleCreationalTool rct;
         private ISketch model;
@@ -49,7 +50,6 @@ namespace WeSketch.App.Forms
             Board b = new Board();
             b.MyCanvas = canvas;
             model.OpenBoard(b);
-            model.Attach(this);
             MakeController();
         }
 
@@ -57,7 +57,6 @@ namespace WeSketch.App.Forms
         {
             this.controller = new SketchController();
             controller.Init(model, this);
-            model.Attach(this.controller);
         }
 
         public void InvokeUpdate()
@@ -81,7 +80,21 @@ namespace WeSketch.App.Forms
         {
             
             var point = e.GetPosition(canvas);
-            rct.MouseDrag((int)point.X, (int)point.Y);
+            //rct.MouseDrag((int)point.X, (int)point.Y);
+        }
+
+        private void btnExport_Click(object sender, RoutedEventArgs e)
+        {
+            string a;
+            a = XamlWriter.Save(canvas);
+            System.IO.File.WriteAllText("canvas.txt", a);
+        }
+
+        private void btnImport_Click(object sender, RoutedEventArgs e)
+        {
+            string b;
+            b = System.IO.File.ReadAllText("canvas.txt");
+            canvas = (Canvas)XamlReader.Parse(b);            
         }
     }
 }

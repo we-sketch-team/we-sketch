@@ -9,7 +9,7 @@ using WeSketch.App.View;
 
 namespace WeSketch.App.Controller
 {
-    public interface ISketchController:IObserver
+    public interface ISketchController
     {
         void Init(ISketch model, IView view);
 

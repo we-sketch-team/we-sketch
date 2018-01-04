@@ -11,6 +11,8 @@
         GlowBrush="{DynamicResource AccentColorBrush}"    
         Title="WeSketch - Workspace" Height="447.846" Width="643.598" WindowState="Maximized">
     <Grid>
-        <Canvas x:Name="canvas" HorizontalAlignment="Left" Height="393" Margin="10,10,0,0" VerticalAlignment="Top" Width="612" MouseDown="canvas_MouseDown" MouseUp="canvas_MouseUp" Background="#FFF8FFA4"/>
+        <Canvas x:Name="canvas" HorizontalAlignment="Left" Height="393" Margin="10,10,0,0" VerticalAlignment="Top" Width="393" MouseDown="canvas_MouseDown" MouseUp="canvas_MouseUp" Background="#FFF8FFA4"/>
+        <Button x:Name="btnExport" Content="Export" HorizontalAlignment="Left" Margin="408,10,0,0" VerticalAlignment="Top" Width="214" Click="btnExport_Click"/>
+        <Button x:Name="btnImport" Content="Import" HorizontalAlignment="Left" Margin="408,44,0,0" VerticalAlignment="Top" Width="214" Click="btnImport_Click"/>
     </Grid>
 </Controls:MetroWindow>
