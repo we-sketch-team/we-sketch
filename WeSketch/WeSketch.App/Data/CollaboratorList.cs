@@ -6,18 +6,33 @@ using System.Threading.Tasks;
 
 namespace WeSketch.App.Data
 {
-    public class CollaboratorList: List<User>
+    public class CollaboratorList
     {
+
+        public List<User> Users { get; set; }
+
+        public CollaboratorList()
+        {
+            Users = new List<User>();
+        }
+
+
+        public void Add(User u)
+        {
+            Users.Add(u);
+        }
+
+        public void Remove(User u)
+        {
+            Users.Remove(u);
+        }
 
         public override string ToString()
         {
-            if (this.Count == 0) return "";
+            if (this.Users.Count == 0) return "";
 
             string colls = "";
-            foreach(var c in this)
-            {
-                colls += c.Username + ", ";
-            }
+            this.Users.ForEach(u => colls += u.Username + ", ");
 
             colls = colls.Substring(0, colls.Length - 2);
             return colls;

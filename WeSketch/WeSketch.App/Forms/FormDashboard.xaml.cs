@@ -1,9 +1,11 @@
 ﻿using MahApps.Metro.Controls;
+using MahApps.Metro.Controls.Dialogs;
 using System.Collections.ObjectModel;
 using System.Windows;
 using System.Windows.Controls;
 using WeSketch.App.Data;
 using WeSketch.App.Data.API;
+using WeSketch.App.Dialogs;
 using WeSketch.App.Model;
 
 namespace WeSketch.App.Forms
@@ -15,6 +17,8 @@ namespace WeSketch.App.Forms
     {
         ISketch sketch;
         IAPI api;
+        CreateBoardDialog createBoardDialog;
+        CustomDialog customDialog;
 
         public FormDashboard(ISketch sketch)
         {
@@ -23,11 +27,38 @@ namespace WeSketch.App.Forms
             api = new SketchService();
         }
 
+        private async void CreateBoard()
+        {
+            customDialog = new CustomDialog();
+            createBoardDialog = new CreateBoardDialog();
+            createBoardDialog.btnCancel.Click += ButtonCancel_Click; ;
+            createBoardDialog.btnCreate.Click += ButtonCreate_Click; ;
+            customDialog.Content = createBoardDialog;
+            await this.ShowMetroDialogAsync(customDialog);
+        }
+
+        private void ButtonCreate_Click(object sender, RoutedEventArgs e)
+        {
+            var title = createBoardDialog.tbxBoardTitle.Text;
+            var isPublic = createBoardDialog.cbxIsPublic.IsChecked;
+
+            api.CreateBoard(title, (bool)isPublic, sketch.GetUser());
+  
+            this.HideMetroDialogAsync(customDialog);
+
+            LoadMyBoards();
+        }
+
+        private void ButtonCancel_Click(object sender, RoutedEventArgs e)
+        {
+            this.HideMetroDialogAsync(customDialog);
+        }
+
         private void LoadMyBoards()
         {
             var boards = api.GetMyBoards(sketch.GetUser());
-            //boards.Boards[0].Collaborators.Add(new User() { Username = "Siska" });
-            //boards.Boards[0].Collaborators.Add(new User() { Username = "Miska" });
+            boards.Boards[0].Collaborators.Add(new User() { Username = "Siska" });
+            boards.Boards[0].Collaborators.Add(new User() { Username = "Miska" });
             dataMyBoards.ItemsSource = boards.Boards;
         }
 
@@ -48,6 +79,19 @@ namespace WeSketch.App.Forms
             sketch.SetBoard(board);
             FormWorkspace form = new FormWorkspace(sketch);
             form.Show();
+        }
+
+        private void btnCreateBoard_Click(object sender, RoutedEventArgs e)
+        {
+            CreateBoard();
+        }
+
+        private void btnDeleteSelected_Click(object sender, RoutedEventArgs e)
+        {
+            if (dataMyBoards.SelectedItem == null) return;
+            var board = dataMyBoards.SelectedItem as Board;
+            api.DeleteBoard(board, sketch.GetUser());
+            LoadMyBoards();
         }
     }
 }

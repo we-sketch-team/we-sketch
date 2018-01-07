@@ -36,6 +36,7 @@ namespace WeSketch.App.Forms
             Init(sketch);
             rct = new RectangleCreationalTool();
             rct.SetController(controller);
+            
         }
 
         public void Display()
@@ -46,7 +47,10 @@ namespace WeSketch.App.Forms
         public void Init(ISketch model)
         {
             this.model = model;
-            model.GetBoard().MyCanvas = canvas;
+            var board = model.GetBoard();
+            board.Shapes = Utilities.ImportShapes(board.Content);
+            board.MyCanvas = canvas;
+            board.Draw(canvas);
             MakeController();
         }
 
@@ -81,7 +85,9 @@ namespace WeSketch.App.Forms
 
         private void btnExport_Click(object sender, RoutedEventArgs e)
         {
-            string export = Utilities.ExportShapes(model.GetBoard());
+            var board = model.GetBoard();
+            var shapes = board.Shapes;
+            string export = Utilities.ExportShapes(shapes);
             System.IO.File.WriteAllText("shapes.txt", export);
         }
 
@@ -89,8 +95,15 @@ namespace WeSketch.App.Forms
         {
             var xaml = System.IO.File.ReadAllText("shapes.txt");
             var shapes = Utilities.ImportShapes(xaml);
-            model.GetBoard().Shapes = shapes;
-            model.GetBoard().Draw(canvas);
+            var board = model.GetBoard();
+            board.Shapes = shapes;
+            board.Draw(canvas);
+        }
+
+        private void btnEnableCT_Click(object sender, RoutedEventArgs e)
+        {
+            canvas.MouseUp += canvas_MouseUp;
+            canvas.MouseDown += canvas_MouseDown;
         }
     }
 }

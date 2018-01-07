@@ -24,17 +24,17 @@ namespace WeSketch.App
             await window.ShowMessageAsync(title, message);
         }
 
-        public static string ExportShapes(Board board)
+        public static string ExportShapes(ShapeList shapes)
         {
-            var shapes = board.Shapes;
-            string str = "";
-            str = XamlWriter.Save(shapes);//JsonConvert.SerializeObject(shape.MyElement, new JsonSerializerSettings { TypeNameHandling = TypeNameHandling.Auto });
-            return str;
+            //var shape = new ShapeRectangle(10, 200, System.Windows.Media.Color.FromRgb(0, 255, 0));
+            //shapes.Add(shape);
+            string xaml = XamlWriter.Save(shapes);//JsonConvert.SerializeObject(shape.MyElement, new JsonSerializerSettings { TypeNameHandling = TypeNameHandling.Auto });
+            return xaml;
         }
 
         public static ShapeList ImportShapes(string data)
         {
-            //var deserializedObject = JsonConvert.DeserializeObject<System.Windows.Shapes.Rectangle>(data, new JsonSerializerSettings { TypeNameHandling = TypeNameHandling.Auto });
+            if (String.IsNullOrEmpty(data)) return new ShapeList();
             var shapes = (ShapeList)XamlReader.Parse(data);
             return shapes;
         }

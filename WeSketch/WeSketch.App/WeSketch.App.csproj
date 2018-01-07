@@ -87,6 +87,9 @@
     </ApplicationDefinition>
     <Compile Include="Controller\ISketchController.cs" />
     <Compile Include="Controller\SketchController.cs" />
+    <Compile Include="Dialogs\CreateBoardDialog.xaml.cs">
+      <DependentUpon>CreateBoardDialog.xaml</DependentUpon>
+    </Compile>
     <Compile Include="Data\API\IAPI.cs" />
     <Compile Include="Data\API\Proxy.cs" />
     <Compile Include="Data\API\SketchService.cs" />
@@ -116,6 +119,10 @@
     <Compile Include="Utilities.cs" />
     <Compile Include="View\IView.cs" />
     <Compile Include="View\WSViewGuest.cs" />
+    <Page Include="Dialogs\CreateBoardDialog.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
     <Page Include="Forms\FormDashboard.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>

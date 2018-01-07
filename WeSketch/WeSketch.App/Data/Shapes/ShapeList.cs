@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace WeSketch.App.Data.Shapes
 {
-    public class ShapeList: List<ShapeComponent>
+    public class ShapeList: List<IShape>
     {
     }
 }

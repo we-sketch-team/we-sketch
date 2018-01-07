@@ -5,6 +5,7 @@ using System.Text;
 using System.Threading.Tasks;
 using RestSharp;
 using Newtonsoft.Json;
+using WeSketch.App.Data.Shapes;
 
 namespace WeSketch.App.Data.API
 {
@@ -25,6 +26,20 @@ namespace WeSketch.App.Data.API
                 throw twilioException;
             }
             return response.Data;
+        }
+
+        public void Execute(RestRequest request)
+        {
+            var client = new RestClient();
+            client.BaseUrl = new System.Uri(BaseUrl);
+            var response = client.Execute(request);
+
+            if (response.ErrorException != null)
+            {
+                const string message = "Error retrieving response.  Check inner details for more info.";
+                var twilioException = new ApplicationException(message, response.ErrorException);
+                throw twilioException;
+            }
         }
 
         public bool CreateBoard(string title, bool isPublic, User user)
@@ -77,6 +92,15 @@ namespace WeSketch.App.Data.API
 
             User user = Execute<User>(req);
             return user.Username == options.Username;
+        }
+
+        public bool DeleteBoard(Board board, User user)
+        {
+            var req = new RestRequest();
+            req.Resource = $"boards/logic/delete/{board.Id}";
+            req.Method = Method.PUT;
+            Execute(req);
+            return true;
         }
     }
 }

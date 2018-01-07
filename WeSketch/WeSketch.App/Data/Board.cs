@@ -28,13 +28,13 @@ namespace WeSketch.App.Data
 
         public void AddShape(IShape shape)
         {
-            //Shapes.Add(shape);
+            Shapes.Add(shape);
             shape.Draw(MyCanvas);
         }
 
         public void RemoveShape(IShape shape)
         {
-            //Shapes.Remove(shape);
+            Shapes.Remove(shape);
         }
 
         public void EditShape(IShape shape)
