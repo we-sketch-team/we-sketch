@@ -6,32 +6,34 @@ using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Shapes;
+using System.Xml.Serialization;
 
 namespace WeSketch.App.Data.Shapes
 {
-    abstract class Shape: IShape
+    [Serializable]
+    public abstract class ShapeComponent: IShape
     {
-        protected System.Windows.Shapes.Shape myElement;
-
-        public Shape()
+        public System.Windows.Shapes.Shape MyElement { get; set; }
+        
+        public ShapeComponent()
         {
-
+            
         }
 
         public void Delete(Canvas target)
         {
-            target.Children.Remove(myElement);
+            target.Children.Remove(MyElement);
         }
         
         public void Draw(Canvas target)
         {
-            target.Children.Add(myElement);
+            target.Children.Add(MyElement);
         }
 
         public void Move(int x, int y)
         {
-            Canvas.SetLeft(myElement, x);
-            Canvas.SetTop(myElement, y);
+            Canvas.SetLeft(MyElement, x);
+            Canvas.SetTop(MyElement, y);
         }
 
         public void Rotate(Canvas target, double angle)

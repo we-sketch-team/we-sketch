@@ -8,9 +8,9 @@ namespace WeSketch.App.Data.API
 {
     public interface IAPI
     {
-        bool Login(string username, string password);
+        User Login(string username, string password);
         bool Register(UserRegistrationOptions options);
-        bool CreateBoard(string title);
-        List<Board> GetMyBoards();
+        bool CreateBoard(string title, bool isPublic, User user);
+        BoardList GetMyBoards(User user);
     }
 }

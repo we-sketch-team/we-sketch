@@ -30,11 +30,10 @@ namespace WeSketch.App.Forms
         private ISketch model;
         private ISketchController controller;
 
-        public FormWorkspace()
+        public FormWorkspace(ISketch sketch)
         {
             InitializeComponent();
-            model = new Sketch();
-            Init(model);
+            Init(sketch);
             rct = new RectangleCreationalTool();
             rct.SetController(controller);
         }
@@ -47,9 +46,7 @@ namespace WeSketch.App.Forms
         public void Init(ISketch model)
         {
             this.model = model;
-            Board b = new Board();
-            b.MyCanvas = canvas;
-            model.OpenBoard(b);
+            model.GetBoard().MyCanvas = canvas;
             MakeController();
         }
 
@@ -77,24 +74,23 @@ namespace WeSketch.App.Forms
         }
 
         private void canvas_MouseMove(object sender, MouseEventArgs e)
-        {
-            
+        {            
             var point = e.GetPosition(canvas);
             //rct.MouseDrag((int)point.X, (int)point.Y);
         }
 
         private void btnExport_Click(object sender, RoutedEventArgs e)
         {
-            string a;
-            a = XamlWriter.Save(canvas);
-            System.IO.File.WriteAllText("canvas.txt", a);
+            string export = Utilities.ExportShapes(model.GetBoard());
+            System.IO.File.WriteAllText("shapes.txt", export);
         }
 
         private void btnImport_Click(object sender, RoutedEventArgs e)
         {
-            string b;
-            b = System.IO.File.ReadAllText("canvas.txt");
-            canvas = (Canvas)XamlReader.Parse(b);            
+            var xaml = System.IO.File.ReadAllText("shapes.txt");
+            var shapes = Utilities.ImportShapes(xaml);
+            model.GetBoard().Shapes = shapes;
+            model.GetBoard().Draw(canvas);
         }
     }
 }

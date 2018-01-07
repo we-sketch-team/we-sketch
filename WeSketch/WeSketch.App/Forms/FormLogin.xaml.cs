@@ -13,7 +13,9 @@ using System.Windows.Input;
 using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Shapes;
+using WeSketch.App.Data;
 using WeSketch.App.Data.API;
+using WeSketch.App.Model;
 
 namespace WeSketch.App.Forms
 {
@@ -42,11 +44,13 @@ namespace WeSketch.App.Forms
             string username = tbxEmail.Text;
             string password = tbxPassword.Password;
 
-            bool logged = api.Login(username, password);
-
-            if(logged)
+            User logged = api.Login(username, password);
+            
+            if(logged.Id != -1)
             {
-                FormDashboard dash = new FormDashboard();
+                ISketch sketch = new Sketch();
+                sketch.SetUser(logged);
+                FormDashboard dash = new FormDashboard(sketch);
                 dash.Show();
             }
             else

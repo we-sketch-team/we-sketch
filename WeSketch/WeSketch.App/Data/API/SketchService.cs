@@ -4,7 +4,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using RestSharp;
-using WeSketch.App.Data.API.DTO;
+using Newtonsoft.Json;
 
 namespace WeSketch.App.Data.API
 {
@@ -27,17 +27,34 @@ namespace WeSketch.App.Data.API
             return response.Data;
         }
 
-        public bool CreateBoard(string title)
+        public bool CreateBoard(string title, bool isPublic, User user)
         {
-            throw new NotImplementedException();
+            var req = new RestRequest();
+            req.AddParameter("Title", title);
+            req.AddParameter("PublicBoard", isPublic);
+            req.AddParameter("UserId", user.Id);
+            req.Resource = "boards/logic/create";
+            req.Method = Method.POST;
+
+            Board res = Execute<Board>(req);
+            return res.Id != -1;
         }
 
-        public List<Board> GetMyBoards()
+        public BoardList GetMyBoards(User user)
         {
-            throw new NotImplementedException();
+            var req = new RestRequest();
+            req.Resource = $"boards/logic/get/alluserboards/{user.Id}";
+            req.Method = Method.GET;
+            var client = new RestClient();
+            client.BaseUrl = new System.Uri(BaseUrl);
+            var result = client.Execute(req);
+            var content = result.Content;
+
+            var boards = JsonConvert.DeserializeObject<BoardList>(content);
+            return boards;
         }
 
-        public bool Login(string email, string password)
+        public User Login(string email, string password)
         {
             var req = new RestRequest();
             req.AddParameter("Email", email);
@@ -45,8 +62,8 @@ namespace WeSketch.App.Data.API
             req.Resource = "users/logic/login";
             req.Method = Method.POST;
 
-            UserDetailsDTO res = Execute<UserDetailsDTO>(req);
-            return res.Id != -1;
+            User res = Execute<User>(req);
+            return res;
         }
 
         public bool Register(UserRegistrationOptions options)
@@ -58,7 +75,7 @@ namespace WeSketch.App.Data.API
             req.Resource = "users/logic/createaccount";
             req.Method = Method.POST;
 
-            CreateUserDTO user = Execute<CreateUserDTO>(req);
+            User user = Execute<User>(req);
             return user.Username == options.Username;
         }
     }

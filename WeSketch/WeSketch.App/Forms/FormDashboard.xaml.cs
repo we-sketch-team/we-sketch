@@ -1,17 +1,10 @@
 ﻿using MahApps.Metro.Controls;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+using System.Collections.ObjectModel;
 using System.Windows;
 using System.Windows.Controls;
-using System.Windows.Data;
-using System.Windows.Documents;
-using System.Windows.Input;
-using System.Windows.Media;
-using System.Windows.Media.Imaging;
-using System.Windows.Shapes;
+using WeSketch.App.Data;
+using WeSketch.App.Data.API;
+using WeSketch.App.Model;
 
 namespace WeSketch.App.Forms
 {
@@ -20,14 +13,41 @@ namespace WeSketch.App.Forms
     /// </summary>
     public partial class FormDashboard : MetroWindow
     {
-        public FormDashboard()
+        ISketch sketch;
+        IAPI api;
+
+        public FormDashboard(ISketch sketch)
         {
             InitializeComponent();
+            this.sketch = sketch;
+            api = new SketchService();
+        }
+
+        private void LoadMyBoards()
+        {
+            var boards = api.GetMyBoards(sketch.GetUser());
+            //boards.Boards[0].Collaborators.Add(new User() { Username = "Siska" });
+            //boards.Boards[0].Collaborators.Add(new User() { Username = "Miska" });
+            dataMyBoards.ItemsSource = boards.Boards;
         }
 
         private void tbxSearch_TextChanged(object sender, TextChangedEventArgs e)
         {
 
+        }
+
+        private void MetroWindow_Loaded(object sender, RoutedEventArgs e)
+        {
+            LoadMyBoards();
+        }
+
+        private void dataMyBoards_MouseDoubleClick(object sender, System.Windows.Input.MouseButtonEventArgs e)
+        {
+            if (dataMyBoards.SelectedItem == null) return;
+            var board = dataMyBoards.SelectedItem as Board;
+            sketch.SetBoard(board);
+            FormWorkspace form = new FormWorkspace(sketch);
+            form.Show();
         }
     }
 }

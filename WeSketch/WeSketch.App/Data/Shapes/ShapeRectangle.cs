@@ -7,24 +7,27 @@ using System.Threading.Tasks;
 using System.Windows.Controls;
 using System.Windows.Media;
 using System.Windows.Shapes;
+using System.Xml.Serialization;
 
 namespace WeSketch.App.Data.Shapes
 {
-    class Rectangle: Shape
+    [Serializable]
+    public class ShapeRectangle: ShapeComponent
     {
-        public Rectangle(int width, int height, System.Windows.Media.Color color) : base()
+        public ShapeRectangle(int width, int height, System.Windows.Media.Color color) : base()
         {
-            myElement = new System.Windows.Shapes.Rectangle
+            MyElement = new System.Windows.Shapes.Rectangle
             {
                 Width = width,
                 Height = height,
                 Fill = new SolidColorBrush(color)
+
             };
         }
 
-        public Rectangle()
+        public ShapeRectangle()
         {
-            myElement = new System.Windows.Shapes.Rectangle();
+            MyElement = new System.Windows.Shapes.Rectangle();
         }
     }
 }

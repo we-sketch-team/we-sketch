@@ -10,8 +10,10 @@ namespace WeSketch.App.Model
 {
     public interface ISketch
     {
+        User GetUser();
         void SetUser(User u);
-        void OpenBoard(Board board);
+        void SetBoard(Board board);
+        Board GetBoard();
         void AddCollaborator(User u);
         void RemoveCollaborator(User u);
         void AddShape(IShape shape);

@@ -33,9 +33,14 @@ namespace WeSketch.App.Model
             throw new NotImplementedException();
         }
 
-        public void OpenBoard(Board board)
+        public Board GetBoard()
         {
-            this.board = board;
+            return board;
+        }
+
+        public User GetUser()
+        {
+            return user;
         }
 
         public void RemoveCollaborator(User u)
@@ -46,6 +51,11 @@ namespace WeSketch.App.Model
         public void RemoveShape(IShape shape)
         {
             board.RemoveShape(shape);
+        }
+
+        public void SetBoard(Board board)
+        {
+            this.board = board;
         }
 
         public void SetUser(User u)

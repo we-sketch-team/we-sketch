@@ -10,7 +10,7 @@
         mc:Ignorable="d"
         BorderThickness="2" 
         GlowBrush="{DynamicResource AccentColorBrush}"    
-        Title="WeSketch - Dashboard" Height="637.5" Width="1180" WindowState="Maximized">
+        Title="WeSketch - Dashboard" Height="637.5" Width="1180" WindowState="Maximized" Loaded="MetroWindow_Loaded">
     <Grid>
         <Grid x:Name="gridDashboardHeader" Height="62" Margin="8,10,8,0" VerticalAlignment="Top">
             <Button Content="{iconPacks:PackIconMaterial ShapeSquarePlus}" Style="{StaticResource AccentedSquareButtonStyle}" HorizontalAlignment="Left" Height="32" Margin="10,10,0,0" VerticalAlignment="Top" Width="100"/>
@@ -22,7 +22,12 @@
         <Grid x:Name="gridDashboardMain" Margin="67,77,67,0">
             <TabControl Margin="0,10,0,68">
                 <TabItem Header="My boards" Margin="0,0,-12,0" Padding="0,2,20,2" FontSize="8" Foreground="Black">
-                    <Grid x:Name="gridMyBoards" Background="#FFE5E5E5" Margin="0,0,0,-8"/>
+                    <DataGrid x:Name="dataMyBoards" HorizontalAlignment="Left" Height="391" Margin="10,10,0,0" VerticalAlignment="Top" Width="1008" FontSize="16" BorderThickness="2" AutoGenerateColumns="False" IsReadOnly="True" MouseDoubleClick="dataMyBoards_MouseDoubleClick">
+                        <DataGrid.Columns>
+                            <DataGridTextColumn Header="Title" Binding="{Binding Title}"/>
+                            <DataGridTextColumn Header="Collaborators" Binding="{Binding Collaborators}"/>
+                        </DataGrid.Columns>
+                    </DataGrid>
                 </TabItem>
                 <TabItem Header="My favorites" Padding="0,2,20,2" FontSize="8">
                     <Grid x:Name="gridMyFavorites" Background="yellow" Margin="0,0,0,-3"/>
