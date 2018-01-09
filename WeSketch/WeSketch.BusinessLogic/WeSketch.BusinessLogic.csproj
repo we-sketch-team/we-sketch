@@ -48,6 +48,7 @@
     <Compile Include="DTOs\ChatRoomDTOs\UpdateChatRoomDTO.cs" />
     <Compile Include="DTOs\MessageDTOs\CreateMessageDTO.cs" />
     <Compile Include="DTOs\MessageDTOs\MessageDetailsDTO.cs" />
+    <Compile Include="DTOs\BoardDTOs\CollaboratorDTO.cs" />
     <Compile Include="DTOs\UserDTOs\CreateUserDTO.cs" />
     <Compile Include="DTOs\UserDTOs\UserDetailsDTO.cs" />
     <Compile Include="DTOs\UserDTOs\LoginDTO.cs" />

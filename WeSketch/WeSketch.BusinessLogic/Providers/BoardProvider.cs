@@ -6,6 +6,7 @@ using System.Threading.Tasks;
 using WeSketch.BusinessLogic.Utilities;
 using WeSketch.DataLayer.UnitOfWork;
 using WeSketch.BusinessLogic.DTOs.BoardDTOs;
+using WeSketch.BusinessLogic.DTOs;
 using WeSketch.DataLayer.Model;
 
 namespace WeSketch.BusinessLogic.Providers
@@ -30,6 +31,19 @@ namespace WeSketch.BusinessLogic.Providers
         {
             Board board = unitOfWork.BoardRepository.GetById(id);
             this.mediator.Board = board;
+        }
+
+        public List<UserDetailsDTO> GetAllBoardCollaboratros(int id)
+        {
+            List<User> collaborators = new List<User>();
+            Board board = unitOfWork.BoardRepository.GetById(id);
+
+            foreach (var userBoard in board.UserBoards.ToList())
+            {
+                collaborators.Add(userBoard.User);
+            }
+
+            return ConverterToDTO.ListOfUsersToDetails(collaborators);            
         }
 
         public List<BoardDetailsDTO> GetAllUserBoards()
@@ -127,7 +141,7 @@ namespace WeSketch.BusinessLogic.Providers
             return ConverterToDTO.BoardToBoardDetails(board);
         }
 
-            public BoardDetailsDTO SetBoardPreference(int boardId)
+        public BoardDetailsDTO SetBoardPreference(int boardId)
         {
             User user = mediator.User;
 
@@ -169,6 +183,47 @@ namespace WeSketch.BusinessLogic.Providers
 
             return ConverterToDTO.BoardToBoardDetails(board);
         }
-        
+
+        public void AddCollaborator(CollaboratorDTO collaboratorDTO)
+        {
+            int boardId = collaboratorDTO.BoardId;
+            int userId = collaboratorDTO.UserId;
+
+            Board board = unitOfWork.BoardRepository.GetById(boardId);
+            User user = mediator.User;
+
+            UserBoards userBoard = new UserBoards();
+            userBoard.Board = board;
+            userBoard.BoardId = boardId;
+            userBoard.User = user;
+            userBoard.UserId = userId;
+            userBoard.Role = "Collaborator";
+
+            user.UserBoards.Add(userBoard);
+            board.UserBoards.Add(userBoard);
+
+            unitOfWork.BoardRepository.Update(board);
+            unitOfWork.UserRepository.Update(user);
+
+            unitOfWork.Save();
+        }
+
+        public void RemoveCollaboratro(CollaboratorDTO collaboratorDTO)
+        {
+            int boardId = collaboratorDTO.BoardId;
+            int userId = collaboratorDTO.UserId;
+
+            Board board = unitOfWork.BoardRepository.GetById(boardId);
+            User user = mediator.User;
+
+            UserBoards userBoards = board.UserBoards.ToList().First(x => x.UserId == userId);
+
+            board.UserBoards.Remove(userBoards);
+
+            unitOfWork.BoardRepository.Update(board);
+            unitOfWork.UserRepository.Update(user);
+            unitOfWork.Save();
+        }
+
     }
 }
