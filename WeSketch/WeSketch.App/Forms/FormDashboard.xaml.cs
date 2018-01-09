@@ -3,17 +3,19 @@ using MahApps.Metro.Controls.Dialogs;
 using System.Collections.ObjectModel;
 using System.Windows;
 using System.Windows.Controls;
+using WeSketch.App.Controller;
 using WeSketch.App.Data;
 using WeSketch.App.Data.API;
 using WeSketch.App.Dialogs;
 using WeSketch.App.Model;
+using WeSketch.App.View;
 
 namespace WeSketch.App.Forms
 {
     /// <summary>
     /// Interaction logic for FormDashboard.xaml
     /// </summary>
-    public partial class FormDashboard : MetroWindow
+    public partial class FormDashboard : MetroWindow, IViewDashboard
     {
         ISketch sketch;
         IAPI api;
@@ -23,7 +25,7 @@ namespace WeSketch.App.Forms
         public FormDashboard(ISketch sketch)
         {
             InitializeComponent();
-            this.sketch = sketch;
+            Init(sketch);
             api = new SketchService();
         }
 
@@ -42,7 +44,7 @@ namespace WeSketch.App.Forms
             var title = createBoardDialog.tbxBoardTitle.Text;
             var isPublic = createBoardDialog.cbxIsPublic.IsChecked;
 
-            api.CreateBoard(title, (bool)isPublic, sketch.GetUser());
+            
   
             this.HideMetroDialogAsync(customDialog);
 
@@ -56,9 +58,10 @@ namespace WeSketch.App.Forms
 
         private void LoadMyBoards()
         {
-            var boards = api.GetMyBoards(sketch.GetUser());
-            boards.Boards[0].Collaborators.Add(new User() { Username = "Siska" });
-            boards.Boards[0].Collaborators.Add(new User() { Username = "Miska" });
+            var user = sketch.GetUser();
+            var boards = api.GetMyBoards(user);
+            //boards.Boards[0].Collaborators.Add(new User() { Username = "Siska" });
+            //boards.Boards[0].Collaborators.Add(new User() { Username = "Miska" });
             dataMyBoards.ItemsSource = boards.Boards;
         }
 
@@ -92,6 +95,21 @@ namespace WeSketch.App.Forms
             var board = dataMyBoards.SelectedItem as Board;
             api.DeleteBoard(board, sketch.GetUser());
             LoadMyBoards();
+        }
+
+        public void UpdateMyBoards()
+        {
+            throw new System.NotImplementedException();
+        }
+
+        public void Init(ISketch model)
+        {
+            this.sketch = model;
+        }
+
+        public void MakeController()
+        {
+            
         }
     }
 }

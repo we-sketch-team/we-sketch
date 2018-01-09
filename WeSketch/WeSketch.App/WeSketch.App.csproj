@@ -85,8 +85,14 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </ApplicationDefinition>
+    <Compile Include="Controller\DashboardController.cs" />
+    <Compile Include="Controller\IDashboardController.cs" />
+    <Compile Include="Controller\IWorkspaceController.cs" />
     <Compile Include="Controller\ISketchController.cs" />
     <Compile Include="Controller\SketchController.cs" />
+    <Compile Include="Dialogs\AddCollaboratorDialog.xaml.cs">
+      <DependentUpon>AddCollaboratorDialog.xaml</DependentUpon>
+    </Compile>
     <Compile Include="Dialogs\CreateBoardDialog.xaml.cs">
       <DependentUpon>CreateBoardDialog.xaml</DependentUpon>
     </Compile>
@@ -118,7 +124,12 @@
     <Compile Include="Model\Sketch.cs" />
     <Compile Include="Utilities.cs" />
     <Compile Include="View\IView.cs" />
-    <Compile Include="View\WSViewGuest.cs" />
+    <Compile Include="View\IViewDashboard.cs" />
+    <Compile Include="View\IViewWorkspace.cs" />
+    <Page Include="Dialogs\AddCollaboratorDialog.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
     <Page Include="Dialogs\CreateBoardDialog.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>

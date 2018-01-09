@@ -135,10 +135,12 @@ namespace WeSketch.BackEndTests.Controllers
 
         [HttpGet]
         [Route("logic/boardcollaborators/{id:int}")]
-        public List<UserDetailsDTO> GetAllBoardCollaboratros(int id)
+        public CollaboratorListDTO GetAllBoardCollaboratros(int id)
         {
             DataService service = ObjectFactory.GetDataService();
-            return service.GetAllBoardCollaboratros(id);
+            var users = service.GetAllBoardCollaboratros(id);
+            var list = new CollaboratorListDTO() { Collaborators = users };
+            return list;
         }
 
         [HttpPut]
