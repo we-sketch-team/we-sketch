@@ -9,6 +9,7 @@ using WeSketch.BusinessLogic.Services;
 using WeSketch.BusinessLogic.Utilities;
 using WeSketch.DataLayer.Model;
 using WeSketch.DataLayer.UnitOfWork;
+using WeSketch.BusinessLogic.DTOs;
 
 namespace WeSketch.BackEndTests.Controllers
 {
@@ -92,6 +93,14 @@ namespace WeSketch.BackEndTests.Controllers
             return service.CreateAndAttacheBoard(userBoard);
         }
 
+        [HttpPost]
+        [Route("logic/addcollaborator")]
+        public void AddCollaborator([FromBody]CollaboratorDTO collaboratorDTO)
+        {
+            DataService service = ObjectFactory.GetDataService();
+            service.AddCollaborator(collaboratorDTO);
+        }
+
         [HttpPut]
         [Route("logic/update")]
         public BoardDetailsDTO UpdateBoard([FromBody]BoardDetailsDTO board)
@@ -122,7 +131,24 @@ namespace WeSketch.BackEndTests.Controllers
         {
             UnitOfWork unitOfWork = ObjectFactory.GetUnitOfWork();
             return unitOfWork.UserRepository.GetById(id).UserBoards.ToList();            
-        }       
+        }
+
+        [HttpGet]
+        [Route("logic/boardcollaborators/{id:int}")]
+        public List<UserDetailsDTO> GetAllBoardCollaboratros(int id)
+        {
+            DataService service = ObjectFactory.GetDataService();
+            return service.GetAllBoardCollaboratros(id);
+        }
+
+        [HttpPut]
+        [Route("logic/removecollaborator")]
+        public void RemoveCollaborator([FromBody]CollaboratorDTO collaboratorDTO)
+        {
+            DataService service = ObjectFactory.GetDataService();
+            service.RemoveCollaboratro(collaboratorDTO);
+        }
         #endregion
+
     }
 }

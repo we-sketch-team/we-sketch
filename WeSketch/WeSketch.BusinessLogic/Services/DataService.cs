@@ -9,6 +9,7 @@ using WeSketch.BusinessLogic.DTOs;
 using WeSketch.BusinessLogic.DTOs.BoardDTOs;
 using WeSketch.BusinessLogic.DTOs.ChatRoomDTOs;
 using WeSketch.BusinessLogic.DTOs.MessageDTOs;
+using WeSketch.BusinessLogic.DTOs;
 
 namespace WeSketch.BusinessLogic.Services
 {
@@ -74,7 +75,6 @@ namespace WeSketch.BusinessLogic.Services
         {           
             return boardProvider.CreateBoard(userBoard);
         }
-
 
         public List<BoardDetailsDTO> AllBoards()
         {
@@ -148,5 +148,21 @@ namespace WeSketch.BusinessLogic.Services
             chatRoomProvider.DeleteMessage(id);
         }
 
+        public void AddCollaborator(CollaboratorDTO collaboratorDTO)
+        {
+            userProvider.SetMediatorUser(collaboratorDTO.UserId);
+            boardProvider.AddCollaborator(collaboratorDTO);
+        }
+
+        public List<UserDetailsDTO> GetAllBoardCollaboratros(int id)
+        {
+            return boardProvider.GetAllBoardCollaboratros(id);
+        }
+
+        public void RemoveCollaboratro(CollaboratorDTO collaboratorDTO)
+        {
+            userProvider.SetMediatorUser(collaboratorDTO.UserId);
+            boardProvider.RemoveCollaboratro(collaboratorDTO);
+        }
     }
 }

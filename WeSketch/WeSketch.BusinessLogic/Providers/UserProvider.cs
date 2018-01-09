@@ -150,5 +150,7 @@ namespace WeSketch.BusinessLogic.Providers
             unitOfWork.UserRepository.Delete(id);
             unitOfWork.Save();
         }
+
+
     }
 }
