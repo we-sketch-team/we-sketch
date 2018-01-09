@@ -164,5 +164,10 @@ namespace WeSketch.BusinessLogic.Services
             userProvider.SetMediatorUser(collaboratorDTO.UserId);
             boardProvider.RemoveCollaboratro(collaboratorDTO);
         }
+
+        public BoardDetailsDTO UpdateBoardContent(BoardDetailsDTO boardDetailsDTO)
+        {
+            return boardProvider.UpdateBoardContent(boardDetailsDTO);
+        }
     }
 }

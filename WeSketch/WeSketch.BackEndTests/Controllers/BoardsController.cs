@@ -150,6 +150,14 @@ namespace WeSketch.BackEndTests.Controllers
             DataService service = ObjectFactory.GetDataService();
             service.RemoveCollaboratro(collaboratorDTO);
         }
+
+        [HttpPut]
+        [Route("logic/updatecontent")]
+        public BoardDetailsDTO UpdateBoardContent([FromBody]BoardDetailsDTO board)
+        {
+            DataService service = ObjectFactory.GetDataService();
+            return service.UpdateBoardContent(board);
+        }
         #endregion
 
     }

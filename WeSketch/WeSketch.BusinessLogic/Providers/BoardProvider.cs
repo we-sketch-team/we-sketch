@@ -225,5 +225,17 @@ namespace WeSketch.BusinessLogic.Providers
             unitOfWork.Save();
         }
 
+        public BoardDetailsDTO UpdateBoardContent(BoardDetailsDTO boardDetailsDTO)
+        {
+            string content = boardDetailsDTO.Content;
+
+            Board board = unitOfWork.BoardRepository.GetById(boardDetailsDTO.Id);
+            board.Content = content;
+
+            unitOfWork.BoardRepository.Update(board);
+            unitOfWork.Save();
+
+            return boardDetailsDTO;
+        }
     }
 }
