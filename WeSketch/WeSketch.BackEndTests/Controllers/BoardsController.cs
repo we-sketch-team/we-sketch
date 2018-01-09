@@ -76,10 +76,12 @@ namespace WeSketch.BackEndTests.Controllers
 
         [HttpGet]
         [Route("logic/get/alluserboards/{id:int}")]
-        public List<BoardDetailsDTO> GetAllUserBoards(int id)
+        public BoardListDTO GetAllUserBoards(int id)
         {
             DataService service = ObjectFactory.GetDataService();
-            return service.GetAllUserBoards(id);
+            BoardListDTO boards = new BoardListDTO();
+            boards.Boards = service.GetAllUserBoards(id);
+            return boards;
         }
 
         [HttpPost]

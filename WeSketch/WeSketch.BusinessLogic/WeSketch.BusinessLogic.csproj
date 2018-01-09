@@ -41,6 +41,7 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="DTOs\BoardDTOs\BoardDetailsDTO.cs" />
+    <Compile Include="DTOs\BoardDTOs\BoardListDTO.cs" />
     <Compile Include="DTOs\BoardDTOs\CreateBoardDto.cs" />
     <Compile Include="DTOs\BoardDTOs\BoardPreferenceDTO.cs" />
     <Compile Include="DTOs\ChatRoomDTOs\ChatRoomDetailsDTO.cs" />

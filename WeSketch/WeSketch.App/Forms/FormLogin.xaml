@@ -1,0 +1,28 @@
+﻿<Controls:MetroWindow x:Class="WeSketch.App.Forms.FormLogin"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:Controls="clr-namespace:MahApps.Metro.Controls;assembly=MahApps.Metro"
+        xmlns:iconPacks="http://metro.mahapps.com/winfx/xaml/iconpacks"
+        xmlns:local="clr-namespace:WeSketch.App.Forms"
+        mc:Ignorable="d"
+        BorderThickness="2" 
+        GlowBrush="{DynamicResource AccentColorBrush}"
+        Title="WeSketch - Home" Height="628.028" Width="686.159" WindowState="Maximized">
+    <Grid>
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="1*"/>
+        </Grid.ColumnDefinitions>
+        <Grid x:Name="gridHome" HorizontalAlignment="Center" Height="506" Margin="0,45,0,0" VerticalAlignment="Top" Width="483">
+            <Image x:Name="imgLogo" HorizontalAlignment="Center" Height="221" Margin="0" VerticalAlignment="Top" Width="575" Source="/WeSketch.App;component/Images/logo.png"/>
+            <Grid x:Name="gridContent" HorizontalAlignment="Left" Height="263" Margin="10,232,0,0" VerticalAlignment="Top" Width="463">
+                <Label x:Name="lblLoginMessage" Content="Login to continue..." HorizontalAlignment="Center" Margin="0,3,0,193" Height="67" Width="430" FontFamily="Roboto Black" FontSize="48" Foreground="#FF333333" VerticalContentAlignment="Center" HorizontalContentAlignment="Center"/>
+                <TextBox x:Name="tbxEmail" HorizontalAlignment="Center" Height="32" Margin="127,87,136,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="200" Controls:TextBoxHelper.Watermark="email" FontSize="16" FontFamily="Segoe UI" Text="s@s.s"/>
+                <PasswordBox x:Name="tbxPassword" HorizontalAlignment="Center" Height="32" Margin="127,124,136,0" VerticalAlignment="Top" Width="200" Controls:TextBoxHelper.Watermark="password" FontSize="16" FontFamily="Segoe UI" Password="sifrica"/>
+                <Button x:Name="btnLogin" Content="{iconPacks:PackIconMaterial Login}" HorizontalAlignment="Center" Height="32" Margin="127,161,136,70" VerticalAlignment="Center" Width="200" FontFamily="Roboto" FontSize="22" Style="{StaticResource AccentedSquareButtonStyle}" Click="btnLogin_Click" FontWeight="Normal" Padding="5,5,5,6" VerticalContentAlignment="Center"/>
+                <Button x:Name="btnRegister" Content="{iconPacks:PackIconMaterial AccountPlus}" HorizontalAlignment="Center" Height="32" Margin="127,198,136,0" VerticalAlignment="Top" Width="200" FontFamily="Roboto" FontSize="22" Click="btnRegister_Click"/>
+            </Grid>
+        </Grid>
+    </Grid>
+</Controls:MetroWindow>
