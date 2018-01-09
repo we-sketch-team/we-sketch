@@ -9,30 +9,30 @@ namespace WeSketch.App.Data
     public class CollaboratorList
     {
 
-        public List<User> Users { get; set; }
+        public List<User> Collaborators { get; set; }
 
         public CollaboratorList()
         {
-            Users = new List<User>();
+            Collaborators = new List<User>();
         }
 
 
         public void Add(User u)
         {
-            Users.Add(u);
+            Collaborators.Add(u);
         }
 
         public void Remove(User u)
         {
-            Users.Remove(u);
+            Collaborators.Remove(u);
         }
 
         public override string ToString()
         {
-            if (this.Users.Count == 0) return "";
+            if (this.Collaborators.Count == 0) return "";
 
             string colls = "";
-            this.Users.ForEach(u => colls += u.Username + ", ");
+            this.Collaborators.ForEach(u => colls += u.Username + ", ");
 
             colls = colls.Substring(0, colls.Length - 2);
             return colls;

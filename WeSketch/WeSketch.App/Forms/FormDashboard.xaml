@@ -25,6 +25,7 @@
                 <TabItem Header="My boards" Margin="0,0,-12,0" Padding="0,2,20,2" FontSize="8" Foreground="Black">
                     <DataGrid x:Name="dataMyBoards" HorizontalAlignment="Left" Height="391" Margin="10,10,0,0" VerticalAlignment="Top" Width="1008" FontSize="16" BorderThickness="2" AutoGenerateColumns="False" IsReadOnly="True" MouseDoubleClick="dataMyBoards_MouseDoubleClick">
                         <DataGrid.Columns>
+                            <DataGridTextColumn Header="Id" Binding="{Binding Id}"/>
                             <DataGridTextColumn Header="Title" Binding="{Binding Title}"/>
                             <DataGridTextColumn Header="Collaborators" Binding="{Binding Collaborators}"/>
                         </DataGrid.Columns>

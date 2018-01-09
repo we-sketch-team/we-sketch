@@ -102,5 +102,47 @@ namespace WeSketch.App.Data.API
             Execute(req);
             return true;
         }
+
+        public User GetUserByUsername(string username)
+        {
+            var req = new RestRequest();
+            req.Resource = $"users/crud/byusername/{username}";
+            req.Method = Method.GET;
+            User user = Execute<User>(req);
+
+            return user;
+        }
+
+        public bool AddCollaborator(User user, Board board)
+        {
+            var req = new RestRequest();
+            req.AddParameter("UserId", user.Id);
+            req.AddParameter("BoardId", board.Id);
+            req.Resource = $"boards/logic/addcollaborator";
+            req.Method = Method.POST;
+            Execute(req);
+            return true;
+        }
+
+        public bool RemoveCollaborator(User user, Board board)
+        {
+            var req = new RestRequest();
+            req.AddParameter("UserId", user.Id);
+            req.AddParameter("BoardId", board.Id);
+            req.Resource = $"boards/logic/removecollaborator";
+            req.Method = Method.PUT;
+            Execute(req);
+            return true;
+        }
+
+        public CollaboratorList GetBoardCollaborators(Board board)
+        {
+            var req = new RestRequest();
+            req.Resource = $"boards/logic/boardcollaborators/{board.Id}";
+            req.Method = Method.GET;
+
+            var list = Execute<CollaboratorList>(req);
+            return list;
+        }
     }
 }

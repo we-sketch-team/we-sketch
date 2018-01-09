@@ -42,12 +42,14 @@
   <ItemGroup>
     <Compile Include="DTOs\BoardDTOs\BoardDetailsDTO.cs" />
     <Compile Include="DTOs\BoardDTOs\BoardListDTO.cs" />
+    <Compile Include="DTOs\BoardDTOs\CollaboratorListDTO.cs" />
     <Compile Include="DTOs\BoardDTOs\CreateBoardDto.cs" />
     <Compile Include="DTOs\BoardDTOs\BoardPreferenceDTO.cs" />
     <Compile Include="DTOs\ChatRoomDTOs\ChatRoomDetailsDTO.cs" />
     <Compile Include="DTOs\ChatRoomDTOs\UpdateChatRoomDTO.cs" />
     <Compile Include="DTOs\MessageDTOs\CreateMessageDTO.cs" />
     <Compile Include="DTOs\MessageDTOs\MessageDetailsDTO.cs" />
+    <Compile Include="DTOs\BoardDTOs\CollaboratorDTO.cs" />
     <Compile Include="DTOs\UserDTOs\CreateUserDTO.cs" />
     <Compile Include="DTOs\UserDTOs\UserDetailsDTO.cs" />
     <Compile Include="DTOs\UserDTOs\LoginDTO.cs" />
