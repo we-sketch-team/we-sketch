@@ -156,7 +156,9 @@ namespace WeSketch.BackEndTests.Controllers
         public BoardDetailsDTO UpdateBoardContent([FromBody]BoardDetailsDTO board)
         {
             DataService service = ObjectFactory.GetDataService();
-            return service.UpdateBoardContent(board);
+            var updated = service.UpdateBoardContent(board);
+            
+            return updated;
         }
         #endregion
 

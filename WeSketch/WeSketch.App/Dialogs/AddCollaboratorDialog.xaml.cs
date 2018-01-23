@@ -40,6 +40,10 @@ namespace WeSketch.App.Dialogs
             tbxCollaboratorUsername.Clear();
             tbxCollaboratorUsername.Focus();
         }
-        
+
+        private void btnAdd_Click(object sender, RoutedEventArgs e)
+        {
+
+        }
     }
 }

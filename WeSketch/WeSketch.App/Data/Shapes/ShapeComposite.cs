@@ -66,5 +66,25 @@ namespace WeSketch.App.Data.Shapes
         {
             throw new NotImplementedException();
         }
+
+        public void SetWidth(double width)
+        {
+            throw new NotImplementedException();
+        }
+
+        public void SetHeight(double height)
+        {
+            throw new NotImplementedException();
+        }
+
+        public double GetWidth()
+        {
+            throw new NotImplementedException();
+        }
+
+        public double GetHeight()
+        {
+            throw new NotImplementedException();
+        }
     }
 }

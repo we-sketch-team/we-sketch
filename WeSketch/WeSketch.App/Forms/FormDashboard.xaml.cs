@@ -15,18 +15,18 @@ namespace WeSketch.App.Forms
     /// <summary>
     /// Interaction logic for FormDashboard.xaml
     /// </summary>
-    public partial class FormDashboard : MetroWindow, IViewDashboard
+    public partial class FormDashboard : MetroWindow, IDashboardView
     {
-        ISketch sketch;
-        IAPI api;
-        CreateBoardDialog createBoardDialog;
-        CustomDialog customDialog;
+        private IDashboard dashboard;
+        private IDashboardController controller;
 
-        public FormDashboard(ISketch sketch)
+        private CreateBoardDialog createBoardDialog;
+        private CustomDialog customDialog;
+
+        public FormDashboard(IDashboard model)
         {
             InitializeComponent();
-            Init(sketch);
-            api = new SketchService();
+            Init(model);
         }
 
         private async void CreateBoard()
@@ -44,11 +44,9 @@ namespace WeSketch.App.Forms
             var title = createBoardDialog.tbxBoardTitle.Text;
             var isPublic = createBoardDialog.cbxIsPublic.IsChecked;
 
-            
-  
-            this.HideMetroDialogAsync(customDialog);
+            controller.CreateBoard(title, (bool)isPublic);
 
-            LoadMyBoards();
+            this.HideMetroDialogAsync(customDialog);
         }
 
         private void ButtonCancel_Click(object sender, RoutedEventArgs e)
@@ -58,11 +56,9 @@ namespace WeSketch.App.Forms
 
         private void LoadMyBoards()
         {
-            var user = sketch.GetUser();
-            var boards = api.GetMyBoards(user);
-            //boards.Boards[0].Collaborators.Add(new User() { Username = "Siska" });
-            //boards.Boards[0].Collaborators.Add(new User() { Username = "Miska" });
-            dataMyBoards.ItemsSource = boards.Boards;
+            var boardList = dashboard.GetCurrentUserBoardList();
+            var boards = boardList.Boards;
+            dataMyBoards.ItemsSource = boards;
         }
 
         private void tbxSearch_TextChanged(object sender, TextChangedEventArgs e)
@@ -72,15 +68,16 @@ namespace WeSketch.App.Forms
 
         private void MetroWindow_Loaded(object sender, RoutedEventArgs e)
         {
-            LoadMyBoards();
+            RefreshMyBoards();
         }
 
         private void dataMyBoards_MouseDoubleClick(object sender, System.Windows.Input.MouseButtonEventArgs e)
         {
             if (dataMyBoards.SelectedItem == null) return;
             var board = dataMyBoards.SelectedItem as Board;
-            sketch.SetBoard(board);
-            FormWorkspace form = new FormWorkspace(sketch);
+            IWorkspace workspace = new Workspace();
+            workspace.SetBoard(board);
+            FormWorkspace form = new FormWorkspace(workspace);
             form.Show();
         }
 
@@ -93,23 +90,44 @@ namespace WeSketch.App.Forms
         {
             if (dataMyBoards.SelectedItem == null) return;
             var board = dataMyBoards.SelectedItem as Board;
-            api.DeleteBoard(board, sketch.GetUser());
+            controller.DeleteBoard(board);
+        }
+
+        public void RefreshMyBoards()
+        {
             LoadMyBoards();
-        }
-
-        public void UpdateMyBoards()
-        {
-            throw new System.NotImplementedException();
-        }
-
-        public void Init(ISketch model)
-        {
-            this.sketch = model;
         }
 
         public void MakeController()
         {
-            
+            controller = new DashboardController();
+            controller.Init(dashboard, this);
+        }
+
+        public void Init(IDashboard model)
+        {
+            dashboard = model;
+            MakeController();
+        }
+
+        public void BoardCreated()
+        {
+            Utilities.DisplayMessage(this, "Success!", "Board created!");
+        }
+
+        public void BoardNotCreated()
+        {
+            Utilities.DisplayMessage(this, "Error!", "Board not created!");
+        }
+
+        public void BoardDeleted()
+        {
+            Utilities.DisplayMessage(this, "OK!", "Board deleted!");
+        }
+
+        private void btnRefresh_Click(object sender, RoutedEventArgs e)
+        {
+            LoadMyBoards();
         }
     }
 }

@@ -8,8 +8,9 @@ using WeSketch.App.Data.Shapes;
 
 namespace WeSketch.App.Data.Tools
 {
-    interface ICreationalTool: ITool
+    public interface ICreationalTool: ITool
     {
-        void SetController(ISketchController controller);
+        void SetController(IWorkspaceController controller);
+        IShape GetShapeInstance();
     }
 }

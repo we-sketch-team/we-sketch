@@ -14,6 +14,7 @@ namespace WeSketch.App.Data.API
         bool Register(UserRegistrationOptions options);
         bool CreateBoard(string title, bool isPublic, User user);
         bool DeleteBoard(Board board, User user);
+        void UpdateBoardContent(Board board);
         BoardList GetMyBoards(User user);
         bool AddCollaborator(User user, Board board);
         bool RemoveCollaborator(User user, Board board);

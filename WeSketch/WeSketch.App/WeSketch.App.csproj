@@ -46,8 +46,29 @@
     <Reference Include="MahApps.Metro.IconPacks.Material, Version=1.9.1.0, Culture=neutral, processorArchitecture=MSIL">
       <HintPath>..\packages\MahApps.Metro.IconPacks.Material.1.9.1\lib\net46\MahApps.Metro.IconPacks.Material.dll</HintPath>
     </Reference>
+    <Reference Include="Microsoft.AspNet.SignalR.Client, Version=2.2.2.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <HintPath>..\packages\Microsoft.AspNet.SignalR.Client.2.2.2\lib\net45\Microsoft.AspNet.SignalR.Client.dll</HintPath>
+    </Reference>
+    <Reference Include="Microsoft.AspNet.SignalR.Core, Version=2.2.2.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <HintPath>..\packages\Microsoft.AspNet.SignalR.Core.2.2.2\lib\net45\Microsoft.AspNet.SignalR.Core.dll</HintPath>
+    </Reference>
+    <Reference Include="Microsoft.AspNet.SignalR.SystemWeb, Version=2.2.2.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <HintPath>..\packages\Microsoft.AspNet.SignalR.SystemWeb.2.2.2\lib\net45\Microsoft.AspNet.SignalR.SystemWeb.dll</HintPath>
+    </Reference>
+    <Reference Include="Microsoft.Owin, Version=2.1.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <HintPath>..\packages\Microsoft.Owin.2.1.0\lib\net45\Microsoft.Owin.dll</HintPath>
+    </Reference>
+    <Reference Include="Microsoft.Owin.Host.SystemWeb, Version=2.1.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <HintPath>..\packages\Microsoft.Owin.Host.SystemWeb.2.1.0\lib\net45\Microsoft.Owin.Host.SystemWeb.dll</HintPath>
+    </Reference>
+    <Reference Include="Microsoft.Owin.Security, Version=2.1.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <HintPath>..\packages\Microsoft.Owin.Security.2.1.0\lib\net45\Microsoft.Owin.Security.dll</HintPath>
+    </Reference>
     <Reference Include="Newtonsoft.Json, Version=10.0.0.0, Culture=neutral, PublicKeyToken=30ad4fe6b2a6aeed, processorArchitecture=MSIL">
       <HintPath>..\packages\Newtonsoft.Json.10.0.3\lib\net45\Newtonsoft.Json.dll</HintPath>
+    </Reference>
+    <Reference Include="Owin, Version=1.0.0.0, Culture=neutral, PublicKeyToken=f0ebd12fd5e55cc5, processorArchitecture=MSIL">
+      <HintPath>..\packages\Owin.1.0\lib\net40\Owin.dll</HintPath>
     </Reference>
     <Reference Include="RestSharp, Version=106.2.0.0, Culture=neutral, PublicKeyToken=598062e77f915f75, processorArchitecture=MSIL">
       <HintPath>..\packages\RestSharp.106.2.0\lib\net452\RestSharp.dll</HintPath>
@@ -85,11 +106,29 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </ApplicationDefinition>
+    <Compile Include="Communications\BoardCommunicator.cs" />
     <Compile Include="Controller\DashboardController.cs" />
     <Compile Include="Controller\IDashboardController.cs" />
+    <Compile Include="Controller\ILoginController.cs" />
     <Compile Include="Controller\IWorkspaceController.cs" />
-    <Compile Include="Controller\ISketchController.cs" />
-    <Compile Include="Controller\SketchController.cs" />
+    <Compile Include="Controller\LoginController.cs" />
+    <Compile Include="Controller\WorkspaceController.cs" />
+    <Compile Include="Data\Global.cs" />
+    <Compile Include="Data\Shapes\Properties\HeightProp.cs" />
+    <Compile Include="Data\Shapes\Properties\Property.cs" />
+    <Compile Include="Data\Shapes\Properties\PropertySheet.cs" />
+    <Compile Include="Data\Shapes\Properties\WidthProp.cs" />
+    <Compile Include="Data\Shapes\ShapeEllipse.cs" />
+    <Compile Include="Data\Tools\ITool.cs" />
+    <Compile Include="Data\Tools\SelectTool.cs" />
+    <Compile Include="Data\Tools\Toolbar\EllipseToolRepresent.cs" />
+    <Compile Include="Data\Tools\Toolbar\RectangleToolRepresent.cs" />
+    <Compile Include="Data\Tools\Toolbar\SelectToolRepresent.cs" />
+    <Compile Include="Data\Tools\Toolbar\Toolbar.cs" />
+    <Compile Include="Data\Tools\EllipseCreationalTool.cs" />
+    <Compile Include="Data\Tools\LineCreationalTool.cs" />
+    <Compile Include="Data\Tools\Toolbar\ToolbarRepresent.cs" />
+    <Compile Include="Data\Tools\TwoPointCreationalTool.cs" />
     <Compile Include="Dialogs\AddCollaboratorDialog.xaml.cs">
       <DependentUpon>AddCollaboratorDialog.xaml</DependentUpon>
     </Compile>
@@ -112,7 +151,6 @@
     <Compile Include="Data\Shapes\ShapeRectangle.cs" />
     <Compile Include="Data\Tools\ICreationalTool.cs" />
     <Compile Include="Data\Tools\RectangleCreationalTool.cs" />
-    <Compile Include="Data\Tools\ITool.cs" />
     <Compile Include="Data\User.cs" />
     <Compile Include="Forms\FormDashboard.xaml.cs">
       <DependentUpon>FormDashboard.xaml</DependentUpon>
@@ -120,12 +158,19 @@
     <Compile Include="Forms\FormWorkspace.xaml.cs">
       <DependentUpon>FormWorkspace.xaml</DependentUpon>
     </Compile>
+    <Compile Include="Forms\IDrawable.cs" />
+    <Compile Include="Forms\INotifySelectedToolChanged.cs" />
+    <Compile Include="Model\Dashboard.cs" />
+    <Compile Include="Model\IDashboard.cs" />
+    <Compile Include="Model\ILogin.cs" />
     <Compile Include="Model\ISketch.cs" />
-    <Compile Include="Model\Sketch.cs" />
+    <Compile Include="Model\IWorkspace.cs" />
+    <Compile Include="Model\Login.cs" />
+    <Compile Include="Model\Workspace.cs" />
     <Compile Include="Utilities.cs" />
-    <Compile Include="View\IView.cs" />
-    <Compile Include="View\IViewDashboard.cs" />
-    <Compile Include="View\IViewWorkspace.cs" />
+    <Compile Include="View\IDashboardView.cs" />
+    <Compile Include="View\ILoginView.cs" />
+    <Compile Include="View\IWorkspaceView.cs" />
     <Page Include="Dialogs\AddCollaboratorDialog.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
@@ -150,10 +195,6 @@
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
-    <Page Include="MainWindow.xaml">
-      <Generator>MSBuild:Compile</Generator>
-      <SubType>Designer</SubType>
-    </Page>
     <Compile Include="App.xaml.cs">
       <DependentUpon>App.xaml</DependentUpon>
       <SubType>Code</SubType>
@@ -163,10 +204,6 @@
     </Compile>
     <Compile Include="Forms\FormRegister.xaml.cs">
       <DependentUpon>FormRegister.xaml</DependentUpon>
-    </Compile>
-    <Compile Include="MainWindow.xaml.cs">
-      <DependentUpon>MainWindow.xaml</DependentUpon>
-      <SubType>Code</SubType>
     </Compile>
   </ItemGroup>
   <ItemGroup>
@@ -202,6 +239,12 @@
   <ItemGroup>
     <Resource Include="Images\logo.png" />
   </ItemGroup>
-  <ItemGroup />
+  <ItemGroup>
+    <Content Include="Scripts\jquery-1.6.4-vsdoc.js" />
+    <Content Include="Scripts\jquery-1.6.4.js" />
+    <Content Include="Scripts\jquery-1.6.4.min.js" />
+    <Content Include="Scripts\jquery.signalR-2.2.2.js" />
+    <Content Include="Scripts\jquery.signalR-2.2.2.min.js" />
+  </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>

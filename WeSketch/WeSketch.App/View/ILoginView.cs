@@ -7,10 +7,11 @@ using WeSketch.App.Model;
 
 namespace WeSketch.App.View
 {
-    interface IViewDashboard
+    public interface ILoginView
     {
-        void UpdateMyBoards();
-        void Init(ISketch model);
+        void Init(ILogin model);
         void MakeController();
+        void LoginSuccess();
+        void LoginError();
     }
 }

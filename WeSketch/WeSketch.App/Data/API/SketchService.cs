@@ -144,5 +144,18 @@ namespace WeSketch.App.Data.API
             var list = Execute<CollaboratorList>(req);
             return list;
         }
+
+        public void UpdateBoardContent(Board board)
+        {
+            var shapes = board.Shapes;
+            var content = Utilities.ExportShapes(shapes);
+
+            var req = new RestRequest();
+            req.AddParameter("Id", board.Id);
+            req.AddParameter("Content", content);
+            req.Resource = $"boards/logic/updatecontent";
+            req.Method = Method.PUT;
+            var edited = Execute<Board>(req);
+        }
     }
 }

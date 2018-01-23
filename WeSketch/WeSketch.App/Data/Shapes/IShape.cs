@@ -16,5 +16,9 @@ namespace WeSketch.App.Data.Shapes
         void SetRight(int right);
         void SetTop(int top);
         void SetBottom(int bottom);
+        void SetWidth(double width);
+        void SetHeight(double height);
+        double GetWidth();
+        double GetHeight();
     }
 }

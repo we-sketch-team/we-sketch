@@ -21,21 +21,22 @@ namespace WeSketch.App
     {
         public static async void DisplayMessage(MetroWindow window, string title, string message)
         {
-            await window.ShowMessageAsync(title, message);
+            await (window.Invoke(() => window.ShowMessageAsync(title, message)));
         }
 
         public static string ExportShapes(ShapeList shapes)
         {
             //var shape = new ShapeRectangle(10, 200, System.Windows.Media.Color.FromRgb(0, 255, 0));
             //shapes.Add(shape);
-            string xaml = XamlWriter.Save(shapes);//JsonConvert.SerializeObject(shape.MyElement, new JsonSerializerSettings { TypeNameHandling = TypeNameHandling.Auto });
+            //string xaml = XamlWriter.Save(shapes);//JsonConvert.SerializeObject(shape.MyElement, new JsonSerializerSettings { TypeNameHandling = TypeNameHandling.Auto });
+            string xaml = System.Xaml.XamlServices.Save(shapes);
             return xaml;
         }
 
         public static ShapeList ImportShapes(string data)
         {
             if (String.IsNullOrEmpty(data)) return new ShapeList();
-            var shapes = (ShapeList)XamlReader.Parse(data);
+            var shapes = (ShapeList)System.Xaml.XamlServices.Parse(data);
             return shapes;
         }
     }

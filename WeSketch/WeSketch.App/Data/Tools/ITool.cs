@@ -8,8 +8,9 @@ namespace WeSketch.App.Data.Tools
 {
     public interface ITool
     {
+        void Activate();
+        void Deactivate();
         void MouseDown(int x, int y);
         void MouseUp(int x, int y);
-        void MouseDrag(int x, int y);
     }
 }

@@ -24,5 +24,10 @@ namespace WeSketch.App.Dialogs
         {
             InitializeComponent();
         }
+
+        private void btnCreate_Click(object sender, RoutedEventArgs e)
+        {
+
+        }
     }
 }

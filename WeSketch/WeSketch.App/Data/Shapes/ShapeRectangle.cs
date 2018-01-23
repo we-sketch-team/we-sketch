@@ -23,6 +23,9 @@ namespace WeSketch.App.Data.Shapes
                 Fill = new SolidColorBrush(color)
 
             };
+
+            MyElement.Tag = this;
+            
         }
 
         public ShapeRectangle()

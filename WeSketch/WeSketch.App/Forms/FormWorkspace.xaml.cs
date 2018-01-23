@@ -20,65 +20,77 @@ using WeSketch.App.Controller;
 using System.Windows.Markup;
 using MahApps.Metro.Controls.Dialogs;
 using WeSketch.App.Dialogs;
+using WeSketch.App.Communications;
+using WeSketch.App.Data.Tools.Toolbar;
+using WeSketch.App.Data.Shapes;
 
 namespace WeSketch.App.Forms
 {
     /// <summary>
     /// Interaction logic for FormWorkspace.xaml
     /// </summary>
-    public partial class FormWorkspace : MetroWindow, IView
+    public partial class FormWorkspace : MetroWindow, IWorkspaceView, INotifySelectedToolChanged, IDrawable
     {
-        private RectangleCreationalTool rct;
-        private ISketch model;
-        private ISketchController controller;
+        private IWorkspace workspace;
+        private IWorkspaceController controller;
+
         private CustomDialog customDialog;
         private AddCollaboratorDialog addCollaborator;
 
-        public FormWorkspace(ISketch sketch)
+        private Toolbar toolbar;
+        private ITool selectedTool;
+
+        private IShape selectedShape; // PropertySheet
+
+        public FormWorkspace(IWorkspace model)
         {
             InitializeComponent();
-            Init(sketch);
-            rct = new RectangleCreationalTool();
-            rct.SetController(controller);
+            Init(model);    
+            PopulateFormToolbar();
+        }
+
+        private void PopulateFormToolbar()
+        {
+            toolbar = new Toolbar(this);
+            toolbar.Register(new SelectToolRepresent(this));
+            toolbar.Register(new RectangleToolRepresent(controller));
+            toolbar.Register(new EllipseToolRepresent(controller));
             
+
+            foreach (var tool in toolbar.Tools)
+            {
+                formToolbar.Items.Add(tool);
+            }
+
+            if(toolbar.Tools.Count > 0)
+                toolbar.Select(toolbar.Tools[0]);
+
+            selectedTool = toolbar.SelectedTool;
         }
 
-        public void Display()
+        public void Init(IWorkspace model)
         {
-            //throw new NotImplementedException();
-        }
-
-        public void Init(ISketch model)
-        {
-            this.model = model;
-            var board = model.GetBoard();
-            board.Shapes = Utilities.ImportShapes(board.Content);
-            board.MyCanvas = canvas;
-            board.Draw(canvas);
+            this.workspace = model;
             MakeController();
+            RefreshCanvas();
         }
 
         public void MakeController()
         {
-            this.controller = new SketchController();
-            controller.Init(model, this);
-        }
-
-        public void InvokeUpdate()
-        {
-            //throw new NotImplementedException();
+            this.controller = new WorkspaceController();
+            controller.Init(workspace, this);
         }
 
         private void canvas_MouseDown(object sender, MouseButtonEventArgs e)
         {
             var point = e.GetPosition(canvas);
-            rct.MouseDown((int)point.X, (int)point.Y);
+            selectedTool.MouseDown((int)point.X, (int)point.Y);
         }
 
         private void canvas_MouseUp(object sender, MouseButtonEventArgs e)
         {
             var point = e.GetPosition(canvas);
-            rct.MouseUp((int)point.X, (int)point.Y);
+            selectedTool.MouseUp((int)point.X, (int)point.Y);
         }
 
         private void canvas_MouseMove(object sender, MouseEventArgs e)
@@ -89,19 +101,19 @@ namespace WeSketch.App.Forms
 
         private void btnExport_Click(object sender, RoutedEventArgs e)
         {
-            var board = model.GetBoard();
-            var shapes = board.Shapes;
-            string export = Utilities.ExportShapes(shapes);
-            System.IO.File.WriteAllText("shapes.txt", export);
+            //var board = model.GetBoard();
+            //var shapes = board.Shapes;
+            //string export = Utilities.ExportShapes(shapes);
+            //System.IO.File.WriteAllText("shapes.txt", export);
         }
 
         private void btnImport_Click(object sender, RoutedEventArgs e)
         {
-            var xaml = System.IO.File.ReadAllText("shapes.txt");
-            var shapes = Utilities.ImportShapes(xaml);
-            var board = model.GetBoard();
-            board.Shapes = shapes;
-            board.Draw(canvas);
+            //var xaml = System.IO.File.ReadAllText("shapes.txt");
+            //var shapes = Utilities.ImportShapes(xaml);
+            //var board = model.GetBoard();
+            //board.Shapes = shapes;
+            //board.Draw(canvas);
         }
 
         private void btnEnableCT_Click(object sender, RoutedEventArgs e)
@@ -128,18 +140,8 @@ namespace WeSketch.App.Forms
         private void BtnAddCollaborator(object sender, RoutedEventArgs e)
         {
             string username = addCollaborator.tbxCollaboratorUsername.Text;
-            if (String.IsNullOrEmpty(username)) return;
-            if (controller.AddCollaborator(username))
-            {
-                LoadCollaborators();
-                Utilities.DisplayMessage(this, "Ok", $"User with username: {username} added as collaborator.");
-                this.HideMetroDialogAsync(customDialog);
-            }
-            else
-            {
-                Utilities.DisplayMessage(this, "Error", $"User with username: {username} not found!");
-                addCollaborator.tbxCollaboratorUsername.Clear();
-            }
+            controller.AddCollaborator(username);
+            this.HideMetroDialogAsync(customDialog);
         }
 
         private void BtnCancelAddCollaborator(object sender, RoutedEventArgs e)
@@ -147,16 +149,9 @@ namespace WeSketch.App.Forms
             this.HideMetroDialogAsync(customDialog);
         }
 
-        private void LoadCollaborators()
-        {
-            var board = model.GetBoard();
-            var collaborators = controller.GetCollaboratorList(board); // api get collaborators
-            dataGridCollaborators.ItemsSource = collaborators.Collaborators;
-        }
-
         private void MetroWindow_Loaded(object sender, RoutedEventArgs e)
         {
-            LoadCollaborators();
+            RefreshCollaborators();
         }
 
         private void btnRemoveCollaborator_Click(object sender, RoutedEventArgs e)
@@ -164,7 +159,50 @@ namespace WeSketch.App.Forms
             User user = dataGridCollaborators.SelectedItem as User;
             if (user == null) return;
             controller.RemoveCollaborator(user);
-            LoadCollaborators();
+        }
+
+        public void RefreshCollaborators()
+        {
+            dataGridCollaborators.ItemsSource = workspace.LoadBoardCollaborators().Collaborators;
+        }
+
+        public void RefreshCanvas()
+        {
+            var board = workspace.GetBoard();
+            board.Shapes = Utilities.ImportShapes(board.Content);
+            board.MyCanvas = canvas;
+            board.Draw(canvas);
+        }
+
+        public void CollaboratorAdded()
+        {
+            Utilities.DisplayMessage(this, "Collaborator added", "Collaborator successfuly added!");
+        }
+
+        public void CollaboratorNotAdded()
+        {
+            Utilities.DisplayMessage(this, "Collaborator not added", "Check collaborator username");
+        }
+
+        public void UpdateSelectedTool()
+        {
+            selectedTool = toolbar.SelectedTool;
+        }
+
+        private void btnSave_Click(object sender, RoutedEventArgs e)
+        {
+            workspace.SaveBoard();
+        }
+
+        public Canvas GetCanvas()
+        {
+            return canvas;
+        }
+
+        public void SelectShape(IShape shape)
+        {
+            selectedShape = shape;
+            Utilities.DisplayMessage(this, "TEST", shape.GetType().Name);
         }
     }
 }

@@ -12,7 +12,7 @@ namespace WeSketch.BusinessLogic.Communications.Hubs
     {
         public void SendUpdate(BoardDetailsDTO boardDetails)
         {
-            Clients.All.ContentChangeNotification(boardDetails);
+            
         }
     }
 }
