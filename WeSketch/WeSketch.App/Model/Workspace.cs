@@ -33,6 +33,12 @@ namespace WeSketch.App.Model
             board.AddShape(shape);
         }
 
+        public void DeleteShape(IShape shape)
+        {
+            if (shape == null) return;
+            board.DeleteShape(shape);
+        }
+
         public Board GetBoard()
         {
             return this.board;

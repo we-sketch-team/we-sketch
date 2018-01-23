@@ -32,8 +32,9 @@ namespace WeSketch.App.Data.Shapes
 
         public void Move(int x, int y)
         {
-            Canvas.SetLeft(MyElement, x);
-            Canvas.SetTop(MyElement, y);
+            //Canvas.SetLeft(MyElement, x);
+            //Canvas.SetTop(MyElement, y);
+            MyElement.Margin = new Thickness(x, y, 0, 0);
         }
 
         public void Rotate(Canvas target, double angle)

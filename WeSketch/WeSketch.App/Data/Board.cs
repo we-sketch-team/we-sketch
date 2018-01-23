@@ -32,9 +32,10 @@ namespace WeSketch.App.Data
             shape.Draw(MyCanvas);
         }
 
-        public void RemoveShape(IShape shape)
+        public void DeleteShape(IShape shape)
         {
             Shapes.Remove(shape);
+            shape.Delete(MyCanvas);
         }
 
         public void EditShape(IShape shape)

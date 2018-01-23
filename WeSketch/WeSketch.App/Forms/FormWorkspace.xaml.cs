@@ -202,7 +202,17 @@ namespace WeSketch.App.Forms
         public void SelectShape(IShape shape)
         {
             selectedShape = shape;
-            Utilities.DisplayMessage(this, "TEST", shape.GetType().Name);
+        }
+
+        private void canvas_KeyUp(object sender, KeyEventArgs e)
+        {
+           
+        }
+
+        private void MetroWindow_KeyUp(object sender, KeyEventArgs e)
+        {
+            if (e.Key == Key.Delete)
+                workspace.DeleteShape(selectedShape);
         }
     }
 }

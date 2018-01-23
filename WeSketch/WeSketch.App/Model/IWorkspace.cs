@@ -11,6 +11,7 @@ namespace WeSketch.App.Model
     public interface IWorkspace
     {
         void AddShape(IShape shape);
+        void DeleteShape(IShape shape);
         bool AddCollaborator(string username);
         void RemoveCollaborator(User user);
         void SetBoard(Board board);
