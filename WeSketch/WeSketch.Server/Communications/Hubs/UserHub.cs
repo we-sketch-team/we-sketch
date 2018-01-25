@@ -22,5 +22,20 @@ namespace WeSketch.Server.Communications.Hubs
         {
             return dataService.CreateAccount(createUserDTO);
         }
+
+        public UserDetailsDTO GetUser(int userId)
+        {
+            return dataService.GetUser(userId);
+        }
+
+        public UserDetailsDTO UpdateUser(UserDetailsDTO userDetailsDTO)
+        {
+            return dataService.UpdateUser(userDetailsDTO);
+        }
+
+        public void DeleteUser(int userId)
+        {
+            dataService.DeleteUser(userId);
+        }
     }
 }

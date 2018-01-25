@@ -9,7 +9,6 @@ using WeSketch.BusinessLogic.DTOs;
 using WeSketch.BusinessLogic.DTOs.BoardDTOs;
 using WeSketch.BusinessLogic.DTOs.ChatRoomDTOs;
 using WeSketch.BusinessLogic.DTOs.MessageDTOs;
-using WeSketch.BusinessLogic.DTOs;
 
 namespace WeSketch.BusinessLogic.Services
 {
