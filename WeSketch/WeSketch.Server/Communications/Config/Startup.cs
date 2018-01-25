@@ -14,6 +14,7 @@ namespace WeSketch.Server.Communications.Config
     {
         public void Configuration(IAppBuilder app)
         {
+            //app.UseCors(CorsOptions.AllowAll);
             app.MapSignalR();
         }
     }
