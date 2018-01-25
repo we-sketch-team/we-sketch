@@ -12,7 +12,7 @@ namespace WeSketch.Server
     public partial class Server : Form
     {
         public IDisposable SignalR { get; set; }
-        const string ServerURI = "http://localhost:15000";
+        string ServerURI;
 
         public Server()
         {
@@ -21,15 +21,20 @@ namespace WeSketch.Server
 
         private void StartServer()
         {
+            var ip = tbxIP.Text;
+            var port = tbxPort.Text;
+
+            ServerURI = $"http://{ip}:{port}";
             try
             {
                 SignalR = WebApp.Start(ServerURI);
             }
-            catch (TargetInvocationException)
+            catch (TargetInvocationException ex)
             {
                 WriteToConsole("Server failed to start. A server is already running on " + ServerURI);
                 //Re-enable button to let user try to start server again 
                 this.Invoke((Action)(() => btnStart.Enabled = true));
+                WriteToConsole(ex.Message);
                 return;
             }
             this.Invoke((Action)(() => btnStop.Enabled = true));
@@ -53,7 +58,7 @@ namespace WeSketch.Server
                 ));
                 return;
             }
-            tbxLog.AppendText($"[{DateTime.Now.ToFileTime()}] {message}{Environment.NewLine}");
+            tbxLog.AppendText($"[{DateTime.Now.ToLongTimeString()}] {message}{Environment.NewLine}");
         }
 
         private void btnStart_Click(object sender, EventArgs e)

@@ -1,5 +1,6 @@
 ﻿using Microsoft.AspNet.SignalR;
 using Microsoft.Owin;
+using Microsoft.Owin.Cors;
 using Owin;
 using System;
 using System.Collections.Generic;
@@ -15,9 +16,9 @@ namespace WeSketch.Server.Communications.Config
     {
         public void Configuration(IAppBuilder app)
         {
-            //app.UseCors(CorsOptions.AllowAll);
             var hubConfiguration = new HubConfiguration();
             hubConfiguration.EnableDetailedErrors = true;
+            app.UseCors(CorsOptions.AllowAll);
             app.MapSignalR(hubConfiguration);
         }
     }

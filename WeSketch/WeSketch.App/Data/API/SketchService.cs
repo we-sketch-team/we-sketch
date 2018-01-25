@@ -87,7 +87,7 @@ namespace WeSketch.App.Data.API
 
         private User ConnectToUserHubAsync(string email, string password)
         {
-            HubConnection connection = new HubConnection("http://localhost:15000");
+            HubConnection connection = new HubConnection("http://160.99.38.140:15000");
             IHubProxy hub = connection.CreateHubProxy("UserHub");
             connection.Start().Wait();
             var logged = hub.Invoke<User>("Login", new { Email = email, Password = password });
