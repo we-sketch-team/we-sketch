@@ -128,7 +128,7 @@
     <Compile Include="Data\Tools\Toolbar\Toolbar.cs" />
     <Compile Include="Data\Tools\EllipseCreationalTool.cs" />
     <Compile Include="Data\Tools\LineCreationalTool.cs" />
-    <Compile Include="Data\Tools\Toolbar\ToolbarRepresent.cs" />
+    <Compile Include="Data\Tools\Toolbar\ToolbarItemRepresent.cs" />
     <Compile Include="Data\Tools\TwoPointCreationalTool.cs" />
     <Compile Include="Dialogs\AddCollaboratorDialog.xaml.cs">
       <DependentUpon>AddCollaboratorDialog.xaml</DependentUpon>
