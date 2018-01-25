@@ -119,6 +119,7 @@
     <Compile Include="Data\Shapes\Properties\PropertySheet.cs" />
     <Compile Include="Data\Shapes\Properties\WidthProp.cs" />
     <Compile Include="Data\Shapes\ShapeEllipse.cs" />
+    <Compile Include="Data\Shapes\ShapesFactory.cs" />
     <Compile Include="Data\Tools\ITool.cs" />
     <Compile Include="Data\Tools\SelectTool.cs" />
     <Compile Include="Data\Tools\Toolbar\EllipseToolRepresent.cs" />
@@ -142,7 +143,6 @@
     <Compile Include="Data\Board.cs" />
     <Compile Include="Data\BoardList.cs" />
     <Compile Include="Data\CollaboratorList.cs" />
-    <Compile Include="Data\Shapes\Handle.cs" />
     <Compile Include="Data\Shapes\IShape.cs" />
     <Compile Include="Data\Shapes\Property.cs" />
     <Compile Include="Data\Shapes\ShapeComponent.cs" />

@@ -14,16 +14,18 @@ namespace WeSketch.App.Data.Shapes
             {
                 Width = width,
                 Height = height,
-                Fill = new System.Windows.Media.SolidColorBrush(color)
-
+                Fill = new System.Windows.Media.SolidColorBrush(color),
+                Tag = this
             };
-
-            MyElement.Tag = this;
         }
 
         public ShapeEllipse()
         {
-            MyElement = new System.Windows.Shapes.Ellipse();
+            MyElement = new System.Windows.Shapes.Ellipse()
+            {
+                Fill = new System.Windows.Media.SolidColorBrush(System.Windows.Media.Color.FromRgb(0, 0, 0)),
+                Tag = this
+            };
         }
     }
 }

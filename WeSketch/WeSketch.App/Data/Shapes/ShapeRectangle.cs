@@ -20,17 +20,19 @@ namespace WeSketch.App.Data.Shapes
             {
                 Width = width,
                 Height = height,
-                Fill = new SolidColorBrush(color)
+                Fill = new SolidColorBrush(color),
+                Tag = this
 
-            };
-
-            MyElement.Tag = this;
-            
+            };            
         }
 
         public ShapeRectangle()
         {
-            MyElement = new System.Windows.Shapes.Rectangle();
+            MyElement = new System.Windows.Shapes.Rectangle()
+            {
+                Fill = new SolidColorBrush(System.Windows.Media.Color.FromRgb(0, 0, 0)),
+                Tag = this
+            };
         }
     }
 }

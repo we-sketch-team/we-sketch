@@ -18,7 +18,11 @@ namespace WeSketch.App.Data.Tools
 
             int setPosX = Math.Min(startPoint.X, endPoint.X);
             int setPosY = Math.Min(startPoint.Y, endPoint.Y);
-            Shapes.ShapeEllipse ellipse = new Shapes.ShapeEllipse(width, height, System.Windows.Media.Color.FromRgb(0, 0, 0));
+
+            var ellipse = ShapesFactory.GetEllipseInstance();
+            ellipse.SetWidth(width);
+            ellipse.SetHeight(height);
+            ellipse.Move(setPosX, setPosY);
             ellipse.Move(setPosX, setPosY);
             return ellipse;
         }

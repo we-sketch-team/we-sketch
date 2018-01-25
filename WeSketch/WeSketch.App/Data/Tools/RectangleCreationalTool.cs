@@ -19,7 +19,10 @@ namespace WeSketch.App.Data.Tools
 
             int setPosX = Math.Min(startPoint.X, endPoint.X);
             int setPosY = Math.Min(startPoint.Y, endPoint.Y);
-            Shapes.ShapeRectangle rect = new Shapes.ShapeRectangle(width, height, System.Windows.Media.Color.FromRgb(0, 0,0));
+
+            var rect = ShapesFactory.GetRectangleInstance();
+            rect.SetWidth(width);
+            rect.SetHeight(height);
             rect.Move(setPosX, setPosY);
             return rect;            
         }

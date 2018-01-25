@@ -38,11 +38,6 @@ namespace WeSketch.App.Data
             shape.Delete(MyCanvas);
         }
 
-        public void EditShape(IShape shape)
-        {
-
-        }
-
         public void Draw(Canvas canvas)
         {
             canvas.Children.Clear();

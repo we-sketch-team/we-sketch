@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Drawing;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -12,6 +13,7 @@ namespace WeSketch.App.Model
     {
         void AddShape(IShape shape);
         void DeleteShape(IShape shape);
+        void MoveShape(IShape shape, Point newPosition);
         bool AddCollaborator(string username);
         void RemoveCollaborator(User user);
         void SetBoard(Board board);
