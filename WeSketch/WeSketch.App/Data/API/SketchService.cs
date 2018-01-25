@@ -6,6 +6,7 @@ using System.Threading.Tasks;
 using RestSharp;
 using Newtonsoft.Json;
 using WeSketch.App.Data.Shapes;
+using Microsoft.AspNet.SignalR.Client;
 
 namespace WeSketch.App.Data.API
 {
@@ -71,14 +72,27 @@ namespace WeSketch.App.Data.API
 
         public User Login(string email, string password)
         {
-            var req = new RestRequest();
-            req.AddParameter("Email", email);
-            req.AddParameter("Password", password);
-            req.Resource = "users/logic/login";
-            req.Method = Method.POST;
+            //var req = new RestRequest();
+            //req.AddParameter("Email", email);
+            //req.AddParameter("Password", password);
+            //req.Resource = "users/logic/login";
+            //req.Method = Method.POST;
 
-            User res = Execute<User>(req);
-            return res;
+            //User res = Execute<User>(req);
+            //return res;
+            User user = null;
+            var logged = ConnectToUserHubAsync(email, password);
+            return user;            
+        }
+
+        private User ConnectToUserHubAsync(string email, string password)
+        {
+            HubConnection connection = new HubConnection("http://localhost:15000");
+            IHubProxy hub = connection.CreateHubProxy("UserHub");
+            connection.Start().Wait();
+            var logged = hub.Invoke<User>("Login", new { Email = email, Password = password });
+            logged.Wait();
+            return logged.Result;
         }
 
         public bool Register(UserRegistrationOptions options)

@@ -53,7 +53,7 @@ namespace WeSketch.Server
                 ));
                 return;
             }
-            tbxLog.AppendText($"[{DateTime.Now.ToShortDateString()}] {message}{Environment.NewLine}");
+            tbxLog.AppendText($"[{DateTime.Now.ToFileTime()}] {message}{Environment.NewLine}");
         }
 
         private void btnStart_Click(object sender, EventArgs e)
@@ -65,6 +65,8 @@ namespace WeSketch.Server
 
         private void btnStop_Click(object sender, EventArgs e)
         {
+            WriteToConsole("Stopping server...");
+            btnStop.Enabled = false;
             StopServer();
         }
 
