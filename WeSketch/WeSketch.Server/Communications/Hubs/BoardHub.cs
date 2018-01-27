@@ -17,7 +17,7 @@ namespace WeSketch.Server.Communications.Hubs
 
         public CreateBoardDto CreateBoard(CreateBoardDto createBoardDto)
         {
-            return dataService.CreateAndAttacheBoard(createBoardDto);
+            return dataService.CreateBoard(createBoardDto);
         }
 
         public BoardDetailsDTO GetBoard(int boardId)

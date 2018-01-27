@@ -63,7 +63,7 @@ namespace WeSketch.BusinessLogic.Services
             return userProvider.UpdateUser(userDetails);
         }
 
-        public CreateBoardDto CreateAndAttacheBoard(CreateBoardDto userBoard)
+        public CreateBoardDto CreateBoard(CreateBoardDto userBoard)
         {
             int userId = userBoard.UserId;
             userProvider.SetMediatorUser(userId);

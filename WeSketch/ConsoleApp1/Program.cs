@@ -32,7 +32,7 @@ namespace ConsoleApp1
                 Title = "Title",
                 PublicBoard = false
             };
-            dataService.CreateAndAttacheBoard(createBoardDto);
+            dataService.CreateBoard(createBoardDto);
         }
 
         static void SetBoardPreference()
