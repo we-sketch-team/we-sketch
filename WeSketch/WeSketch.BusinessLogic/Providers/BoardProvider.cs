@@ -38,6 +38,13 @@ namespace WeSketch.BusinessLogic.Providers
             List<User> collaborators = new List<User>();
             Board board = unitOfWork.BoardRepository.GetById(id);
 
+            if(board == null)
+            {
+                List<UserDetailsDTO> invalidResult = new List<UserDetailsDTO>();
+                invalidResult.Add(InvalidDTOFactory.InvalidUser());
+                return invalidResult;
+            }
+
             foreach (var userBoard in board.UserBoards.ToList())
             {
                 collaborators.Add(userBoard.User);
@@ -65,6 +72,7 @@ namespace WeSketch.BusinessLogic.Providers
             {
                 boardDetails = ConverterToDTO.BoardToBoardDetails(board.Board);
                 boardDetails.IsFavoriteToUser = Utility.IsFavorite(user, board.Board);
+                boardDetails.Role = Utility.GetRole(user, board.Board);
                 result.Add(boardDetails);
             }
 
@@ -110,7 +118,7 @@ namespace WeSketch.BusinessLogic.Providers
             userBoards.Board = board;
             userBoards.User = boardCreater;
             userBoards.UserId = boardCreater.Id;
-            userBoards.Role = "Creater"; //TODO do not hardcode
+            userBoards.Role = Utility.CreatorRole();
 
             boardCreater.UserBoards.Add(userBoards);
             board.UserBoards.Add(userBoards);
@@ -128,9 +136,8 @@ namespace WeSketch.BusinessLogic.Providers
             return result;
         }
 
-        public BoardDetailsDTO CreateBoard(CreateBoardDto createBoards)
-        {          
-
+        public Board CreateBoard(CreateBoardDto createBoards)
+        {     
             Board board = new Board();
             board = ConverterFromDTO.BoardFromCreateBoard(createBoards);
             board.DateCreated = DateTime.Now;
@@ -138,22 +145,23 @@ namespace WeSketch.BusinessLogic.Providers
             unitOfWork.BoardRepository.Insert(board);
             unitOfWork.Save();
 
-            return ConverterToDTO.BoardToBoardDetails(board);
+            return board;
         }
 
-        public BoardDetailsDTO SetBoardPreference(int boardId)
+        public BoardDetailsDTO SetBoardPreference(BoardPreferenceDTO boardPreferenceDTO)
         {
             User user = mediator.User;
 
             if (user == null)
                 return InvalidDTOFactory.InvalidBoard();
 
+            int boardId = boardPreferenceDTO.BoardId;
             Board board = unitOfWork.BoardRepository.GetById(boardId);
 
             if(board == null)
                 return InvalidDTOFactory.InvalidBoard();
 
-            user.UserBoards.ToList().Find(x => x.BoardId == boardId).IsFavoriteToUser = !user.UserBoards.ToList().Find(x => x.BoardId == boardId).IsFavoriteToUser;
+            user.UserBoards.ToList().Find(x => x.BoardId == boardId).IsFavoriteToUser = boardPreferenceDTO.IsFavorite;
 
             unitOfWork.Save();
 
@@ -197,7 +205,7 @@ namespace WeSketch.BusinessLogic.Providers
             userBoard.BoardId = boardId;
             userBoard.User = user;
             userBoard.UserId = userId;
-            userBoard.Role = "Collaborator";
+            userBoard.Role = Utility.CollaboratorRole();
 
             user.UserBoards.Add(userBoard);
             board.UserBoards.Add(userBoard);

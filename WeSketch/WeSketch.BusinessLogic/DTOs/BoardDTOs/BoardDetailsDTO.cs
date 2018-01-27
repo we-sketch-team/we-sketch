@@ -15,5 +15,6 @@ namespace WeSketch.BusinessLogic.DTOs.BoardDTOs
         public string Desription { get; set; }
         public string Content { get; set; }
         public bool IsFavoriteToUser { get; set; }
+        public string Role { get; set; }
     }
 }
