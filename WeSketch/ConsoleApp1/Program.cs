@@ -28,7 +28,7 @@ namespace ConsoleApp1
             CreateBoardDto createBoardDto = new CreateBoardDto()
             {
                 UserId = 4,
-                Desription = "This is a new board",
+                Desription = "again...",
                 Title = "Title",
                 PublicBoard = false
             };
@@ -40,8 +40,8 @@ namespace ConsoleApp1
             BoardPreferenceDTO boardPreferenceDTO = new BoardPreferenceDTO
             {
                 UserId = 4,
-                BoardId = 54,
-                IsFavorite = true
+                BoardId = 74,
+                IsFavorite = false
             };
             dataService.SetBoardPreference(boardPreferenceDTO);
         }
@@ -51,7 +51,7 @@ namespace ConsoleApp1
             CollaboratorDTO collaboratorDTO = new CollaboratorDTO()
             {
                 UserId = 2,
-                BoardId = 54
+                BoardId = 74
             };
 
             dataService.AddCollaborator(collaboratorDTO);
@@ -80,11 +80,11 @@ namespace ConsoleApp1
 
         static void Main(string[] args)
         {
-            UpdateBoardContent();
+            AddCollaborator();
 
-            foreach (var item in GetUserBoards(2))
+            foreach (var item in GetBoardCollaborators(74))
             {
-                Console.WriteLine(item.Id + " " + item.Desription + " " + item.Role + " " + item.IsFavoriteToUser);
+                Console.WriteLine(item.Id + " " + item.FirstName + " " + item.Id);
             }
         }
     }

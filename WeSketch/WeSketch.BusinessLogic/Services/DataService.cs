@@ -67,12 +67,12 @@ namespace WeSketch.BusinessLogic.Services
         {
             int userId = userBoard.UserId;
             userProvider.SetMediatorUser(userId);
-            return boardProvider.CreateAndAttacheBoard(userBoard);
+            return boardProvider.CreateBoard(userBoard);
         }        
 
-        public List<BoardDetailsDTO> AllBoards()
+        public List<BoardDetailsDTO> GetAllPublicBoards()
         {
-            return boardProvider.AllBoards();
+            return boardProvider.GetAllPublicBoards();
         }
 
         public BoardDetailsDTO SetBoardPreference(BoardPreferenceDTO boardPreferenceDTO)
