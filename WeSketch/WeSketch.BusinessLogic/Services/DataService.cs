@@ -67,6 +67,7 @@ namespace WeSketch.BusinessLogic.Services
         {
             int userId = userBoard.UserId;
             userProvider.SetMediatorUser(userId);
+            chatRoomProvider.CreateChatRoom();
             return boardProvider.CreateBoard(userBoard);
         }        
 
@@ -94,22 +95,7 @@ namespace WeSketch.BusinessLogic.Services
         public void DeleteUser(int id)
         {
             userProvider.DeleteUser(id);
-        }
-
-        public ChatRoomDetailsDTO GetChatRoom(int id)
-        {
-            return chatRoomProvider.GetChatRoom(id);
-        }
-
-        public List<ChatRoomDetailsDTO> GetAllChatRoom()
-        {
-            return chatRoomProvider.GetAllChatRooms();
-        }
-
-        public ChatRoomDetailsDTO CreateChatRoom()
-        {
-            return chatRoomProvider.CreateChatRoom();
-        }
+        }                
 
         public ChatRoomDetailsDTO UpdateChatRoom(UpdateChatRoomDTO updateChatRoom)
         {
@@ -119,28 +105,7 @@ namespace WeSketch.BusinessLogic.Services
         public void DeleteChatRoom(int id)
         {
             chatRoomProvider.DeleteChatRoom(id);
-        }
-
-        public MessageDetailsDTO GetMessage(int id)
-        {
-            return chatRoomProvider.GetMessage(id);
-        }
-
-        public List<MessageDetailsDTO> GetAllMessages()
-        {
-            return chatRoomProvider.GetAllMessages();
-        }
-
-        public MessageDetailsDTO CreateMessage(CreateMessageDTO createMessage)
-        {
-            userProvider.SetMediatorUser(createMessage.UserId);
-            return chatRoomProvider.CreateMessage(createMessage);
         }        
-
-        public void DeleteMessage(int id)
-        {
-            chatRoomProvider.DeleteMessage(id);
-        }
 
         public void AddCollaborator(CollaboratorDTO collaboratorDTO)
         {

@@ -109,7 +109,8 @@ namespace WeSketch.BusinessLogic.Providers
             Board board = StoreBoardToDatabase(createBoards);
             UserBoards userBoards = ConnectBoardAndUser(boardCreater, board);
             userBoards.Role = Utility.CreatorRole();
-            AttachBoardToUser(userBoards, board);           
+            AttachBoardToUser(userBoards, board);
+            AttachChatRoom(board);
 
             CreateBoardDto result = ConverterToDTO.BoardToCreateBoard(board);
             result.UserId = boardCreater.Id;         
@@ -152,6 +153,19 @@ namespace WeSketch.BusinessLogic.Providers
 
             unitOfWork.BoardRepository.Update(board);
             unitOfWork.UserRepository.Update(boardCreater);
+            unitOfWork.Save();
+        }
+
+        public void AttachChatRoom(Board board)
+        {
+            ChatRoom chatRoom = mediator.ChatRoom;
+            User user = mediator.User;
+            board.ChatRoom = chatRoom;
+            user.ChatRooms.Add(chatRoom);
+
+            unitOfWork.BoardRepository.Update(board);
+            unitOfWork.ChatRoomRepository.Update(chatRoom);
+            unitOfWork.UserRepository.Update(user);
             unitOfWork.Save();
         }
 

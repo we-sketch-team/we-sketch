@@ -49,9 +49,8 @@ namespace WeSketch.BusinessLogic.Providers
             return ConverterToDTO.ChatToChatDetails(chatRoom);
         }
 
-        public ChatRoomDetailsDTO CreateChatRoom()
+        public void CreateChatRoom()
         {
-            //TODO move funtion to utilities, attach chat to board
             ChatRoom chatRoom = new ChatRoom();
             chatRoom.ActiveChat = true;
             chatRoom.DateCreated = DateTime.Now;
@@ -59,7 +58,7 @@ namespace WeSketch.BusinessLogic.Providers
             unitOfWork.ChatRoomRepository.Insert(chatRoom);
             unitOfWork.Save();
 
-            return ConverterToDTO.ChatToChatDetails(chatRoom);
+            mediator.ChatRoom = chatRoom;
         }
 
         public void DeleteChatRoom(int id)
@@ -114,8 +113,6 @@ namespace WeSketch.BusinessLogic.Providers
 
             return ConverterToDTO.MessageToMessageDetails(message);
         }
-
-        //UPDATE makes no sense
 
         public void DeleteMessage(int id)
         {
