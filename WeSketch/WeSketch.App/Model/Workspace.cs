@@ -10,7 +10,7 @@ using WeSketch.App.Data.Shapes;
 
 namespace WeSketch.App.Model
 {
-    public class Workspace : IWorkspace
+    public class Workspace : IWorkspace, IBoardContentObserver
     {
         private Board board;
 
@@ -34,10 +34,23 @@ namespace WeSketch.App.Model
             board.AddShape(shape);
         }
 
+        public void CloseBoard()
+        {
+            if (board == null) return;
+
+            var service = SketchService.GetService();
+            service.UnsubscribeFromBoard(board);
+            board = null; // ?
+        }
+
         public void DeleteShape(IShape shape)
         {
-            if (shape == null) return;
-            board.DeleteShape(shape);
+            board?.DeleteShape(shape);
+        }
+
+        public void Dispose()
+        {
+            CloseBoard();
         }
 
         public Board GetBoard()
@@ -71,7 +84,20 @@ namespace WeSketch.App.Model
 
         public void SetBoard(Board board)
         {
+            CloseBoard();
             this.board = board;
+            this.board.Shapes = Utilities.ImportShapes(board.Content);
+            var service = SketchService.GetService();
+            service.SubscribeToBoard(board);
+        }
+
+        public void UpdateBoardContent(Board updatedBoard)
+        {
+            if (board.Id != updatedBoard.Id) return;
+
+            board.Content = updatedBoard.Content;
+            board.Shapes = Utilities.ImportShapes(board.Content);
+            board.Redraw();
         }
     }
 }

@@ -48,5 +48,10 @@ namespace WeSketch.App.Data
                 shape.Draw(canvas);
             }
         }
+
+        public void Redraw()
+        {
+            Draw(MyCanvas);
+        }
     }
 }

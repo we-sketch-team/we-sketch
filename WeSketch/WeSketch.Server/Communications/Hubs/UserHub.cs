@@ -35,6 +35,11 @@ namespace WeSketch.Server.Communications.Hubs
             return dataService.UpdateUser(userDetailsDTO);
         }
 
+        public UserDetailsDTO GetUserByUsername(string username)
+        {
+            return dataService.GetUserByUsername(username);
+        }
+
         public void DeleteUser(int userId)
         {
             dataService.DeleteUser(userId);

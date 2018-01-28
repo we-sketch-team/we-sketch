@@ -32,7 +32,12 @@ namespace WeSketch.Server.Communications.Hubs
         public BoardDetailsDTO UpdateBoardContent(BoardDetailsDTO boardDetailsDTO)
         {
             BoardDetailsDTO board = dataService.UpdateBoardContent(boardDetailsDTO);
-            Clients.Others.GetBoardContent(boardDetailsDTO);
+            var groupName = Config.GroupNames.BoardGroup(boardDetailsDTO.Id);
+            var group = Clients.Group(groupName);
+            Logger.Log($"Updated content for board with id: {board.Id}");
+            Logger.Log($"Sent update notification to group with name: {groupName}");
+            //group.NotifyBoardUpdate();
+            Clients.All.NotifyBoardUpdate();
             return board;
         }
 

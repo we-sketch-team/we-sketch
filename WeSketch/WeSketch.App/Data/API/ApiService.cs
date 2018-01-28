@@ -8,6 +8,9 @@ using Newtonsoft.Json;
 using WeSketch.App.Data.Shapes;
 using Microsoft.AspNet.SignalR.Client;
 using System.Net;
+using WeSketch.App.Model;
+using System.Windows.Threading;
+using System.IO;
 
 namespace WeSketch.App.Data.API
 {
@@ -15,24 +18,51 @@ namespace WeSketch.App.Data.API
     {
         private const string ServerUrl = "http://localhost:15000";
         private HubConnection connection;
-        IHubProxy userHub;
-        IHubProxy boardHub;
+        IHubProxy userHub, boardHub, groupsHub;
+        IBoardContentObserver workspace;
 
         public ApiService()
         {
             connection = new HubConnection(ServerUrl);
+            var writer = new StreamWriter("ClientLog.txt");
+            writer.AutoFlush = true;
             connection.TraceLevel = TraceLevels.All;
-            //connection.TraceWriter = Console.Out;
+            connection.TraceWriter = writer;
             ServicePointManager.DefaultConnectionLimit = 10;
-            userHub = connection.CreateHubProxy("UserHub");
-            boardHub = connection.CreateHubProxy("BoardHub");
+            HubsSetup();
             connection.Start().Wait();
         }
 
-        private void ResetConnection()
+        private void HubsSetup()
         {
+            UserHubSetup();
+            BoardHubSetup();
+            GroupsHubSetup();
+        }
+
+        private void GroupsHubSetup()
+        {
+            groupsHub = connection.CreateHubProxy("GroupRegistrationHub");
+        }
+
+        private void UserHubSetup()
+        {
+            userHub = connection.CreateHubProxy("UserHub");
+        }
+
+        private void BoardHubSetup()
+        {
+            boardHub = connection.CreateHubProxy("BoardHub");
+            boardHub.On("NotifyBoardUpdate", () => Dispatcher.CurrentDispatcher.InvokeAsync(() => Display()));
+        }
+
+        private void Display() => System.Windows.MessageBox.Show("OK");
+
+        private void ResetConnection() // NEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEE
+        {
+            return;
             connection.Stop();
-            connection.Start().Wait();
+            connection.Start();
         }
 
         public List<Board> GetMyBoards(User user)
@@ -43,7 +73,6 @@ namespace WeSketch.App.Data.API
             var boardsTask = boardHub.Invoke<List<Board>>("GetMyBoards", id);
             boardsTask.Wait();
             var boards = boardsTask.Result;
-            boards.ForEach(b => b.Shapes = Utilities.ImportShapes(b.Content));
             return boards;
         }
 
@@ -68,7 +97,9 @@ namespace WeSketch.App.Data.API
 
         public User GetUserByUsername(string username)
         {
-            throw new NotImplementedException();
+            var task = userHub.Invoke<User>("GetUserByUsername", username);
+            task.Wait();
+            return task.Result;
         }
 
         public bool Register(UserRegistrationOptions options)
@@ -126,6 +157,23 @@ namespace WeSketch.App.Data.API
             var task = boardHub.Invoke<List<User>>("GetCollaborators", board.Id);
             task.Wait();
             return task.Result;
+        }
+
+        public void SetObserver(IBoardContentObserver observer)
+        {
+            workspace = observer;
+        }
+
+        public void SubscribeToBoard(Board board)
+        {
+            var task = groupsHub.Invoke("RegisterToBoardGroup", board.Id);
+            task.Wait();            
+        }
+
+        public void UnsubscribeFromBoard(Board board)
+        {
+            var task = groupsHub.Invoke("UnsubscribeFromBoardGroup", board.Id);
+            task.Wait();
         }
     }
 }

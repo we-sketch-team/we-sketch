@@ -151,6 +151,12 @@ namespace WeSketch.BusinessLogic.Providers
             unitOfWork.Save();
         }
 
+        public UserDetailsDTO GetUserByUsername(string username)
+        {
+            var user = unitOfWork.UserRepository.GetByUsername(username);
+            return ConverterToDTO.UserToUserDetails(user);
+        }
+
 
     }
 }

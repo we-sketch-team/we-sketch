@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using WeSketch.App.Model;
 
 namespace WeSketch.App.Data.API
 {
@@ -60,6 +61,21 @@ namespace WeSketch.App.Data.API
         }
 
         public bool RemoveCollaborator(User user, Board board)
+        {
+            throw new NotImplementedException();
+        }
+
+        public void SetObserver(IBoardContentObserver observer)
+        {
+            throw new NotImplementedException();
+        }
+
+        public void SubscribeToBoard(Board board)
+        {
+            throw new NotImplementedException();
+        }
+
+        public void UnsubscribeFromBoard(Board board)
         {
             throw new NotImplementedException();
         }

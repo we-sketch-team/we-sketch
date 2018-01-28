@@ -85,5 +85,10 @@ namespace WeSketch.Server
         {
             WriteToConsole(message);
         }
+
+        private void Server_Load(object sender, EventArgs e)
+        {
+            btnStart.PerformClick();
+        }
     }
 }

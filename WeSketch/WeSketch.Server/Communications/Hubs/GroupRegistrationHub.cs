@@ -12,6 +12,8 @@ namespace WeSketch.Server.Communications.Hubs
         public Task RegisterToBoardGroup(int boardId)
         {
             string groupName = Config.GroupNames.BoardGroup(boardId);
+            var message = $"User with connection id {Context.ConnectionId} subscribed to group {groupName}";
+            Logger.Log(message);
             return Groups.Add(Context.ConnectionId, groupName);
         }
 
@@ -24,6 +26,8 @@ namespace WeSketch.Server.Communications.Hubs
         public Task UnsubscribeFromBoardGroup(int boardId)
         {
             string groupName = Config.GroupNames.BoardGroup(boardId);
+            var message = $"User with connection id {Context.ConnectionId} unsubscribed from group {groupName}";
+            Logger.Log(message);
             return Groups.Remove(Context.ConnectionId, groupName);
         }
 

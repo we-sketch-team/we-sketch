@@ -213,5 +213,10 @@ namespace WeSketch.App.Forms
             if (e.Key == Key.Delete)
                 workspace.DeleteShape(selectedShape);
         }
+
+        private void MetroWindow_Closing(object sender, System.ComponentModel.CancelEventArgs e)
+        {
+            workspace?.Dispose();
+        }
     }
 }

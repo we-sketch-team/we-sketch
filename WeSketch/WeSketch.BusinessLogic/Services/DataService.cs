@@ -128,5 +128,10 @@ namespace WeSketch.BusinessLogic.Services
         {
             return boardProvider.UpdateBoardContent(boardDetailsDTO);
         }
+
+        public UserDetailsDTO GetUserByUsername(string username)
+        {
+            return userProvider.GetUserByUsername(username);
+        }
     }
 }

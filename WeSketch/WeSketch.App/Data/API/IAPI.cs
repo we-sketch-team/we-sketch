@@ -4,6 +4,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using WeSketch.App.Data.Shapes;
+using WeSketch.App.Model;
 
 namespace WeSketch.App.Data.API
 {
@@ -20,5 +21,8 @@ namespace WeSketch.App.Data.API
         bool RemoveCollaborator(User user, Board board);
         List<User> GetBoardCollaborators(Board board);
         Board GetBoardById(int id);
+        void SetObserver(IBoardContentObserver observer);
+        void SubscribeToBoard(Board board);
+        void UnsubscribeFromBoard(Board board);
     }
 }
