@@ -86,9 +86,11 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Communications\Config\GroupNames.cs" />
     <Compile Include="Communications\Config\Startup.cs" />
     <Compile Include="Communications\Hubs\BoardHub.cs" />
     <Compile Include="Communications\Hubs\ChatRoomHub.cs" />
+    <Compile Include="Communications\Hubs\GroupRegistrationHub.cs" />
     <Compile Include="Communications\Hubs\UserHub.cs" />
     <Compile Include="Server.cs">
       <SubType>Form</SubType>

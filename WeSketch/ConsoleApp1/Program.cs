@@ -80,9 +80,9 @@ namespace ConsoleApp1
 
         static void Main(string[] args)
         {
-            CreateBoard();
+           // CreateBoard();
 
-           // Console.WriteLine(dataService.GetBoard(81).Id);
+            Console.WriteLine(dataService.GetBoard(81).Id);
             //foreach (var item in GetBoardCollaborators(74))
             //{
             //    Console.WriteLine(item.Id + " " + item.FirstName + " " + item.Id);
