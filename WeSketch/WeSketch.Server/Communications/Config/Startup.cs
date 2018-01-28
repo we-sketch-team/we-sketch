@@ -16,8 +16,11 @@ namespace WeSketch.Server.Communications.Config
     {
         public void Configuration(IAppBuilder app)
         {
-            var hubConfiguration = new HubConfiguration();
-            hubConfiguration.EnableDetailedErrors = true;
+            var hubConfiguration = new HubConfiguration
+            {
+                EnableDetailedErrors = true,
+                EnableJSONP = true
+            };
             app.UseCors(CorsOptions.AllowAll);
             app.MapSignalR(hubConfiguration);
         }

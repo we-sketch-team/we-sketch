@@ -10,18 +10,17 @@ namespace WeSketch.App.Model
 {
     public class Dashboard : IDashboard
     {
-        private IAPI api;
-
         public Dashboard()
         {
-            api = new SketchService();
+            
         }
 
         public bool CreateBoard(string title, bool isPublic)
         {
             // check if board title is unique for user
             var user = Global.CurrentUser;
-            api.CreateBoard(title, isPublic, user);
+            var service = SketchService.GetService();
+            service.CreateBoard(title, isPublic, user);
             return true;
         }
 
@@ -29,15 +28,16 @@ namespace WeSketch.App.Model
         {
             // check if user can delete the board
             var user = Global.CurrentUser;
-            api.DeleteBoard(board, user);
+            var service = SketchService.GetService();
+            service.DeleteBoard(board, user);
             return true;
         }
 
-        public BoardList GetCurrentUserBoardList()
+        public List<Board> GetCurrentUserBoardList()
         {
             var user = Global.CurrentUser;
-            var boards = api.GetMyBoards(user);
-            user.Boards = boards;
+            var service = SketchService.GetService();
+            user.Boards = service.GetMyBoards(user);      
             return user.Boards;
         }
     }

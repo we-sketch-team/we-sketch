@@ -15,10 +15,11 @@ namespace WeSketch.App.Data
     {
         public int Id { get; set; }
         public string Title { get; set; }
-        public string Content { get; set; }
+        public string Content { get;set; }
         public ShapeList Shapes { get; set; }
         public CollaboratorList Collaborators { get; set; }
         public Canvas MyCanvas { get; set; }
+
 
         public Board()
         {

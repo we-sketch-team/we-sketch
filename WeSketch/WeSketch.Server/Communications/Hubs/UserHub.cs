@@ -15,6 +15,8 @@ namespace WeSketch.Server.Communications.Hubs
         
         public UserDetailsDTO Login(LoginDTO loginDTO)
         {
+            var message = $"Login from: {loginDTO.Email}";
+            Logger.Log(message);
             return dataService.Login(loginDTO);
         }
 

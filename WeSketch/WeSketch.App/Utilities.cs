@@ -26,9 +26,6 @@ namespace WeSketch.App
 
         public static string ExportShapes(ShapeList shapes)
         {
-            //var shape = new ShapeRectangle(10, 200, System.Windows.Media.Color.FromRgb(0, 255, 0));
-            //shapes.Add(shape);
-            //string xaml = XamlWriter.Save(shapes);//JsonConvert.SerializeObject(shape.MyElement, new JsonSerializerSettings { TypeNameHandling = TypeNameHandling.Auto });
             string xaml = System.Xaml.XamlServices.Save(shapes);
             return xaml;
         }

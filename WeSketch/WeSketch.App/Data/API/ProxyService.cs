@@ -6,24 +6,12 @@ using System.Threading.Tasks;
 
 namespace WeSketch.App.Data.API
 {
-    public class Proxy : IAPI
+    public class ProxyService : IAPI
     {
-        private IAPI api;
-        public bool HasInternet { get; set; }
-
-        public Proxy()
+        public ProxyService()
         {
-            api = new SketchService();
-            HasInternet = true;
+
         }
-
-        private bool HasInternetConnection()
-        {
-            return HasInternet;
-        }
-
-
-
 
         public bool AddCollaborator(User user, Board board)
         {
@@ -40,21 +28,20 @@ namespace WeSketch.App.Data.API
             throw new NotImplementedException();
         }
 
-        public CollaboratorList GetBoardCollaborators(Board board)
+        public Board GetBoardById(int id)
         {
             throw new NotImplementedException();
         }
 
-        public BoardList GetMyBoards(User user)
+        public List<User> GetBoardCollaborators(Board board)
         {
-            BoardList boardList;
+            throw new NotImplementedException();
+        }
 
-            if (HasInternetConnection())
-                boardList = api.GetMyBoards(user);
-            else
-                boardList = user.Boards;
-
-            return boardList;
+        public List<Board> GetMyBoards(User user)
+        {
+            var boards = user.Boards;
+            return boards;
         }
 
         public User GetUserByUsername(string username)

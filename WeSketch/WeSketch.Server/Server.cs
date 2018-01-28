@@ -9,7 +9,7 @@ using System.Windows.Forms;
 
 namespace WeSketch.Server
 {
-    public partial class Server : Form
+    public partial class Server : Form, ILoggable
     {
         public IDisposable SignalR { get; set; }
         string ServerURI;
@@ -17,6 +17,7 @@ namespace WeSketch.Server
         public Server()
         {
             InitializeComponent();
+            Logger.Target = this;
         }
 
         private void StartServer()
@@ -49,7 +50,7 @@ namespace WeSketch.Server
             }
         }
 
-        private void WriteToConsole(string message)
+        public void WriteToConsole(string message)
         {
             if (tbxLog.InvokeRequired)
             {
@@ -78,6 +79,11 @@ namespace WeSketch.Server
         private void Server_FormClosing(object sender, FormClosingEventArgs e)
         {
             StopServer();
+        }
+
+        public void Log(string message)
+        {
+            WriteToConsole(message);
         }
     }
 }

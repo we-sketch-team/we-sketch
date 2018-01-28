@@ -20,7 +20,6 @@ using WeSketch.App.Controller;
 using System.Windows.Markup;
 using MahApps.Metro.Controls.Dialogs;
 using WeSketch.App.Dialogs;
-using WeSketch.App.Communications;
 using WeSketch.App.Data.Tools.Toolbar;
 using WeSketch.App.Data.Shapes;
 
@@ -163,7 +162,7 @@ namespace WeSketch.App.Forms
 
         public void RefreshCollaborators()
         {
-            dataGridCollaborators.ItemsSource = workspace.LoadBoardCollaborators().Collaborators;
+            dataGridCollaborators.ItemsSource = workspace.LoadBoardCollaborators();
         }
 
         public void RefreshCanvas()

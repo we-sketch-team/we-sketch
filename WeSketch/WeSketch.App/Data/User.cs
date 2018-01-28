@@ -13,7 +13,7 @@ namespace WeSketch.App.Data
         public string Email { get; set; }
         public string FirstName { get; set; }
         public string LastName { get; set; }
-        public BoardList Boards { get; set; }
+        public List<Board> Boards { get; set; }
 
         public User()
         {
