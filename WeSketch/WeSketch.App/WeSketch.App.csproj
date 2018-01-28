@@ -109,19 +109,20 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </ApplicationDefinition>
-    <Compile Include="Communications\BoardCommunicator.cs" />
     <Compile Include="Controller\DashboardController.cs" />
     <Compile Include="Controller\IDashboardController.cs" />
     <Compile Include="Controller\ILoginController.cs" />
     <Compile Include="Controller\IWorkspaceController.cs" />
     <Compile Include="Controller\LoginController.cs" />
     <Compile Include="Controller\WorkspaceController.cs" />
+    <Compile Include="Data\API\ApiService.cs" />
     <Compile Include="Data\Global.cs" />
     <Compile Include="Data\Shapes\Properties\HeightProp.cs" />
     <Compile Include="Data\Shapes\Properties\Property.cs" />
     <Compile Include="Data\Shapes\Properties\PropertySheet.cs" />
     <Compile Include="Data\Shapes\Properties\WidthProp.cs" />
     <Compile Include="Data\Shapes\ShapeEllipse.cs" />
+    <Compile Include="Data\Shapes\ShapeList.cs" />
     <Compile Include="Data\Shapes\ShapesFactory.cs" />
     <Compile Include="Data\Tools\ITool.cs" />
     <Compile Include="Data\Tools\SelectTool.cs" />
@@ -140,17 +141,15 @@
       <DependentUpon>CreateBoardDialog.xaml</DependentUpon>
     </Compile>
     <Compile Include="Data\API\IAPI.cs" />
-    <Compile Include="Data\API\Proxy.cs" />
+    <Compile Include="Data\API\ProxyService.cs" />
     <Compile Include="Data\API\SketchService.cs" />
     <Compile Include="Data\API\UserRegistrationOptions.cs" />
     <Compile Include="Data\Board.cs" />
-    <Compile Include="Data\BoardList.cs" />
     <Compile Include="Data\CollaboratorList.cs" />
     <Compile Include="Data\Shapes\IShape.cs" />
     <Compile Include="Data\Shapes\Property.cs" />
     <Compile Include="Data\Shapes\ShapeComponent.cs" />
     <Compile Include="Data\Shapes\ShapeComposite.cs" />
-    <Compile Include="Data\Shapes\ShapeList.cs" />
     <Compile Include="Data\Shapes\ShapeRectangle.cs" />
     <Compile Include="Data\Tools\ICreationalTool.cs" />
     <Compile Include="Data\Tools\RectangleCreationalTool.cs" />

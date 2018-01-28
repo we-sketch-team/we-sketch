@@ -19,6 +19,6 @@ namespace WeSketch.App.Model
         void SetBoard(Board board);
         Board GetBoard();
         void SaveBoard();
-        CollaboratorList LoadBoardCollaborators();
+        List<User> LoadBoardCollaborators();
     }
 }

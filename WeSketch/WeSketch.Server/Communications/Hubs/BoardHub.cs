@@ -12,6 +12,8 @@ namespace WeSketch.Server.Communications.Hubs
 
         public List<BoardDetailsDTO> GetMyBoards(int userId)
         {
+            var message = $"Board list requested from user with id: {userId}";
+            Logger.Log(message);
             return dataService.GetAllUserBoards(userId);
         }
 
@@ -22,6 +24,8 @@ namespace WeSketch.Server.Communications.Hubs
 
         public BoardDetailsDTO GetBoard(int boardId)
         {
+            var message = $"Board requested with id: {boardId}";
+            Logger.Log(message);
             return dataService.GetBoard(boardId);
         }
 

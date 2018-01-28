@@ -10,166 +10,44 @@ using Microsoft.AspNet.SignalR.Client;
 
 namespace WeSketch.App.Data.API
 {
-    public class SketchService : IAPI
+    public class SketchService
     {
-        private const string BaseUrl = "http://localhost:55000/api";
+        private IAPI api;
+        private IAPI proxy;
 
-        public T Execute<T>(RestRequest request) where T : new()
+        public static bool HasInternetConnection { get; set; }
+
+        private static SketchService instance;
+
+        private SketchService()
         {
-            var client = new RestClient();
-            client.BaseUrl = new System.Uri(BaseUrl);
-            var response = client.Execute<T>(request);
+            api = new ApiService();
+            proxy = new ProxyService();
+            HasInternetConnection = true;
+        }
 
-            if (response.ErrorException != null)
+
+        private static SketchService GetInstance()
+        {
+            if (instance == null)
             {
-                const string message = "Error retrieving response.  Check inner details for more info.";
-                var twilioException = new ApplicationException(message, response.ErrorException);
-                throw twilioException;
+                instance = new SketchService();
             }
-            return response.Data;
+
+            return instance;
         }
 
-        public void Execute(RestRequest request)
+        public static IAPI GetService()
         {
-            var client = new RestClient();
-            client.BaseUrl = new System.Uri(BaseUrl);
-            var response = client.Execute(request);
+            var instance = GetInstance();
+            IAPI service;
 
-            if (response.ErrorException != null)
-            {
-                const string message = "Error retrieving response.  Check inner details for more info.";
-                var twilioException = new ApplicationException(message, response.ErrorException);
-                throw twilioException;
-            }
-        }
+            if (HasInternetConnection)
+                service = instance.api;
+            else
+                service = instance.proxy;
 
-        public bool CreateBoard(string title, bool isPublic, User user)
-        {
-            var req = new RestRequest();
-            req.AddParameter("Title", title);
-            req.AddParameter("PublicBoard", isPublic);
-            req.AddParameter("UserId", user.Id);
-            req.Resource = "boards/logic/create";
-            req.Method = Method.POST;
-
-            Board res = Execute<Board>(req);
-            return res.Id != -1;
-        }
-
-        public BoardList GetMyBoards(User user)
-        {
-            var req = new RestRequest();
-            req.Resource = $"boards/logic/get/alluserboards/{user.Id}";
-            req.Method = Method.GET;
-            var client = new RestClient();
-            client.BaseUrl = new System.Uri(BaseUrl);
-            var result = client.Execute(req);
-            var content = result.Content;
-
-            var boards = JsonConvert.DeserializeObject<BoardList>(content);
-            return boards;
-        }
-
-        public User Login(string email, string password)
-        {
-            //var req = new RestRequest();
-            //req.AddParameter("Email", email);
-            //req.AddParameter("Password", password);
-            //req.Resource = "users/logic/login";
-            //req.Method = Method.POST;
-
-            //User res = Execute<User>(req);
-            //return res;
-            User user = null;
-            var logged = ConnectToUserHubAsync(email, password);
-            return user;            
-        }
-
-        private User ConnectToUserHubAsync(string email, string password)
-        {
-            HubConnection connection = new HubConnection("http://160.99.38.140:15000");
-            IHubProxy hub = connection.CreateHubProxy("UserHub");
-            connection.Start().Wait();
-            var logged = hub.Invoke<User>("Login", new { Email = email, Password = password });
-            logged.Wait();
-            return logged.Result;
-        }
-
-        public bool Register(UserRegistrationOptions options)
-        {
-            var req = new RestRequest();
-            req.AddParameter("Username", options.Username);
-            req.AddParameter("Email", options.Email);
-            req.AddParameter("Password", options.Password);
-            req.Resource = "users/logic/createaccount";
-            req.Method = Method.POST;
-
-            User user = Execute<User>(req);
-            return user.Username == options.Username;
-        }
-
-        public bool DeleteBoard(Board board, User user)
-        {
-            var req = new RestRequest();
-            req.Resource = $"boards/logic/delete/{board.Id}";
-            req.Method = Method.PUT;
-            Execute(req);
-            return true;
-        }
-
-        public User GetUserByUsername(string username)
-        {
-            var req = new RestRequest();
-            req.Resource = $"users/crud/byusername/{username}";
-            req.Method = Method.GET;
-            User user = Execute<User>(req);
-
-            return user;
-        }
-
-        public bool AddCollaborator(User user, Board board)
-        {
-            var req = new RestRequest();
-            req.AddParameter("UserId", user.Id);
-            req.AddParameter("BoardId", board.Id);
-            req.Resource = $"boards/logic/addcollaborator";
-            req.Method = Method.POST;
-            Execute(req);
-            return true;
-        }
-
-        public bool RemoveCollaborator(User user, Board board)
-        {
-            var req = new RestRequest();
-            req.AddParameter("UserId", user.Id);
-            req.AddParameter("BoardId", board.Id);
-            req.Resource = $"boards/logic/removecollaborator";
-            req.Method = Method.PUT;
-            Execute(req);
-            return true;
-        }
-
-        public CollaboratorList GetBoardCollaborators(Board board)
-        {
-            var req = new RestRequest();
-            req.Resource = $"boards/logic/boardcollaborators/{board.Id}";
-            req.Method = Method.GET;
-
-            var list = Execute<CollaboratorList>(req);
-            return list;
-        }
-
-        public void UpdateBoardContent(Board board)
-        {
-            var shapes = board.Shapes;
-            var content = Utilities.ExportShapes(shapes);
-
-            var req = new RestRequest();
-            req.AddParameter("Id", board.Id);
-            req.AddParameter("Content", content);
-            req.Resource = $"boards/logic/updatecontent";
-            req.Method = Method.PUT;
-            var edited = Execute<Board>(req);
+            return service;            
         }
     }
 }

@@ -114,7 +114,7 @@
             this.Controls.Add(this.btnStop);
             this.Controls.Add(this.btnStart);
             this.Name = "Server";
-            this.Text = "Form1";
+            this.Text = "WeSketch - Server";
             this.FormClosing += new System.Windows.Forms.FormClosingEventHandler(this.Server_FormClosing);
             this.ResumeLayout(false);
             this.PerformLayout();

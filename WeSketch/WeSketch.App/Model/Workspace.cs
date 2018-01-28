@@ -13,19 +13,19 @@ namespace WeSketch.App.Model
     public class Workspace : IWorkspace
     {
         private Board board;
-        private IAPI api;
 
         public Workspace()
         {
-            api = new SketchService();
+            
         }
 
         public bool AddCollaborator(string username)
         {
-            var user = api.GetUserByUsername(username);
+            var service = SketchService.GetService();
+            var user = service.GetUserByUsername(username);
             if (user.Username != username) return false;
 
-            api.AddCollaborator(user, board);
+            service.AddCollaborator(user, board);
             return true;
         }
 
@@ -45,9 +45,10 @@ namespace WeSketch.App.Model
             return this.board;
         }
 
-        public CollaboratorList LoadBoardCollaborators()
+        public List<User> LoadBoardCollaborators()
         {
-            var collaborators = api.GetBoardCollaborators(board);
+            var service = SketchService.GetService();
+            var collaborators = service.GetBoardCollaborators(board);
             return collaborators;
         }
 
@@ -58,12 +59,14 @@ namespace WeSketch.App.Model
 
         public void RemoveCollaborator(User user)
         {
-            api.RemoveCollaborator(user, board);
+            var service = SketchService.GetService();
+            service.RemoveCollaborator(user, board);
         }
 
         public void SaveBoard()
         {
-            api.UpdateBoardContent(board);
+            var service = SketchService.GetService();
+            service.UpdateBoardContent(board);
         }
 
         public void SetBoard(Board board)

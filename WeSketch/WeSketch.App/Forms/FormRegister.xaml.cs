@@ -23,14 +23,11 @@ namespace WeSketch.App.Forms
     {
         private MetroWindow parent;
 
-        IAPI api;
-
         public FormRegister(MetroWindow parent)
         {
             InitializeComponent();
             this.parent = parent;
             this.parent.Visibility = Visibility.Hidden;
-            api = new SketchService();
         }
 
         private void btnRegister_Click(object sender, RoutedEventArgs e)
@@ -43,7 +40,7 @@ namespace WeSketch.App.Forms
 
             UserRegistrationOptions options = new UserRegistrationOptions() { Username = username, Email = email, Password = password, FirstName = fname, LastName = lname };
 
-            bool registered = api.Register(options);
+            bool registered = false;
 
             if(registered)
             {

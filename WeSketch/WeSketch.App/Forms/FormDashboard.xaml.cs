@@ -43,10 +43,9 @@ namespace WeSketch.App.Forms
         {
             var title = createBoardDialog.tbxBoardTitle.Text;
             var isPublic = createBoardDialog.cbxIsPublic.IsChecked;
+            this.HideMetroDialogAsync(customDialog);
 
             controller.CreateBoard(title, (bool)isPublic);
-
-            this.HideMetroDialogAsync(customDialog);
         }
 
         private void ButtonCancel_Click(object sender, RoutedEventArgs e)
@@ -56,8 +55,7 @@ namespace WeSketch.App.Forms
 
         private void LoadMyBoards()
         {
-            var boardList = dashboard.GetCurrentUserBoardList();
-            var boards = boardList.Boards;
+            var boards = dashboard.GetCurrentUserBoardList();
             dataMyBoards.ItemsSource = boards;
         }
 

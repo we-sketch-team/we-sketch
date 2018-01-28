@@ -10,16 +10,15 @@ namespace WeSketch.App.Model
 {
     public class Login : ILogin
     {
-        private IAPI api;
-
         public Login()
         {
-            api = new SketchService();
+            
         }
 
         public bool LoginByUsername(string username, string password)
         {
-            User user = api.Login(username, password);
+            var service = SketchService.GetService();
+            User user = service.Login(username, password);
             Global.CurrentUser = user;
             return user.Id != -1;
         }
