@@ -11,6 +11,7 @@ using System.Net;
 using WeSketch.App.Model;
 using System.Windows.Threading;
 using System.IO;
+using System.Windows;
 
 namespace WeSketch.App.Data.API
 {
@@ -24,10 +25,10 @@ namespace WeSketch.App.Data.API
         public ApiService()
         {
             connection = new HubConnection(ServerUrl);
-            var writer = new StreamWriter("ClientLog.txt");
-            writer.AutoFlush = true;
+            //var writer = new StreamWriter("ClientLog.txt");
+            //writer.AutoFlush = true;
             connection.TraceLevel = TraceLevels.All;
-            connection.TraceWriter = writer;
+            //connection.TraceWriter = writer;
             ServicePointManager.DefaultConnectionLimit = 10;
             HubsSetup();
             connection.Start().Wait();
@@ -53,7 +54,10 @@ namespace WeSketch.App.Data.API
         private void BoardHubSetup()
         {
             boardHub = connection.CreateHubProxy("BoardHub");
-            boardHub.On("NotifyBoardUpdate", () => Dispatcher.CurrentDispatcher.InvokeAsync(() => Display()));
+            boardHub.On("NotifyBoardUpdate", () => Application.Current.Dispatcher.Invoke(DispatcherPriority.Normal, new Action(() =>
+             {
+                 Display();
+             })));
         }
 
         private void Display() => System.Windows.MessageBox.Show("OK");
@@ -70,9 +74,13 @@ namespace WeSketch.App.Data.API
             ResetConnection();
             //
             var id = user.Id;
-            var boardsTask = boardHub.Invoke<List<Board>>("GetMyBoards", id);
-            boardsTask.Wait();
-            var boards = boardsTask.Result;
+            List<Board> boards = new List<Board>();
+
+            Application.Current.Dispatcher.Invoke(DispatcherPriority.Normal, new Action(() =>
+            {
+                boards = boardHub.Invoke<List<Board>>("GetMyBoards", id).Result;
+            }));
+
             return boards;
         }
 
@@ -90,9 +98,13 @@ namespace WeSketch.App.Data.API
         {
             ResetConnection();
             //
-            var logged = userHub.Invoke<User>("Login", new { Email = email, Password = password });
-            logged.Wait();
-            return logged.Result;
+            User user = null;
+            Application.Current.Dispatcher.Invoke(DispatcherPriority.Normal, new Action(() =>
+            {
+                user = userHub.Invoke<User>("Login", new { Email = email, Password = password }).Result;
+                
+            }));
+            return user;
         }
 
         public User GetUserByUsername(string username)
@@ -132,8 +144,12 @@ namespace WeSketch.App.Data.API
             //
             board.Content = Utilities.ExportShapes(board.Shapes);
             var boardObj = new { Id = board.Id, Content = board.Content };
-            var task = boardHub.Invoke<Board>("UpdateBoardContent", boardObj);
-            task.Wait();
+
+            Application.Current.Dispatcher.Invoke(DispatcherPriority.Normal, new Action(() =>
+            {
+                boardHub.Invoke<Board>("UpdateBoardContent", boardObj);
+            }));
+
         }
 
         public bool AddCollaborator(User user, Board board)
@@ -154,9 +170,14 @@ namespace WeSketch.App.Data.API
         {
             ResetConnection();
             //
-            var task = boardHub.Invoke<List<User>>("GetCollaborators", board.Id);
-            task.Wait();
-            return task.Result;
+            List<User> collabs = null;
+
+            Application.Current.Dispatcher.Invoke(DispatcherPriority.Normal, new Action(() =>
+            {
+                collabs = boardHub.Invoke<List<User>>("GetCollaborators", board.Id).Result;
+            }));
+
+            return collabs;
         }
 
         public void SetObserver(IBoardContentObserver observer)
@@ -166,14 +187,18 @@ namespace WeSketch.App.Data.API
 
         public void SubscribeToBoard(Board board)
         {
-            var task = groupsHub.Invoke("RegisterToBoardGroup", board.Id);
-            task.Wait();            
+            Application.Current.Dispatcher.Invoke(DispatcherPriority.Normal, new Action(() =>
+            {
+                groupsHub.Invoke("RegisterToBoardGroup", board.Id);
+            }));          
         }
 
         public void UnsubscribeFromBoard(Board board)
         {
-            var task = groupsHub.Invoke("UnsubscribeFromBoardGroup", board.Id);
-            task.Wait();
+            Application.Current.Dispatcher.Invoke(DispatcherPriority.Normal, new Action(() =>
+            {
+                groupsHub.Invoke("UnsubscribeFromBoardGroup", board.Id);
+            }));
         }
     }
 }
