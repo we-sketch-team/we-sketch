@@ -22,28 +22,31 @@
             <Button x:Name="btnRefresh" Content="{iconPacks:PackIconMaterial Refresh}" HorizontalAlignment="Left" Height="32" Margin="220,10,0,0" VerticalAlignment="Top" Width="100" Click="btnRefresh_Click"/>
         </Grid>
         <Grid x:Name="gridDashboardMain" Margin="67,77,67,0">
-            <TabControl Margin="0,10,0,68">
-                <TabItem Header="My boards" Margin="0,0,-12,0" Padding="0,2,20,2" FontSize="8" Foreground="Black">
-                    <DataGrid x:Name="dataMyBoards" HorizontalAlignment="Left" Height="391" Margin="10,10,0,0" VerticalAlignment="Top" Width="1008" FontSize="16" BorderThickness="2" AutoGenerateColumns="False" IsReadOnly="True" MouseDoubleClick="dataMyBoards_MouseDoubleClick">
+            <TabControl x:Name="tabBoards" Margin="0,10,0,68">
+                <TabItem x:Name="tabItemMyBoards" Header="My boards" Margin="0,0,-12,0" Padding="0,2,20,2" FontSize="8" Foreground="Black">
+                    <DataGrid x:Name="dataMyBoards" Height="391" Margin="10,10,10,0" VerticalAlignment="Top" FontSize="16" BorderThickness="2" AutoGenerateColumns="False" IsReadOnly="True" MouseDoubleClick="dataMyBoards_MouseDoubleClick">
                         <DataGrid.Columns>
                             <DataGridTextColumn Header="Id" Binding="{Binding Id}"/>
                             <DataGridTextColumn Header="Title" Binding="{Binding Title}"/>
+                            <!--<DataGridTextColumn Header="Description" >Binding="{Binding Description}">/>-->
+                            <DataGridTextColumn Header="Description"/>
                             <DataGridTextColumn Header="Collaborators" Binding="{Binding Collaborators}"/>
                         </DataGrid.Columns>
                     </DataGrid>
                 </TabItem>
-                <TabItem Header="My favorites" Padding="0,2,20,2" FontSize="8">
-                    <Grid x:Name="gridMyFavorites" Background="yellow" Margin="0,0,0,-3"/>
-                </TabItem>
-                <TabItem Header="Shared with me" Padding="0,2,20,2" FontSize="8">
-                    <Grid x:Name="gridSharedWithMe" Background="red" Margin="0,0,0,-3"/>
-                </TabItem>
-                <TabItem Header="Public" Padding="0,2,20,2" FontSize="8">
-                    <Grid x:Name="gridPublicBoards" Background="green" Margin="0,0,0,-3"/>
+                <TabItem x:Name="tabItemSharedWithMe" Header="Shared with me" Padding="0,2,20,2" FontSize="8">
+                    <DataGrid x:Name="dataSharedWithMe" Height="391" Margin="10,10,10,0" VerticalAlignment="Top" FontSize="16" BorderThickness="2" AutoGenerateColumns="False" IsReadOnly="True" MouseDoubleClick="dataMyBoards_MouseDoubleClick">
+                        <DataGrid.Columns>
+                            <DataGridTextColumn Header="Id" Binding="{Binding Id}"/>
+                            <DataGridTextColumn Header="Title" Binding="{Binding Title}"/>
+                            <!--<DataGridTextColumn Header="Description" >Binding="{Binding Description}">/>-->
+                            <DataGridTextColumn Header="Description"/>
+                            <DataGridTextColumn Header="Collaborators" Binding="{Binding Collaborators}"/>
+                        </DataGrid.Columns>
+                    </DataGrid>
                 </TabItem>
 
             </TabControl>
         </Grid>
-
     </Grid>
 </Controls:MetroWindow>

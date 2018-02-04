@@ -35,7 +35,6 @@ namespace WeSketch.Server.Communications.Hubs
             var groupName = Config.GroupNames.BoardGroup(boardDetailsDTO.Id);
             Logger.Log($"Updated content for board with id: {board.Id}");
             Logger.Log($"Sent update notification to group with name: {groupName}");
-            //Clients.Group(groupName).NotifyBoardUpdate(board);
             var group = GroupRegistrationHub.BoardGroups[groupName];
             group.ForEach(u => Clients.Client(u).NotifyBoardUpdate(board));
             return board;

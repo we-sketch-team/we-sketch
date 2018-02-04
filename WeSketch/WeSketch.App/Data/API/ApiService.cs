@@ -17,7 +17,7 @@ namespace WeSketch.App.Data.API
 {
     public class ApiService : IAPI
     {
-        private const string ServerUrl = "http://localhost:15000";
+        private const string ServerUrl = "http://10.10.0.5:15000";
         private HubConnection connection;
         IHubProxy userHub, boardHub, groupsHub;
         IBoardContentObserver workspace;
@@ -94,9 +94,14 @@ namespace WeSketch.App.Data.API
 
         public User GetUserByUsername(string username)
         {
-            var task = userHub.Invoke<User>("GetUserByUsername", username);
-            task.Wait();
-            return task.Result;
+            User user = null;
+            Application.Current.Dispatcher.Invoke(DispatcherPriority.Normal, new Action(() =>
+            {
+                user = userHub.Invoke<User>("GetUserByUsername", username).Result;
+
+            }));
+
+            return user;
         }
 
         public bool Register(UserRegistrationOptions options)
@@ -106,16 +111,22 @@ namespace WeSketch.App.Data.API
 
         public bool CreateBoard(string title, bool isPublic, User user)
         {
-            var boardTask = boardHub.Invoke<Board>("CreateBoard", new { PublicBoard = isPublic, Title = title, UserId = user.Id, DateCreated = DateTime.Now});
-            boardTask.Wait();
-            var board = boardTask.Result;
+            Board board = new Board();
+            Application.Current.Dispatcher.Invoke(DispatcherPriority.Normal, new Action(() =>
+            {
+                board = boardHub.Invoke<Board>("CreateBoard", new { PublicBoard = isPublic, Title = title, UserId = user.Id, DateCreated = DateTime.Now }).Result;
+            }));
+
             return board.Title == title;
         }
 
         public bool DeleteBoard(Board board, User user)
         {
-            var task = boardHub.Invoke("DeleteBoard", board.Id);
-            task.Wait();
+            Application.Current.Dispatcher.Invoke(DispatcherPriority.Normal, new Action(() =>
+            {
+                boardHub.Invoke("DeleteBoard", board.Id);
+            }));
+
             return true;
         }
 
@@ -132,8 +143,11 @@ namespace WeSketch.App.Data.API
 
         public bool AddCollaborator(User user, Board board)
         {
-            var task = boardHub.Invoke<Board>("AddCollaborator", new { UserId = user.Id, BoardId = board.Id });
-            task.Wait();
+
+            Application.Current.Dispatcher.Invoke(DispatcherPriority.Normal, new Action(() =>
+            {
+                boardHub.Invoke<Board>("AddCollaborator", new { UserId = user.Id, BoardId = board.Id });
+            }));
             return true;
         }
 
@@ -146,12 +160,12 @@ namespace WeSketch.App.Data.API
         {
             List<User> collabs = null;
 
-            //Application.Current.Dispatcher.Invoke(DispatcherPriority.Normal, new Action(() =>
-            //{
-            //    collabs = boardHub.Invoke<List<User>>("GetCollaborators", board.Id).Result;
-            //}));
+            Application.Current.Dispatcher.Invoke(DispatcherPriority.Normal, new Action(() =>
+            {
+                collabs = boardHub.Invoke<List<User>>("GetCollaborators", board.Id).Result;
+            }));
 
-            return new List<User>();
+            return collabs;
         }
 
         public void SetBoardContentObserver(IBoardContentObserver observer)
