@@ -80,13 +80,31 @@ namespace ConsoleApp1
 
         static void Main(string[] args)
         {
-           // CreateBoard();
+			BoardDetailsDTO board = new BoardDetailsDTO
+			{
+				Id = 1,
+				Content = "this came firts in number 1 board" 
+			};
 
-            Console.WriteLine(dataService.GetBoard(81).Id);
-            //foreach (var item in GetBoardCollaborators(74))
-            //{
-            //    Console.WriteLine(item.Id + " " + item.FirstName + " " + item.Id);
-            //}
-        }
-    }
+			BoardDetailsDTO board1 = new BoardDetailsDTO
+			{
+				Id = 1,
+				Content = "this came second in number 1 board"
+			};
+
+			BoardDetailsDTO board2 = new BoardDetailsDTO
+			{
+				Id = 46,
+				Content = "this came firts in number 46 board"
+			};
+
+			WeSketch.Server.Queues.BoardsUpdateQueue.AddToQueue(board);
+			WeSketch.Server.Queues.BoardsUpdateQueue.AddToQueue(board1);
+			WeSketch.Server.Queues.BoardsUpdateQueue.AddToQueue(board2);
+
+			Console.WriteLine(WeSketch.Server.Queues.BoardsUpdateQueue.RemoveFromQueue(1).Content);
+			Console.WriteLine(WeSketch.Server.Queues.BoardsUpdateQueue.RemoveFromQueue(1).Content);
+			Console.WriteLine(WeSketch.Server.Queues.BoardsUpdateQueue.RemoveFromQueue(46).Content);
+		}
+	}
 }

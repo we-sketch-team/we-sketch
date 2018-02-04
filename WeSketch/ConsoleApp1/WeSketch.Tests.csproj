@@ -61,6 +61,10 @@
       <Project>{098ccd22-4aeb-4214-b359-e244df33b8fc}</Project>
       <Name>WeSketch.BusinessLogic</Name>
     </ProjectReference>
+    <ProjectReference Include="..\WeSketch.Server\WeSketch.Server.csproj">
+      <Project>{c80560d1-5477-4961-9244-78903041351f}</Project>
+      <Name>WeSketch.Server</Name>
+    </ProjectReference>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>

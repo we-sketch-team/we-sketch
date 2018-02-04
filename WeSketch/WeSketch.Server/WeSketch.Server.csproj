@@ -97,6 +97,7 @@
     <Compile Include="Communications\Hubs\UserHub.cs" />
     <Compile Include="ILoggable.cs" />
     <Compile Include="Logger.cs" />
+    <Compile Include="Queues\BoardsUpdateQueue.cs" />
     <Compile Include="Server.cs">
       <SubType>Form</SubType>
     </Compile>
