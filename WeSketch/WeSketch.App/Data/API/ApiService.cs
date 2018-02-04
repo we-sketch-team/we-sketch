@@ -17,14 +17,14 @@ namespace WeSketch.App.Data.API
 {
     public class ApiService : IAPI
     {
-        public static string ServerUrl = "http://160.99.38.140:15000";
+        private string ServerURI = Global.ServerURI;
         private HubConnection connection;
         IHubProxy userHub, boardHub, groupsHub;
         IBoardContentObserver workspace;
 
         public ApiService()
         {
-            connection = new HubConnection(ServerUrl);
+            connection = new HubConnection(ServerURI);
             //var writer = new StreamWriter("ClientLog.txt");
             //writer.AutoFlush = true;
             connection.TraceLevel = TraceLevels.All;

@@ -43,7 +43,7 @@ namespace WeSketch.App.Forms
 
         private void btnLogin_Click(object sender, RoutedEventArgs e)
         {
-            ApiService.ServerUrl = tbxServer.Text;
+            Global.ServerURI = tbxServer.Text;
             //
             string username = tbxEmail.Text;
             string password = tbxPassword.Password;
