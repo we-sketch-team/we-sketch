@@ -19,7 +19,7 @@ namespace WeSketch.App.Data
         public ShapeList Shapes { get; set; }
         public CollaboratorList Collaborators { get; set; }
         public Canvas MyCanvas { get; set; }
-
+        public string Role { get; set; }
 
         public Board()
         {

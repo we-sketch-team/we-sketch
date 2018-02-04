@@ -86,9 +86,9 @@ namespace WeSketch.App.Model
         public void SetBoard(Board board)
         {
             CloseBoard();
-            this.board = board;
-            this.board.Shapes = Utilities.ImportShapes(board.Content);
             var service = SketchService.GetService();
+            this.board = service.GetBoardById(board.Id);
+            this.board.Shapes = Utilities.ImportShapes(board.Content);
             service.SetBoardContentObserver(this);
             service.SubscribeToBoard(board);
         }

@@ -17,7 +17,7 @@ namespace WeSketch.App.Data.API
 {
     public class ApiService : IAPI
     {
-        private const string ServerUrl = "http://160.99.38.140:15000";
+        public static string ServerUrl = "http://160.99.38.140:15000";
         private HubConnection connection;
         IHubProxy userHub, boardHub, groupsHub;
         IBoardContentObserver workspace;
@@ -75,10 +75,14 @@ namespace WeSketch.App.Data.API
 
         public Board GetBoardById(int id)
         {
-            var task = boardHub.Invoke<Board>("GetBoard", id);
-            task.Wait();
-            var board = task.Result;
-            return null;
+            Board board = new Board();
+
+            Application.Current.Dispatcher.Invoke(DispatcherPriority.Normal, new Action(() =>
+            {
+                board = boardHub.Invoke<Board>("GetBoardWithRole", Global.CurrentUser.Id, id).Result;
+            }));
+
+            return board;
         }
 
         public User Login(string email, string password)
