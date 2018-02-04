@@ -21,7 +21,7 @@ namespace WeSketch.App.Data.API
         bool RemoveCollaborator(User user, Board board);
         List<User> GetBoardCollaborators(Board board);
         Board GetBoardById(int id);
-        void SetObserver(IBoardContentObserver observer);
+        void SetBoardContentObserver(IBoardContentObserver observer);
         void SubscribeToBoard(Board board);
         void UnsubscribeFromBoard(Board board);
     }

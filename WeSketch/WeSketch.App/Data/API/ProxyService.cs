@@ -65,7 +65,7 @@ namespace WeSketch.App.Data.API
             throw new NotImplementedException();
         }
 
-        public void SetObserver(IBoardContentObserver observer)
+        public void SetBoardContentObserver(IBoardContentObserver observer)
         {
             throw new NotImplementedException();
         }

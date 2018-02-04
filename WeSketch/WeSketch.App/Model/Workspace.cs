@@ -40,6 +40,7 @@ namespace WeSketch.App.Model
 
             var service = SketchService.GetService();
             service.UnsubscribeFromBoard(board);
+            service.SetBoardContentObserver(null);
             board = null; // ?
         }
 
@@ -88,12 +89,13 @@ namespace WeSketch.App.Model
             this.board = board;
             this.board.Shapes = Utilities.ImportShapes(board.Content);
             var service = SketchService.GetService();
+            service.SetBoardContentObserver(this);
             service.SubscribeToBoard(board);
         }
 
         public void UpdateBoardContent(Board updatedBoard)
         {
-            if (board.Id != updatedBoard.Id) return;
+            if (board.Content == updatedBoard.Content) return;
 
             board.Content = updatedBoard.Content;
             board.Shapes = Utilities.ImportShapes(board.Content);
