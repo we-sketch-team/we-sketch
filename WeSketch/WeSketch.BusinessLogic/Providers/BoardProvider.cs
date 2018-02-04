@@ -53,7 +53,36 @@ namespace WeSketch.BusinessLogic.Providers
             return ConverterToDTO.ListOfUsersToDetails(collaborators);            
         }
 
-        public List<BoardDetailsDTO> GetAllUserBoards()
+		public List<BoardDetailsDTO> GetMyBoardsBasicInformation()
+		{
+			User user = mediator.User;
+
+			if (user == null)
+			{
+				List<BoardDetailsDTO> invalidResult = new List<BoardDetailsDTO>();
+				invalidResult.Add(InvalidDTOFactory.InvalidBoard());
+				return invalidResult;
+			}
+
+			List<UserBoards> userBoards = user.UserBoards.ToList();
+			List<BoardDetailsDTO> result = new List<BoardDetailsDTO>();
+			BoardDetailsDTO boardDetails =  new BoardDetailsDTO();
+
+			foreach (var userBoard in userBoards)
+			{
+				if (userBoard.Role != Utility.CreatorRole())
+					continue;
+
+				boardDetails.Title = userBoard.Board.Title;
+				boardDetails.Id = userBoard.BoardId;
+				boardDetails.Desription = userBoard.Board.Desription;
+				result.Add(boardDetails);
+			}
+
+			return result;
+		}
+
+		public List<BoardDetailsDTO> GetAllUserBoards()
         {
             User user = mediator.User;
 
@@ -92,7 +121,22 @@ namespace WeSketch.BusinessLogic.Providers
             return ConverterToDTO.BoardToBoardDetails(board); 
         }
 
-        public List<BoardDetailsDTO> GetAllPublicBoards()
+		public BoardDetailsDTO GetBoadWithRole(int boardId)
+		{
+			if (boardId <= 0)
+				return InvalidDTOFactory.InvalidBoard();
+
+			Board board = unitOfWork.BoardRepository.GetById(boardId);
+
+			if (board == null)
+				return InvalidDTOFactory.InvalidBoard();
+
+			BoardDetailsDTO result = ConverterToDTO.BoardToBoardDetails(board);
+			result.Role = Utility.GetRole(mediator.User, board);
+			return result;
+		}
+
+		public List<BoardDetailsDTO> GetAllPublicBoards()
         {     
             List<Board> boards = unitOfWork.BoardRepository.GetAll().FindAll(x => x.PublicBoard);
 

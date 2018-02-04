@@ -14,7 +14,7 @@ namespace WeSketch.Server.Communications.Hubs
         {
             var message = $"Board list requested from user with id: {userId}";
             Logger.Log(message);
-            return dataService.GetAllUserBoards(userId);
+            return dataService.GetMyBoardsBasicInformation(userId);
         }
 
         public CreateBoardDto CreateBoard(CreateBoardDto createBoardDto)
@@ -22,11 +22,11 @@ namespace WeSketch.Server.Communications.Hubs
             return dataService.CreateBoard(createBoardDto);
         }
 
-        public BoardDetailsDTO GetBoard(int boardId)
+        public BoardDetailsDTO GetBoardWithRole(int userId, int boardId)
         {
             var message = $"Board requested with id: {boardId}";
             Logger.Log(message);
-            return dataService.GetBoard(boardId);
+            return dataService.GetBoardWithRole(userId, boardId);
         }
 
         public BoardDetailsDTO UpdateBoardContent(BoardDetailsDTO boardDetailsDTO)

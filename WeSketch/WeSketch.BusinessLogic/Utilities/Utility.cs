@@ -27,11 +27,6 @@ namespace WeSketch.BusinessLogic.Utilities
         public static string CollaboratorRole()
         {
             return "Collaborator";
-        }
-
-        public static string SpectatorRole()
-        {
-            return "Spectator";
-        }
+        }      
     }
 }
