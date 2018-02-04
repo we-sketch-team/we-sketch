@@ -98,13 +98,29 @@ namespace ConsoleApp1
 				Content = "this came firts in number 46 board"
 			};
 
+			BoardDetailsDTO board3 = new BoardDetailsDTO
+			{
+				Id = 32,
+				Content = "this came firts in number 32 board"
+			};
+
+			BoardDetailsDTO board4 = new BoardDetailsDTO
+			{
+				Id = 32,
+				Content = "this came second in number 32 board"
+			};
+
 			WeSketch.Server.Queues.BoardsUpdateQueue.AddToQueue(board);
 			WeSketch.Server.Queues.BoardsUpdateQueue.AddToQueue(board1);
 			WeSketch.Server.Queues.BoardsUpdateQueue.AddToQueue(board2);
+			WeSketch.Server.Queues.BoardsUpdateQueue.AddToQueue(board3);
+			WeSketch.Server.Queues.BoardsUpdateQueue.AddToQueue(board4);
 
 			Console.WriteLine(WeSketch.Server.Queues.BoardsUpdateQueue.RemoveFromQueue(1).Content);
 			Console.WriteLine(WeSketch.Server.Queues.BoardsUpdateQueue.RemoveFromQueue(1).Content);
+			Console.WriteLine(WeSketch.Server.Queues.BoardsUpdateQueue.RemoveFromQueue(32).Content);
 			Console.WriteLine(WeSketch.Server.Queues.BoardsUpdateQueue.RemoveFromQueue(46).Content);
+			Console.WriteLine(WeSketch.Server.Queues.BoardsUpdateQueue.RemoveFromQueue(32).Content);
 		}
 	}
 }

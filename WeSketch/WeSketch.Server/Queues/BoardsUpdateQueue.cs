@@ -20,6 +20,9 @@ namespace WeSketch.Server.Queues
 
 		public static BoardDetailsDTO RemoveFromQueue(int boardId)
 		{
+			if (boardsUpdateQueues[boardId].Count == 0)
+				return null;
+
 			return boardsUpdateQueues[boardId].Dequeue();
 		}
 
