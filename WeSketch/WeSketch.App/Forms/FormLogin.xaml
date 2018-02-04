@@ -22,7 +22,7 @@
                 <PasswordBox x:Name="tbxPassword" HorizontalAlignment="Center" Height="32" Margin="127,124,136,0" VerticalAlignment="Top" Width="200" Controls:TextBoxHelper.Watermark="password" FontSize="16" FontFamily="Segoe UI" Password="sifrica"/>
                 <Button x:Name="btnLogin" Content="{iconPacks:PackIconMaterial Login}" HorizontalAlignment="Center" Height="32" Margin="127,161,136,70" VerticalAlignment="Center" Width="200" FontFamily="Roboto" FontSize="22" Style="{StaticResource AccentedSquareButtonStyle}" Click="btnLogin_Click" FontWeight="Normal" Padding="5,5,5,6" VerticalContentAlignment="Center"/>
                 <Button x:Name="btnRegister" Content="{iconPacks:PackIconMaterial AccountPlus}" HorizontalAlignment="Center" Height="32" Margin="127,198,136,0" VerticalAlignment="Top" Width="200" FontFamily="Roboto" FontSize="22" Click="btnRegister_Click"/>
-                <TextBox x:Name="tbxServer" Height="28" Margin="0,59,136,0" TextWrapping="Wrap" Text="http://160.99.38.140:15000/" VerticalAlignment="Top" HorizontalAlignment="Right" Width="200"/>
+                <ComboBox x:Name="cbxServer" HorizontalAlignment="Left" Margin="127,59,0,0" VerticalAlignment="Top" Width="200"/>
             </Grid>
         </Grid>
     </Grid>

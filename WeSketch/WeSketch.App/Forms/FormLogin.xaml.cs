@@ -32,7 +32,17 @@ namespace WeSketch.App.Forms
         public FormLogin()
         {
             InitializeComponent();
+            PopulateComboBoxWithServers();
             Init(new Login());
+        }
+
+        private void PopulateComboBoxWithServers()
+        {
+            cbxServer.Items.Add("http://localhost:15000/");
+            cbxServer.Items.Add("http://10.10.0.5:15000/");
+            cbxServer.Items.Add("http://160.99.38.140:15000/");
+
+            cbxServer.SelectedIndex = 0;
         }
 
         private void btnRegister_Click(object sender, RoutedEventArgs e)
@@ -43,7 +53,7 @@ namespace WeSketch.App.Forms
 
         private void btnLogin_Click(object sender, RoutedEventArgs e)
         {
-            Global.ServerURI = tbxServer.Text;
+            Global.ServerURI = cbxServer.SelectedItem as string;
             //
             string username = tbxEmail.Text;
             string password = tbxPassword.Password;
