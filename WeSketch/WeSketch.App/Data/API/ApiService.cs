@@ -17,7 +17,7 @@ namespace WeSketch.App.Data.API
 {
     public class ApiService : IAPI
     {
-        private const string ServerUrl = "http://localhost:15000";
+        private const string ServerUrl = "http://160.99.38.140:15000";
         private HubConnection connection;
         IHubProxy userHub, boardHub, groupsHub;
         IBoardContentObserver workspace;

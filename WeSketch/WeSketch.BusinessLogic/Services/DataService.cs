@@ -53,12 +53,24 @@ namespace WeSketch.BusinessLogic.Services
             return boardProvider.GetAllUserBoards();
         }
 
-        public BoardDetailsDTO GetBoard(int id)
+		public List<BoardDetailsDTO> GetMyBoardsBasicInformation(int userId)
+		{
+			userProvider.SetMediatorUser(userId);
+			return boardProvider.GetMyBoardsBasicInformation();
+		}
+
+		public BoardDetailsDTO GetBoard(int id)
         {
             return boardProvider.GetBoard(id);
         }
 
-        public UserDetailsDTO UpdateUser(UserDetailsDTO userDetails)
+		public BoardDetailsDTO GetBoardWithRole(int userId, int boardId)
+		{
+			userProvider.SetMediatorUser(userId);
+			return boardProvider.GetBoadWithRole(boardId);
+		}
+
+		public UserDetailsDTO UpdateUser(UserDetailsDTO userDetails)
         {
             return userProvider.UpdateUser(userDetails);
         }
