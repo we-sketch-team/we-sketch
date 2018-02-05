@@ -6,6 +6,7 @@ using System.Threading.Tasks;
 using WeSketch.BusinessLogic.Services;
 using WeSketch.BusinessLogic.DTOs;
 using WeSketch.BusinessLogic.DTOs.BoardDTOs;
+using WeSketch.Server.NotificationsSystem;
 
 namespace ConsoleApp1
 {
@@ -80,47 +81,78 @@ namespace ConsoleApp1
 
         static void Main(string[] args)
         {
-			BoardDetailsDTO board = new BoardDetailsDTO
+			#region Boards update queues
+			//BoardDetailsDTO board = new BoardDetailsDTO
+			//{
+			//	Id = 1,
+			//	Content = "this came firts in number 1 board" 
+			//};
+
+			//BoardDetailsDTO board1 = new BoardDetailsDTO
+			//{
+			//	Id = 1,
+			//	Content = "this came second in number 1 board"
+			//};
+
+			//BoardDetailsDTO board2 = new BoardDetailsDTO
+			//{
+			//	Id = 46,
+			//	Content = "this came firts in number 46 board"
+			//};
+
+			//BoardDetailsDTO board3 = new BoardDetailsDTO
+			//{
+			//	Id = 32,
+			//	Content = "this came firts in number 32 board"
+			//};
+
+			//BoardDetailsDTO board4 = new BoardDetailsDTO
+			//{
+			//	Id = 32,
+			//	Content = "this came second in number 32 board"
+			//};
+
+			//WeSketch.Server.Queues.BoardsUpdateQueue.AddToQueue(board);
+			//WeSketch.Server.Queues.BoardsUpdateQueue.AddToQueue(board1);
+			//WeSketch.Server.Queues.BoardsUpdateQueue.AddToQueue(board2);
+			//WeSketch.Server.Queues.BoardsUpdateQueue.AddToQueue(board3);
+			//WeSketch.Server.Queues.BoardsUpdateQueue.AddToQueue(board4);
+
+			//Console.WriteLine(WeSketch.Server.Queues.BoardsUpdateQueue.RemoveFromQueue(1).Content);
+			//Console.WriteLine(WeSketch.Server.Queues.BoardsUpdateQueue.RemoveFromQueue(1).Content);
+			//Console.WriteLine(WeSketch.Server.Queues.BoardsUpdateQueue.RemoveFromQueue(32).Content);
+			//Console.WriteLine(WeSketch.Server.Queues.BoardsUpdateQueue.RemoveFromQueue(46).Content);
+			//Console.WriteLine(WeSketch.Server.Queues.BoardsUpdateQueue.RemoveFromQueue(32).Content);
+			#endregion
+
+			Notification notification1 = new Notification
 			{
-				Id = 1,
-				Content = "this came firts in number 1 board" 
+				UserId = 1,
+				Type = Notification.NotificationType.AddedToBoard,
+				Content = "Came first in 1"
 			};
 
-			BoardDetailsDTO board1 = new BoardDetailsDTO
+			Notification notification2 = new Notification
 			{
-				Id = 1,
-				Content = "this came second in number 1 board"
+				UserId = 1,
+				Type = Notification.NotificationType.AddedToBoard,
+				Content = "Came second in 1"
 			};
 
-			BoardDetailsDTO board2 = new BoardDetailsDTO
+			Notification notification3 = new Notification
 			{
-				Id = 46,
-				Content = "this came firts in number 46 board"
+				UserId = 3,
+				Type = Notification.NotificationType.AddedToBoard,
+				Content = "Came first in 3"
 			};
 
-			BoardDetailsDTO board3 = new BoardDetailsDTO
-			{
-				Id = 32,
-				Content = "this came firts in number 32 board"
-			};
+			WeSketch.Server.NotificationsSystem.NotificationsQueue.AddToQueue(notification1);
+			WeSketch.Server.NotificationsSystem.NotificationsQueue.AddToQueue(notification2);
+			WeSketch.Server.NotificationsSystem.NotificationsQueue.AddToQueue(notification3);
 
-			BoardDetailsDTO board4 = new BoardDetailsDTO
-			{
-				Id = 32,
-				Content = "this came second in number 32 board"
-			};
-
-			WeSketch.Server.Queues.BoardsUpdateQueue.AddToQueue(board);
-			WeSketch.Server.Queues.BoardsUpdateQueue.AddToQueue(board1);
-			WeSketch.Server.Queues.BoardsUpdateQueue.AddToQueue(board2);
-			WeSketch.Server.Queues.BoardsUpdateQueue.AddToQueue(board3);
-			WeSketch.Server.Queues.BoardsUpdateQueue.AddToQueue(board4);
-
-			Console.WriteLine(WeSketch.Server.Queues.BoardsUpdateQueue.RemoveFromQueue(1).Content);
-			Console.WriteLine(WeSketch.Server.Queues.BoardsUpdateQueue.RemoveFromQueue(1).Content);
-			Console.WriteLine(WeSketch.Server.Queues.BoardsUpdateQueue.RemoveFromQueue(32).Content);
-			Console.WriteLine(WeSketch.Server.Queues.BoardsUpdateQueue.RemoveFromQueue(46).Content);
-			Console.WriteLine(WeSketch.Server.Queues.BoardsUpdateQueue.RemoveFromQueue(32).Content);
+			Console.WriteLine(NotificationsQueue.RemoveFromQueue(1).Content);
+			Console.WriteLine(NotificationsQueue.RemoveFromQueue(3).Content);
+			Console.WriteLine(NotificationsQueue.RemoveFromQueue(1).Content);
 		}
 	}
 }
