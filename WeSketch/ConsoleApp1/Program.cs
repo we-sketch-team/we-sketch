@@ -7,6 +7,7 @@ using WeSketch.BusinessLogic.Services;
 using WeSketch.BusinessLogic.DTOs;
 using WeSketch.BusinessLogic.DTOs.BoardDTOs;
 using WeSketch.Server.NotificationsSystem;
+using WeSketch.Server.Queues;
 
 namespace ConsoleApp1
 {
@@ -82,77 +83,78 @@ namespace ConsoleApp1
         static void Main(string[] args)
         {
 			#region Boards update queues
-			//BoardDetailsDTO board = new BoardDetailsDTO
-			//{
-			//	Id = 1,
-			//	Content = "this came firts in number 1 board" 
-			//};
+		    BoardUpdater  board = new BoardUpdater
+			{
+				BoardId = 1,
+				UserId = 2
+			};
 
-			//BoardDetailsDTO board1 = new BoardDetailsDTO
-			//{
-			//	Id = 1,
-			//	Content = "this came second in number 1 board"
-			//};
+			BoardUpdater board1 = new BoardUpdater
+			{
+				BoardId = 1,
+				UserId = 3
+			};
 
-			//BoardDetailsDTO board2 = new BoardDetailsDTO
-			//{
-			//	Id = 46,
-			//	Content = "this came firts in number 46 board"
-			//};
+			BoardUpdater board2 = new BoardUpdater
+			{
+				BoardId = 46,
+				UserId = 4
+			};
 
-			//BoardDetailsDTO board3 = new BoardDetailsDTO
-			//{
-			//	Id = 32,
-			//	Content = "this came firts in number 32 board"
-			//};
+			BoardUpdater board3 = new BoardUpdater
+			{
+				BoardId = 32,
+				UserId = 5
+			};
 
-			//BoardDetailsDTO board4 = new BoardDetailsDTO
-			//{
-			//	Id = 32,
-			//	Content = "this came second in number 32 board"
-			//};
+			BoardUpdater board4 = new BoardUpdater
+			{
+				BoardId = 32,
+				UserId = 6
+			};
 
-			//WeSketch.Server.Queues.BoardsUpdateQueue.AddToQueue(board);
-			//WeSketch.Server.Queues.BoardsUpdateQueue.AddToQueue(board1);
-			//WeSketch.Server.Queues.BoardsUpdateQueue.AddToQueue(board2);
-			//WeSketch.Server.Queues.BoardsUpdateQueue.AddToQueue(board3);
-			//WeSketch.Server.Queues.BoardsUpdateQueue.AddToQueue(board4);
+			WeSketch.Server.Queues.BoardsUpdateQueue.AddToQueue(board);
+			WeSketch.Server.Queues.BoardsUpdateQueue.AddToQueue(board1);
+			WeSketch.Server.Queues.BoardsUpdateQueue.AddToQueue(board2);
+			WeSketch.Server.Queues.BoardsUpdateQueue.AddToQueue(board3);
+			WeSketch.Server.Queues.BoardsUpdateQueue.AddToQueue(board4);
 
-			//Console.WriteLine(WeSketch.Server.Queues.BoardsUpdateQueue.RemoveFromQueue(1).Content);
-			//Console.WriteLine(WeSketch.Server.Queues.BoardsUpdateQueue.RemoveFromQueue(1).Content);
-			//Console.WriteLine(WeSketch.Server.Queues.BoardsUpdateQueue.RemoveFromQueue(32).Content);
-			//Console.WriteLine(WeSketch.Server.Queues.BoardsUpdateQueue.RemoveFromQueue(46).Content);
-			//Console.WriteLine(WeSketch.Server.Queues.BoardsUpdateQueue.RemoveFromQueue(32).Content);
+			Console.WriteLine(WeSketch.Server.Queues.BoardsUpdateQueue.RemoveFromQueue(1).UserId);
+			Console.WriteLine(WeSketch.Server.Queues.BoardsUpdateQueue.RemoveFromQueue(1).UserId);
+			Console.WriteLine(WeSketch.Server.Queues.BoardsUpdateQueue.RemoveFromQueue(32).UserId);
+			Console.WriteLine(WeSketch.Server.Queues.BoardsUpdateQueue.RemoveFromQueue(46).UserId);
+			Console.WriteLine(WeSketch.Server.Queues.BoardsUpdateQueue.RemoveFromQueue(32).UserId);
 			#endregion
+			#region Notifications queuing
+			//Notification notification1 = new Notification
+			//{
+			//	UserId = 1,
+			//	Type = Notification.NotificationType.AddedToBoard,
+			//	Content = "Came first in 1"
+			//};
 
-			Notification notification1 = new Notification
-			{
-				UserId = 1,
-				Type = Notification.NotificationType.AddedToBoard,
-				Content = "Came first in 1"
-			};
+			//Notification notification2 = new Notification
+			//{
+			//	UserId = 1,
+			//	Type = Notification.NotificationType.AddedToBoard,
+			//	Content = "Came second in 1"
+			//};
 
-			Notification notification2 = new Notification
-			{
-				UserId = 1,
-				Type = Notification.NotificationType.AddedToBoard,
-				Content = "Came second in 1"
-			};
+			//Notification notification3 = new Notification
+			//{
+			//	UserId = 3,
+			//	Type = Notification.NotificationType.AddedToBoard,
+			//	Content = "Came first in 3"
+			//};
 
-			Notification notification3 = new Notification
-			{
-				UserId = 3,
-				Type = Notification.NotificationType.AddedToBoard,
-				Content = "Came first in 3"
-			};
+			//WeSketch.Server.NotificationsSystem.NotificationsQueue.AddToQueue(notification1);
+			//WeSketch.Server.NotificationsSystem.NotificationsQueue.AddToQueue(notification2);
+			//WeSketch.Server.NotificationsSystem.NotificationsQueue.AddToQueue(notification3);
 
-			WeSketch.Server.NotificationsSystem.NotificationsQueue.AddToQueue(notification1);
-			WeSketch.Server.NotificationsSystem.NotificationsQueue.AddToQueue(notification2);
-			WeSketch.Server.NotificationsSystem.NotificationsQueue.AddToQueue(notification3);
-
-			Console.WriteLine(NotificationsQueue.RemoveFromQueue(1).Content);
-			Console.WriteLine(NotificationsQueue.RemoveFromQueue(3).Content);
-			Console.WriteLine(NotificationsQueue.RemoveFromQueue(1).Content);
+			//Console.WriteLine(NotificationsQueue.RemoveFromQueue(1).Content);
+			//Console.WriteLine(NotificationsQueue.RemoveFromQueue(3).Content);
+			//Console.WriteLine(NotificationsQueue.RemoveFromQueue(1).Content); 
+			#endregion
 		}
 	}
 }
