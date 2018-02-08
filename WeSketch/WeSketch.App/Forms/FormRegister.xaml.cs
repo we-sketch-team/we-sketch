@@ -40,9 +40,11 @@ namespace WeSketch.App.Forms
 
             UserRegistrationOptions options = new UserRegistrationOptions() { Username = username, Email = email, Password = password, FirstName = fname, LastName = lname };
 
-            bool registered = false;
+            var service = SketchService.GetService();
 
-            if(registered)
+            bool registered = service.Register(options);
+
+            if (registered)
             {
                 Utilities.DisplayMessage(this, "Success!", "You have registered, you can login now");
             }

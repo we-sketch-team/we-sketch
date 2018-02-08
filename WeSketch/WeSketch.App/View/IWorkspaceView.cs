@@ -4,6 +4,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using WeSketch.App.Data;
+using WeSketch.App.Data.Shapes;
 using WeSketch.App.Model;
 
 namespace WeSketch.App.View

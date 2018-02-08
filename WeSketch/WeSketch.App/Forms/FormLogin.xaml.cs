@@ -47,6 +47,8 @@ namespace WeSketch.App.Forms
 
         private void btnRegister_Click(object sender, RoutedEventArgs e)
         {
+            Global.ServerURI = cbxServer.SelectedItem as string;
+            //
             FormRegister reg = new FormRegister(this);
             reg.ShowDialog();            
         }

@@ -20,5 +20,6 @@ namespace WeSketch.App.Data.Shapes
         void SetHeight(double height);
         double GetWidth();
         double GetHeight();
+        System.Windows.Shapes.Shape GetFrameworkShape();
     }
 }

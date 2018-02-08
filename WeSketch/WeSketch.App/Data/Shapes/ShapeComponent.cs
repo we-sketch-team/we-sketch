@@ -86,5 +86,10 @@ namespace WeSketch.App.Data.Shapes
         {
             return MyElement.Height;
         }
+
+        public Shape GetFrameworkShape()
+        {
+            return MyElement;
+        }
     }
 }

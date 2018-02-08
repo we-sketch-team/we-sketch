@@ -6,19 +6,36 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:iconPacks="http://metro.mahapps.com/winfx/xaml/iconpacks"
         xmlns:local="clr-namespace:WeSketch.App.Forms"
-        mc:Ignorable="d"
+    xmlns:xctk="http://schemas.xceed.com/wpf/xaml/toolkit"
+    mc:Ignorable="d"
         BorderThickness="2" 
         GlowBrush="{DynamicResource AccentColorBrush}"    
         Title="WeSketch - Workspace" Height="447.846" Width="643.598" WindowState="Maximized" Loaded="MetroWindow_Loaded" KeyUp="MetroWindow_KeyUp" Closing="MetroWindow_Closing">
     <Grid>
-        <Canvas x:Name="canvas" Margin="164,10,229,10" Background="#FFF8FFA4" KeyUp="canvas_KeyUp"/>
-        <Button x:Name="btnEnableCT" Content="Enable Drawing" Margin="0,10,10,0" VerticalAlignment="Top" Click="btnEnableCT_Click" HorizontalAlignment="Right" Width="214"/>
-        <DataGrid x:Name="dataGridCollaborators" Margin="0,146,10,10" HorizontalAlignment="Right" Width="214"/>
-        <Button x:Name="btnSave" Content="Save" Margin="0,44,10,0" VerticalAlignment="Top" HorizontalAlignment="Right" Width="214" Click="btnSave_Click"/>
-        <Button x:Name="btnAddCollaborator" Content="Add collaborator" Margin="0,78,10,0" VerticalAlignment="Top" HorizontalAlignment="Right" Width="214" Click="btnAddCollaborator_Click"/>
-        <Button x:Name="btnRemoveCollaborator" Content="Remove collaborator" Margin="0,112,10,0" VerticalAlignment="Top" HorizontalAlignment="Right" Width="214" Click="btnRemoveCollaborator_Click"/>
-        <ToolBarTray HorizontalAlignment="Left" Margin="10,17,0,10" Width="126" Orientation="Vertical">
-            <ToolBar x:Name="formToolbar" HorizontalAlignment="Center" Height="386" VerticalAlignment="Top" Width="106" Margin="10,0,-75,0"/>
+        <Canvas x:Name="canvas" Margin="164,44,272,10" Background="#FFF8FFA4" KeyUp="canvas_KeyUp"/>
+        <Button x:Name="btnEnableCT" Content="Enable Drawing" Margin="0,10,496,0" VerticalAlignment="Top" Click="btnEnableCT_Click" HorizontalAlignment="Right" Width="126"/>
+        <DataGrid x:Name="dataGridCollaborators" Margin="0,44,10,268" HorizontalAlignment="Right" Width="257"/>
+        <Button x:Name="btnSave" Content="Save" Margin="0,10,403,0" VerticalAlignment="Top" HorizontalAlignment="Right" Width="88" Click="btnSave_Click"/>
+        <Button x:Name="btnAddCollaborator" Content="Add collaborator" Margin="0,10,272,0" VerticalAlignment="Top" HorizontalAlignment="Right" Width="126" Click="btnAddCollaborator_Click"/>
+        <Button x:Name="btnRemoveCollaborator" Content="Remove collaborator" Margin="0,10,115,0" VerticalAlignment="Top" HorizontalAlignment="Right" Width="152" Click="btnRemoveCollaborator_Click"/>
+        <ToolBarTray HorizontalAlignment="Left" Margin="10,44,0,10" Width="126" Orientation="Vertical">
+            <ToolBar x:Name="formToolbar" HorizontalAlignment="Center" Height="376" VerticalAlignment="Top" Width="106" Margin="10,10,-75,-27"/>
         </ToolBarTray>
+        <xctk:PropertyGrid x:Name="_propertyGrid" Margin="0,150,10,10"
+                                     AutoGenerateProperties="False" HorizontalAlignment="Right" Width="257">
+             <!--Only the following properties will be displayed in the PropertyGrid--> 
+            <xctk:PropertyGrid.PropertyDefinitions>
+                <xctk:PropertyDefinition TargetProperties="Fill" />
+                <xctk:PropertyDefinition TargetProperties="Height" />
+                <xctk:PropertyDefinition TargetProperties="Margin" />
+                <xctk:PropertyDefinition TargetProperties="Opacity" />
+                <xctk:PropertyDefinition TargetProperties="Name" />
+                <xctk:PropertyDefinition TargetProperties="RadiusX" />
+                <xctk:PropertyDefinition TargetProperties="RadiusY" />
+                <xctk:PropertyDefinition TargetProperties="Stroke" />
+                <xctk:PropertyDefinition TargetProperties="StrokeThickness" />
+                <xctk:PropertyDefinition TargetProperties="Width" />
+            </xctk:PropertyGrid.PropertyDefinitions>
+        </xctk:PropertyGrid>
     </Grid>
 </Controls:MetroWindow>

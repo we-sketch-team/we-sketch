@@ -39,13 +39,19 @@ namespace WeSketch.App.Forms
         private Toolbar toolbar;
         private ITool selectedTool;
 
-        private IShape selectedShape; // PropertySheet
+        private IShape selectedShape;
 
         public FormWorkspace(IWorkspace model)
         {
             InitializeComponent();
             Init(model);    
             PopulateFormToolbar();
+            _propertyGrid.PropertyValueChanged += _propertyGrid_PropertyValueChanged; ;
+        }
+
+        private void _propertyGrid_PropertyValueChanged(object sender, Xceed.Wpf.Toolkit.PropertyGrid.PropertyValueChangedEventArgs e)
+        {
+            //Utilities.DisplayMessage(this, "A", "Data changed");
         }
 
         private void PopulateFormToolbar()
@@ -201,6 +207,7 @@ namespace WeSketch.App.Forms
         public void SelectShape(IShape shape)
         {
             selectedShape = shape;
+            _propertyGrid.SelectedObject = shape.GetFrameworkShape();
         }
 
         private void canvas_KeyUp(object sender, KeyEventArgs e)

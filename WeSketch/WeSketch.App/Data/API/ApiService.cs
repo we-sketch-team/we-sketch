@@ -87,7 +87,7 @@ namespace WeSketch.App.Data.API
 
         public User Login(string email, string password)
         {
-            User user = null;
+            User user = new User();
             Application.Current.Dispatcher.Invoke(DispatcherPriority.Normal, new Action(() =>
             {
                 user = userHub.Invoke<User>("Login", new { Email = email, Password = password }).Result;
@@ -98,28 +98,44 @@ namespace WeSketch.App.Data.API
 
         public User GetUserByUsername(string username)
         {
-            var task = userHub.Invoke<User>("GetUserByUsername", username);
-            task.Wait();
-            return task.Result;
+            User user = new User();
+            Application.Current.Dispatcher.Invoke(DispatcherPriority.Normal, new Action(() =>
+            {
+                user = userHub.Invoke<User>("GetUserByUsername", username).Result;
+            }));
+
+            return user;
         }
 
         public bool Register(UserRegistrationOptions options)
         {
-            throw new NotImplementedException();
+            User user = new User();
+            Application.Current.Dispatcher.Invoke(DispatcherPriority.Normal, new Action(() =>
+            {
+                user = userHub.Invoke<User>("CreateAccount", options).Result;
+            }));
+
+            return user.Username == options.Username;
         }
 
         public bool CreateBoard(string title, bool isPublic, User user)
         {
-            var boardTask = boardHub.Invoke<Board>("CreateBoard", new { PublicBoard = isPublic, Title = title, UserId = user.Id, DateCreated = DateTime.Now});
-            boardTask.Wait();
-            var board = boardTask.Result;
+            Board board = new Board();
+
+            Application.Current.Dispatcher.Invoke(DispatcherPriority.Normal, new Action(() =>
+            {
+                board = boardHub.Invoke<Board>("CreateBoard", new { PublicBoard = isPublic, Title = title, UserId = user.Id, DateCreated = DateTime.Now }).Result;
+            }));
+
             return board.Title == title;
         }
 
         public bool DeleteBoard(Board board, User user)
         {
-            var task = boardHub.Invoke("DeleteBoard", board.Id);
-            task.Wait();
+            Application.Current.Dispatcher.Invoke(DispatcherPriority.Normal, new Action(() =>
+            {
+                boardHub.Invoke("DeleteBoard", board.Id);
+            }));
             return true;
         }
 
@@ -136,26 +152,34 @@ namespace WeSketch.App.Data.API
 
         public bool AddCollaborator(User user, Board board)
         {
-            var task = boardHub.Invoke<Board>("AddCollaborator", new { UserId = user.Id, BoardId = board.Id });
-            task.Wait();
+            Application.Current.Dispatcher.Invoke(DispatcherPriority.Normal, new Action(() =>
+            {
+                boardHub.Invoke<Board>("AddCollaborator", new { UserId = user.Id, BoardId = board.Id });
+            }));
+
             return true;
         }
 
         public bool RemoveCollaborator(User user, Board board)
         {
-            throw new NotImplementedException();
+            Application.Current.Dispatcher.Invoke(DispatcherPriority.Normal, new Action(() =>
+            {
+                boardHub.Invoke<Board>("RemoveCollaborator", new { UserId = user.Id, BoardId = board.Id });
+            }));
+
+            return true;
         }
 
         public List<User> GetBoardCollaborators(Board board)
         {
             List<User> collabs = null;
 
-            //Application.Current.Dispatcher.Invoke(DispatcherPriority.Normal, new Action(() =>
-            //{
-            //    collabs = boardHub.Invoke<List<User>>("GetCollaborators", board.Id).Result;
-            //}));
+            Application.Current.Dispatcher.Invoke(DispatcherPriority.Normal, new Action(() =>
+            {
+                collabs = boardHub.Invoke<List<User>>("GetCollaborators", board.Id).Result;
+            }));
 
-            return new List<User>();
+            return collabs;
         }
 
         public void SetBoardContentObserver(IBoardContentObserver observer)

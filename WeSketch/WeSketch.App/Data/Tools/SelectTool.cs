@@ -38,8 +38,9 @@ namespace WeSketch.App.Data.Tools
         {
             var elem = form.GetCanvas().InputHitTest(new System.Windows.Point(x, y));
             Shape winShape = elem as Shape;
-            if (winShape.Tag is IShape shape)
-                form.SelectShape(shape);
+            IShape shape = winShape.Tag as IShape;
+            if (shape == null) return;
+            form.SelectShape(shape);
         }
     }
 }

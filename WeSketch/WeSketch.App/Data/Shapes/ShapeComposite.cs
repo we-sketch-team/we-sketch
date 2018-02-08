@@ -4,6 +4,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Controls;
+using System.Windows.Shapes;
 
 namespace WeSketch.App.Data.Shapes
 {
@@ -83,6 +84,11 @@ namespace WeSketch.App.Data.Shapes
         }
 
         public double GetHeight()
+        {
+            throw new NotImplementedException();
+        }
+
+        public Shape GetFrameworkShape()
         {
             throw new NotImplementedException();
         }
