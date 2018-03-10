@@ -21,5 +21,6 @@ namespace WeSketch.App.Data.Shapes
         double GetWidth();
         double GetHeight();
         System.Windows.Shapes.Shape GetFrameworkShape();
+        ContentControl GetFrameworkContainer();
     }
 }

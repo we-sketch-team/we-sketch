@@ -9,6 +9,7 @@ using System.Linq;
 using System.Runtime.Serialization;
 using System.Text;
 using System.Threading.Tasks;
+using System.Windows.Controls;
 using System.Windows.Markup;
 using System.Xml;
 using System.Xml.Serialization;
@@ -26,6 +27,16 @@ namespace WeSketch.App
 
         public static string ExportShapes(ShapeList shapes)
         {
+            foreach(var shape in shapes)
+            {
+                var container = shape.GetFrameworkContainer();
+                var elem = shape.GetFrameworkShape();
+                elem.Width = container.Width;
+                elem.Height = container.Height;
+                var left = Canvas.GetLeft(container);
+                var top = Canvas.GetTop(container);
+                elem.Uid = left + "#" + top;
+            }
             string xaml = System.Xaml.XamlServices.Save(shapes);
             return xaml;
         }
@@ -34,6 +45,21 @@ namespace WeSketch.App
         {
             if (String.IsNullOrEmpty(data)) return new ShapeList();
             var shapes = (ShapeList)System.Xaml.XamlServices.Parse(data);
+            foreach (var shape in shapes)
+            {
+                var container = shape.GetFrameworkContainer();
+                var elem = shape.GetFrameworkShape();
+                container.Width = elem.Width;
+                container.Height = elem.Height;
+                var info = elem.Uid;
+                var parsed = info.Split('#');
+                var left = Double.Parse(parsed[0]);
+                var top = Double.Parse(parsed[1]);
+                Canvas.SetLeft(container, left);
+                Canvas.SetTop(container, top);
+                elem.Width = elem.Height = Double.NaN;
+                //elem.Margin = new System.Windows.Thickness(0, 0, 0, 0);
+            }
             return shapes;
         }
     }

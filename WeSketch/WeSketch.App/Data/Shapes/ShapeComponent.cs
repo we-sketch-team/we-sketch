@@ -14,7 +14,8 @@ namespace WeSketch.App.Data.Shapes
     public abstract class ShapeComponent: IShape
     {
         public System.Windows.Shapes.Shape MyElement { get; set; }
-        
+        protected ContentControl Container { get; set; }
+
         public ShapeComponent()
         {
             
@@ -27,14 +28,13 @@ namespace WeSketch.App.Data.Shapes
         
         public void Draw(Canvas target)
         {
-            target.Children.Add(MyElement);
+            target.Children.Add(Container);
         }
 
         public void Move(int x, int y)
         {
-            //Canvas.SetLeft(MyElement, x);
-            //Canvas.SetTop(MyElement, y);
-            MyElement.Margin = new Thickness(x, y, 0, 0);
+            Canvas.SetLeft(Container, x);
+            Canvas.SetTop(Container, y);
         }
 
         public void Rotate(Canvas target, double angle)
@@ -69,27 +69,32 @@ namespace WeSketch.App.Data.Shapes
 
         public void SetWidth(double width)
         {
-            MyElement.Width = width;
+            Container.Width = width;
         }
 
         public void SetHeight(double height)
         {
-            MyElement.Height = height;
+            Container.Height = height;
         }
 
         public double GetWidth()
         {
-            return MyElement.Width;
+            return Container.Width;
         }
 
         public double GetHeight()
         {
-            return MyElement.Height;
+            return Container.Height;
         }
 
         public Shape GetFrameworkShape()
         {
             return MyElement;
+        }
+
+        public ContentControl GetFrameworkContainer()
+        {
+            return Container;
         }
     }
 }

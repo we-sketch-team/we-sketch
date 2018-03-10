@@ -35,6 +35,7 @@ namespace WeSketch.App.Data
 
         public void DeleteShape(IShape shape)
         {
+            if (shape == null) return;
             Shapes.Remove(shape);
             shape.Delete(MyCanvas);
         }

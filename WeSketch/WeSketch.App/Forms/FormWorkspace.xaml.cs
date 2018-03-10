@@ -47,7 +47,8 @@ namespace WeSketch.App.Forms
             InitializeComponent();
             Init(model);    
             PopulateFormToolbar();
-            _propertyGrid.PropertyValueChanged += _propertyGrid_PropertyValueChanged; ;
+            _propertyGrid.PropertyValueChanged += _propertyGrid_PropertyValueChanged;
+            canvas.ClipToBounds = true;
         }
 
         private void _propertyGrid_PropertyValueChanged(object sender, Xceed.Wpf.Toolkit.PropertyGrid.PropertyValueChangedEventArgs e)

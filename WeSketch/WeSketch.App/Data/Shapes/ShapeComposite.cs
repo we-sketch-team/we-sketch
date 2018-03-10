@@ -91,5 +91,10 @@ namespace WeSketch.App.Data.Shapes
         {
             throw new NotImplementedException();
         }
+
+        public ContentControl GetFrameworkContainer()
+        {
+            throw new NotImplementedException();
+        }
     }
 }

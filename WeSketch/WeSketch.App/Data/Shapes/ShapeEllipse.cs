@@ -3,6 +3,9 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using System.Windows;
+using System.Windows.Controls;
+using System.Windows.Media;
 
 namespace WeSketch.App.Data.Shapes
 {
@@ -12,20 +15,25 @@ namespace WeSketch.App.Data.Shapes
         {
             MyElement = new System.Windows.Shapes.Ellipse
             {
+                Fill = new SolidColorBrush(color),
+                IsHitTestVisible = false,
+                HorizontalAlignment = HorizontalAlignment.Stretch,
+                VerticalAlignment = VerticalAlignment.Stretch,
+                Tag = this
+            };
+
+            Container = new ContentControl()
+            {
                 Width = width,
                 Height = height,
-                Fill = new System.Windows.Media.SolidColorBrush(color),
-                Tag = this
+                Content = MyElement,
+                Template = Application.Current.FindResource("DesignerItemTemplate") as ControlTemplate
             };
         }
 
-        public ShapeEllipse()
+        public ShapeEllipse() : this(0, 0, System.Windows.Media.Color.FromRgb(0, 0, 0))
         {
-            MyElement = new System.Windows.Shapes.Ellipse()
-            {
-                Fill = new System.Windows.Media.SolidColorBrush(System.Windows.Media.Color.FromRgb(0, 0, 0)),
-                Tag = this
-            };
+   
         }
     }
 }
