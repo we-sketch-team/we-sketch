@@ -31,7 +31,6 @@ namespace WeSketch.App.Data.Shapes
             elements.Remove(shape);
         }
 
-
         public void Delete(Canvas target)
         {
             target.Children.Remove(wrapper);

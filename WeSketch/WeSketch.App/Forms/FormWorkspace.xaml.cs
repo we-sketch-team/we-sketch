@@ -41,6 +41,7 @@ namespace WeSketch.App.Forms
 
         private IShape selectedShape;
 
+
         public FormWorkspace(IWorkspace model)
         {
             InitializeComponent();

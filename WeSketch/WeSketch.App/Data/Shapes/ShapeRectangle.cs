@@ -22,7 +22,6 @@ namespace WeSketch.App.Data.Shapes
                 Height = height,
                 Fill = new SolidColorBrush(color),
                 Tag = this
-
             };            
         }
 

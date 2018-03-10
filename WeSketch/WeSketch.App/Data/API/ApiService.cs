@@ -68,6 +68,7 @@ namespace WeSketch.App.Data.API
             Application.Current.Dispatcher.Invoke(DispatcherPriority.Normal, new Action(() =>
             {
                 boards = boardHub.Invoke<List<Board>>("GetMyBoards", id).Result;
+                boards.ForEach(b => b.Collaborators.Collaborators = GetBoardCollaborators(b));
             }));
 
             return boards;
@@ -80,6 +81,7 @@ namespace WeSketch.App.Data.API
             Application.Current.Dispatcher.Invoke(DispatcherPriority.Normal, new Action(() =>
             {
                 board = boardHub.Invoke<Board>("GetBoardWithRole", Global.CurrentUser.Id, id).Result;
+                board.Collaborators.Collaborators = GetBoardCollaborators(board);
             }));
 
             return board;

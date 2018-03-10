@@ -136,10 +136,8 @@
     <Compile Include="Controller\WorkspaceController.cs" />
     <Compile Include="Data\API\ApiService.cs" />
     <Compile Include="Data\Global.cs" />
-    <Compile Include="Data\Shapes\Properties\HeightProp.cs" />
-    <Compile Include="Data\Shapes\Properties\Property.cs" />
-    <Compile Include="Data\Shapes\Properties\PropertySheet.cs" />
-    <Compile Include="Data\Shapes\Properties\WidthProp.cs" />
+    <Compile Include="Data\Shapes\MoveThumb.cs" />
+    <Compile Include="Data\Shapes\ResizeThumb.cs" />
     <Compile Include="Data\Shapes\ShapeEllipse.cs" />
     <Compile Include="Data\Shapes\ShapeList.cs" />
     <Compile Include="Data\Shapes\ShapesFactory.cs" />
@@ -166,7 +164,6 @@
     <Compile Include="Data\Board.cs" />
     <Compile Include="Data\CollaboratorList.cs" />
     <Compile Include="Data\Shapes\IShape.cs" />
-    <Compile Include="Data\Shapes\Property.cs" />
     <Compile Include="Data\Shapes\ShapeComponent.cs" />
     <Compile Include="Data\Shapes\ShapeComposite.cs" />
     <Compile Include="Data\Shapes\ShapeRectangle.cs" />
