@@ -6,6 +6,8 @@ using System.Threading.Tasks;
 using WeSketch.BusinessLogic.Services;
 using WeSketch.BusinessLogic.DTOs;
 using WeSketch.BusinessLogic.DTOs.BoardDTOs;
+using WeSketch.Server.NotificationsSystem;
+using WeSketch.Server.Queues;
 
 namespace ConsoleApp1
 {
@@ -80,13 +82,79 @@ namespace ConsoleApp1
 
         static void Main(string[] args)
         {
-           // CreateBoard();
+			#region Boards update queues
+		    BoardUpdater  board = new BoardUpdater
+			{
+				BoardId = 1,
+				UserId = 2
+			};
 
-            Console.WriteLine(dataService.GetBoard(81).Id);
-            //foreach (var item in GetBoardCollaborators(74))
-            //{
-            //    Console.WriteLine(item.Id + " " + item.FirstName + " " + item.Id);
-            //}
-        }
-    }
+			BoardUpdater board1 = new BoardUpdater
+			{
+				BoardId = 1,
+				UserId = 3
+			};
+
+			BoardUpdater board2 = new BoardUpdater
+			{
+				BoardId = 46,
+				UserId = 4
+			};
+
+			BoardUpdater board3 = new BoardUpdater
+			{
+				BoardId = 32,
+				UserId = 5
+			};
+
+			BoardUpdater board4 = new BoardUpdater
+			{
+				BoardId = 32,
+				UserId = 6
+			};
+
+			WeSketch.Server.Queues.BoardsUpdateQueue.AddToQueue(board);
+			WeSketch.Server.Queues.BoardsUpdateQueue.AddToQueue(board1);
+			WeSketch.Server.Queues.BoardsUpdateQueue.AddToQueue(board2);
+			WeSketch.Server.Queues.BoardsUpdateQueue.AddToQueue(board3);
+			WeSketch.Server.Queues.BoardsUpdateQueue.AddToQueue(board4);
+
+			Console.WriteLine(WeSketch.Server.Queues.BoardsUpdateQueue.RemoveFromQueue(1).UserId);
+			Console.WriteLine(WeSketch.Server.Queues.BoardsUpdateQueue.RemoveFromQueue(1).UserId);
+			Console.WriteLine(WeSketch.Server.Queues.BoardsUpdateQueue.RemoveFromQueue(32).UserId);
+			Console.WriteLine(WeSketch.Server.Queues.BoardsUpdateQueue.RemoveFromQueue(46).UserId);
+			Console.WriteLine(WeSketch.Server.Queues.BoardsUpdateQueue.RemoveFromQueue(32).UserId);
+			#endregion
+			#region Notifications queuing
+			//Notification notification1 = new Notification
+			//{
+			//	UserId = 1,
+			//	Type = Notification.NotificationType.AddedToBoard,
+			//	Content = "Came first in 1"
+			//};
+
+			//Notification notification2 = new Notification
+			//{
+			//	UserId = 1,
+			//	Type = Notification.NotificationType.AddedToBoard,
+			//	Content = "Came second in 1"
+			//};
+
+			//Notification notification3 = new Notification
+			//{
+			//	UserId = 3,
+			//	Type = Notification.NotificationType.AddedToBoard,
+			//	Content = "Came first in 3"
+			//};
+
+			//WeSketch.Server.NotificationsSystem.NotificationsQueue.AddToQueue(notification1);
+			//WeSketch.Server.NotificationsSystem.NotificationsQueue.AddToQueue(notification2);
+			//WeSketch.Server.NotificationsSystem.NotificationsQueue.AddToQueue(notification3);
+
+			//Console.WriteLine(NotificationsQueue.RemoveFromQueue(1).Content);
+			//Console.WriteLine(NotificationsQueue.RemoveFromQueue(3).Content);
+			//Console.WriteLine(NotificationsQueue.RemoveFromQueue(1).Content); 
+			#endregion
+		}
+	}
 }
