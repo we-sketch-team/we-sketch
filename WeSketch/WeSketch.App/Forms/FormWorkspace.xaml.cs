@@ -22,6 +22,7 @@ using MahApps.Metro.Controls.Dialogs;
 using WeSketch.App.Dialogs;
 using WeSketch.App.Data.Tools.Toolbar;
 using WeSketch.App.Data.Shapes;
+using WeSketch.Common;
 
 namespace WeSketch.App.Forms
 {
@@ -78,6 +79,7 @@ namespace WeSketch.App.Forms
         public void Init(IWorkspace model)
         {
             this.workspace = model;
+            workspace.Attach(this);
             MakeController();
             RefreshCanvas();
         }
@@ -104,23 +106,6 @@ namespace WeSketch.App.Forms
         {            
             var point = e.GetPosition(canvas);
             //rct.MouseDrag((int)point.X, (int)point.Y);
-        }
-
-        private void btnExport_Click(object sender, RoutedEventArgs e)
-        {
-            //var board = model.GetBoard();
-            //var shapes = board.Shapes;
-            //string export = Utilities.ExportShapes(shapes);
-            //System.IO.File.WriteAllText("shapes.txt", export);
-        }
-
-        private void btnImport_Click(object sender, RoutedEventArgs e)
-        {
-            //var xaml = System.IO.File.ReadAllText("shapes.txt");
-            //var shapes = Utilities.ImportShapes(xaml);
-            //var board = model.GetBoard();
-            //board.Shapes = shapes;
-            //board.Draw(canvas);
         }
 
         private void btnEnableCT_Click(object sender, RoutedEventArgs e)
@@ -225,7 +210,39 @@ namespace WeSketch.App.Forms
 
         private void MetroWindow_Closing(object sender, System.ComponentModel.CancelEventArgs e)
         {
+            workspace?.Detach(this);
             workspace?.Dispose();
+        }
+
+        public void UpdateMessage(Message message)
+        {
+            string time = DateTime.Now.ToShortTimeString();
+            string trimmedText = message.Text.Trim();
+            string text = $"[{time}] {message.Sender}: {trimmedText}{Environment.NewLine}";
+            tbxChatbox.AppendText(text);
+        }
+
+        private void btnSendMessage_Click(object sender, RoutedEventArgs e)
+        {
+            SendMessage();
+        }
+
+        private void SendMessage()
+        {
+            string messageSender = Global.CurrentUser.Username;
+            string text = tbxMessage.Text;
+            controller.SendMessage(messageSender, text);
+            tbxMessage.Clear();
+            tbxMessage.Focus();
+        }
+
+        private void tbxMessage_KeyDown(object sender, KeyEventArgs e)
+        {
+            if (e.Key == Key.Enter)
+            {
+                SendMessage();
+                e.Handled = true;
+            }
         }
     }
 }

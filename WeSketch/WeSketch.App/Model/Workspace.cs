@@ -7,16 +7,19 @@ using System.Threading.Tasks;
 using WeSketch.App.Data;
 using WeSketch.App.Data.API;
 using WeSketch.App.Data.Shapes;
+using WeSketch.App.View;
+using WeSketch.Common;
 
 namespace WeSketch.App.Model
 {
     public class Workspace : IWorkspace, IBoardContentObserver
     {
         private Board board;
+        private List<IWorkspaceView> observers;
 
         public Workspace()
         {
-            
+            observers = new List<IWorkspaceView>();
         }
 
         public bool AddCollaborator(string username)
@@ -32,6 +35,16 @@ namespace WeSketch.App.Model
         public void AddShape(IShape shape)
         {
             board.AddShape(shape);
+        }
+
+        public void Attach(IWorkspaceView observer)
+        {
+            observers.Add(observer);
+        }
+
+        public void Detach(IWorkspaceView observer)
+        {
+            observers.Remove(observer);
         }
 
         public void CloseBoard()
@@ -100,6 +113,21 @@ namespace WeSketch.App.Model
             board.Content = updatedBoard.Content;
             board.Shapes = Utilities.ImportShapes(board.Content);
             board.Redraw();
+        }
+
+        public void UpdateMessage(Message message)
+        {
+            foreach(var obs in observers)
+            {
+                obs.UpdateMessage(message);
+            }
+        }
+
+        public void SendMessage(Message message)
+        {
+            var service = SketchService.GetService();
+            UpdateMessage(message);
+            //service.SendMessage(message);
         }
     }
 }

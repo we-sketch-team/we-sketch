@@ -6,6 +6,7 @@ using System.Threading.Tasks;
 using WeSketch.App.Data;
 using WeSketch.App.Data.Shapes;
 using WeSketch.App.Model;
+using WeSketch.Common;
 
 namespace WeSketch.App.View
 {
@@ -17,5 +18,6 @@ namespace WeSketch.App.View
         void RefreshCanvas();
         void CollaboratorAdded();
         void CollaboratorNotAdded();
+        void UpdateMessage(Message message);
     }
 }

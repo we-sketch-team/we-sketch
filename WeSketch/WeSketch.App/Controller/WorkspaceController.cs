@@ -7,6 +7,7 @@ using WeSketch.App.Data;
 using WeSketch.App.Data.Shapes;
 using WeSketch.App.Model;
 using WeSketch.App.View;
+using WeSketch.Common;
 
 namespace WeSketch.App.Controller
 {
@@ -57,6 +58,19 @@ namespace WeSketch.App.Controller
         {
             workspace.RemoveCollaborator(user);
             view.RefreshCollaborators();
+        }
+
+        public void SendMessage(string sender, string text)
+        {
+            if (String.IsNullOrEmpty(text)) return;
+
+            Message message = new Message()
+            {
+                Sender = sender,
+                Text = text
+            };
+
+            workspace.UpdateMessage(message);
         }
     }
 }

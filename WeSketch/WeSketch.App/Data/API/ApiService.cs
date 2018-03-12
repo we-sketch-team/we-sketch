@@ -12,6 +12,7 @@ using WeSketch.App.Model;
 using System.Windows.Threading;
 using System.IO;
 using System.Windows;
+using WeSketch.Common;
 
 namespace WeSketch.App.Data.API
 {
@@ -19,7 +20,7 @@ namespace WeSketch.App.Data.API
     {
         private string ServerURI = Global.ServerURI;
         private HubConnection connection;
-        IHubProxy userHub, boardHub, groupsHub;
+        IHubProxy userHub, boardHub, groupsHub, chatHub;
         IBoardContentObserver workspace;
 
         public ApiService()
@@ -58,6 +59,16 @@ namespace WeSketch.App.Data.API
              {
                  workspace.UpdateBoardContent(board);
              })));
+        }
+
+        private void ChatHubSetup()
+        {
+            chatHub = connection.CreateHubProxy("ChatRoomHub");
+            boardHub.On<Message>("ReceiveMessage", (message) => Application.Current.Dispatcher.Invoke(DispatcherPriority.Normal, new Action(() =>
+            {
+                
+            })));
+
         }
 
         public List<Board> GetMyBoards(User user)
