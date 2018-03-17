@@ -224,5 +224,19 @@ namespace WeSketch.App.Data.API
                 chatHub.Invoke("SendMessage", message);
             }));
         }
+
+        public List<Board> GetSharedBoardsWithUser(User user)
+        {
+            var id = user.Id;
+            List<Board> boards = new List<Board>();
+
+            Application.Current.Dispatcher.Invoke(DispatcherPriority.Normal, new Action(() =>
+            {
+                boards = boardHub.Invoke<List<Board>>("GetSharedBoardsWithUser", id).Result;
+                boards.ForEach(b => b.Collaborators.Collaborators = GetBoardCollaborators(b));
+            }));
+
+            return boards;
+        }
     }
 }

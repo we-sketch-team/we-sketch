@@ -26,5 +26,6 @@ namespace WeSketch.App.Data.API
         void SubscribeToBoard(Board board);
         void UnsubscribeFromBoard(Board board);
         void SendMessage(Message message);
+        List<Board> GetSharedBoardsWithUser(User user);
     }
 }

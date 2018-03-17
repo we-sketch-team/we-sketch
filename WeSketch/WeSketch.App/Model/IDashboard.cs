@@ -13,5 +13,6 @@ namespace WeSketch.App.Model
         bool CreateBoard(string title, bool isPublic);
         bool DeleteBoard(Board board);
         List<Board> GetCurrentUserBoardList();
+        List<Board> GetSharedBoardsWithUser();
     }
 }

@@ -59,6 +59,12 @@ namespace WeSketch.App.Forms
             dataMyBoards.ItemsSource = boards;
         }
 
+        private void LoadBoardsSharedWithMe()
+        {
+            var boards = dashboard.GetSharedBoardsWithUser();
+            dataSharedWithMe.ItemsSource = boards;
+        }
+
         private void tbxSearch_TextChanged(object sender, TextChangedEventArgs e)
         {
 
@@ -71,8 +77,11 @@ namespace WeSketch.App.Forms
 
         private void dataMyBoards_MouseDoubleClick(object sender, System.Windows.Input.MouseButtonEventArgs e)
         {
-            if (dataMyBoards.SelectedItem == null) return;
-            var board = dataMyBoards.SelectedItem as Board;
+            var table = sender as DataGrid;
+            if (table == null) return;
+            if (table.SelectedItem == null) return;
+
+            var board = table.SelectedItem as Board;
             IWorkspace workspace = new Workspace();
             workspace.SetBoard(board);
             FormWorkspace form = new FormWorkspace(workspace);
@@ -94,6 +103,7 @@ namespace WeSketch.App.Forms
         public void RefreshMyBoards()
         {
             LoadMyBoards();
+            LoadBoardsSharedWithMe();
         }
 
         public void MakeController()

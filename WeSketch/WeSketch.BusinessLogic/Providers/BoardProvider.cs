@@ -324,5 +324,25 @@ namespace WeSketch.BusinessLogic.Providers
 
             return boardDetailsDTO;
         }
+
+        public List<BoardDetailsDTO> GetSharedBoardsWithUser()
+        {
+            var user = mediator.User;
+            var userBoards = user.UserBoards;
+            var list = new List<BoardDetailsDTO>();
+            foreach(var ub in userBoards)
+            {
+                if (ub.Role == Utilities.Utility.CreatorRole())
+                    continue;
+                list.Add(new BoardDetailsDTO()
+                {
+                    Id = ub.BoardId,
+                    Title = ub.Board.Title,
+                    Desription = ub.Board.Desription
+                });
+            }
+
+            return list;
+        }
     }
 }

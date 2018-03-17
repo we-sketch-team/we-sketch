@@ -46,6 +46,16 @@ namespace WeSketch.App.Data.API
             return boards;
         }
 
+        public List<Board> GetSharedBoardsWithUser(User user)
+        {
+            throw new NotImplementedException();
+        }
+
+        public List<Board> GetSharedBoardsWithWithUser(User user)
+        {
+            throw new NotImplementedException();
+        }
+
         public User GetUserByUsername(string username)
         {
             throw new NotImplementedException();

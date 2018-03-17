@@ -33,6 +33,13 @@ namespace WeSketch.App.Model
             return true;
         }
 
+        public List<Board> GetSharedBoardsWithUser()
+        {
+            var user = Global.CurrentUser;
+            var service = SketchService.GetService();
+            return service.GetSharedBoardsWithUser(user);
+        }
+
         public List<Board> GetCurrentUserBoardList()
         {
             var user = Global.CurrentUser;

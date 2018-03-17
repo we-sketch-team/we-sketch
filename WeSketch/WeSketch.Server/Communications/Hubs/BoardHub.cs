@@ -68,5 +68,11 @@ namespace WeSketch.Server.Communications.Hubs
 		{
 			return dataService.GetAllPublicBoards();
 		}
+
+        public List<BoardDetailsDTO> GetSharedBoardsWithUser(int userId)
+        {
+            var data= dataService.GetBoardsSharedWithUser(userId);
+            return data;
+        }
     }
 }

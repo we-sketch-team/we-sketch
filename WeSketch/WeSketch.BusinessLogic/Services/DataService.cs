@@ -145,5 +145,11 @@ namespace WeSketch.BusinessLogic.Services
         {
             return userProvider.GetUserByUsername(username);
         }
+
+        public List<BoardDetailsDTO> GetBoardsSharedWithUser(int userId)
+        {
+            userProvider.SetMediatorUser(userId);
+            return boardProvider.GetSharedBoardsWithUser();
+        }
     }
 }
