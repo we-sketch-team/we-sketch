@@ -16,8 +16,6 @@ namespace WeSketch.App.View
         void MakeController();
         void RefreshCollaborators();
         void RefreshCanvas();
-        void CollaboratorAdded();
-        void CollaboratorNotAdded();
         void UpdateMessage(Message message);
     }
 }

@@ -17,30 +17,11 @@
         <Canvas x:Name="canvas" Margin="164,44,272,10" Background="#FFF8FFA4" KeyUp="canvas_KeyUp">
 
         </Canvas>
-        <Button x:Name="btnEnableCT" Content="Enable Drawing" Margin="0,10,496,0" VerticalAlignment="Top" Click="btnEnableCT_Click" HorizontalAlignment="Right" Width="126"/>
         <DataGrid x:Name="dataGridCollaborators" Margin="10,0,0,10" HorizontalAlignment="Left" Width="149" Height="101" VerticalAlignment="Bottom"/>
-        <Button x:Name="btnSave" Content="Save" Margin="0,10,403,0" VerticalAlignment="Top" HorizontalAlignment="Right" Width="88" Click="btnSave_Click"/>
-        <Button x:Name="btnAddCollaborator" Content="Add collaborator" Margin="0,10,272,0" VerticalAlignment="Top" HorizontalAlignment="Right" Width="126" Click="btnAddCollaborator_Click"/>
-        <Button x:Name="btnRemoveCollaborator" Content="Remove collaborator" Margin="0,10,115,0" VerticalAlignment="Top" HorizontalAlignment="Right" Width="152" Click="btnRemoveCollaborator_Click"/>
-        <ToolBarTray HorizontalAlignment="Left" Margin="10,44,0,111" Width="126" Orientation="Vertical">
-            <ToolBar x:Name="formToolbar" HorizontalAlignment="Center" Height="214" VerticalAlignment="Top" Width="106" Margin="10,10,-75,0"/>
+        <Button x:Name="btnSave" Content="Save" Margin="0,10,535,0" VerticalAlignment="Top" HorizontalAlignment="Right" Width="88" Click="btnSave_Click"/>
+        <ToolBarTray HorizontalAlignment="Left" Margin="10,44,0,111" Width="149" Orientation="Vertical">
+            <ToolBar x:Name="formToolbar" HorizontalAlignment="Center" Height="238" VerticalAlignment="Top" Width="129" Margin="10,10,-98,-24"/>
         </ToolBarTray>
-        <xctk:PropertyGrid x:Name="_propertyGrid" Margin="0,49,10,207"
-                                     AutoGenerateProperties="False" HorizontalAlignment="Right" Width="257">
-            <!--Only the following properties will be displayed in the PropertyGrid-->
-            <xctk:PropertyGrid.PropertyDefinitions>
-                <xctk:PropertyDefinition TargetProperties="Fill" />
-                <xctk:PropertyDefinition TargetProperties="Height" />
-                <xctk:PropertyDefinition TargetProperties="Margin" />
-                <xctk:PropertyDefinition TargetProperties="Opacity" />
-                <xctk:PropertyDefinition TargetProperties="Name" />
-                <xctk:PropertyDefinition TargetProperties="RadiusX" />
-                <xctk:PropertyDefinition TargetProperties="RadiusY" />
-                <xctk:PropertyDefinition TargetProperties="Stroke" />
-                <xctk:PropertyDefinition TargetProperties="StrokeThickness" />
-                <xctk:PropertyDefinition TargetProperties="Width" />
-            </xctk:PropertyGrid.PropertyDefinitions>
-        </xctk:PropertyGrid>
         <TextBox x:Name="tbxChatbox" Margin="0,0,10,44" TextWrapping="Wrap" HorizontalAlignment="Right" Width="257" Height="158" VerticalAlignment="Bottom" IsReadOnly="True"/>
         <TextBox x:Name="tbxMessage" HorizontalAlignment="Right" Height="23" Margin="0,0,77,13" TextWrapping="Wrap" VerticalAlignment="Bottom" Width="189" Controls:TextBoxHelper.Watermark="Type a text message" KeyDown="tbxMessage_KeyDown"/>
         <Button x:Name="btnSendMessage" Content="Send" HorizontalAlignment="Right" Margin="0,0,9,10" VerticalAlignment="Bottom" Width="63" Click="btnSendMessage_Click"/>

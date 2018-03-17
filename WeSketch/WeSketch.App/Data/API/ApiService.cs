@@ -40,6 +40,7 @@ namespace WeSketch.App.Data.API
             UserHubSetup();
             BoardHubSetup();
             GroupsHubSetup();
+            ChatHubSetup();
         }
 
         private void GroupsHubSetup()
@@ -64,9 +65,9 @@ namespace WeSketch.App.Data.API
         private void ChatHubSetup()
         {
             chatHub = connection.CreateHubProxy("ChatRoomHub");
-            boardHub.On<Message>("ReceiveMessage", (message) => Application.Current.Dispatcher.Invoke(DispatcherPriority.Normal, new Action(() =>
+            chatHub.On<Message>("ReceiveMessage", (message) => Application.Current.Dispatcher.Invoke(DispatcherPriority.Normal, new Action(() =>
             {
-                
+                workspace.UpdateMessage(message);
             })));
 
         }
@@ -213,6 +214,14 @@ namespace WeSketch.App.Data.API
             Application.Current.Dispatcher.Invoke(DispatcherPriority.Normal, new Action(() =>
             {
                 groupsHub.Invoke("UnsubscribeFromBoardGroup", board.Id);
+            }));
+        }
+
+        public void SendMessage(Message message)
+        {
+            Application.Current.Dispatcher.Invoke(DispatcherPriority.Normal, new Action(() =>
+            {
+                chatHub.Invoke("SendMessage", message);
             }));
         }
     }

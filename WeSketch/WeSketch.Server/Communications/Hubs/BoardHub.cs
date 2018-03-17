@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using WeSketch.BusinessLogic.DTOs;
 using WeSketch.BusinessLogic.DTOs.BoardDTOs;
 using WeSketch.BusinessLogic.Services;
+using WeSketch.Common;
 
 namespace WeSketch.Server.Communications.Hubs
 {

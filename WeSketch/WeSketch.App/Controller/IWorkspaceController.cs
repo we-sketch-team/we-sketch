@@ -14,8 +14,6 @@ namespace WeSketch.App.Controller
     {
         void Init(IWorkspace model, IWorkspaceView view);
         void AddShape(IShape shape);
-        void AddCollaborator(string username);
-        void RemoveCollaborator(User user);
         void SendMessage(string sender, string text);
     }
 }

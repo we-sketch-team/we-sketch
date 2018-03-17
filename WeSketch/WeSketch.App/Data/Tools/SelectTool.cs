@@ -36,10 +36,14 @@ namespace WeSketch.App.Data.Tools
 
         public void MouseUp(int x, int y)
         {
-            var elem = form.GetCanvas().InputHitTest(new System.Windows.Point(x, y));
-            Shape winShape = elem as Shape;
-            IShape shape = winShape.Tag as IShape;
-            if (shape == null) return;
+            var clicked = form.GetCanvas().InputHitTest(new System.Windows.Point(x, y));
+            if (clicked == null) return;
+            var elem = clicked as Rectangle;
+            if (elem == null) return;
+            var contentControl = elem.DataContext as ContentControl;
+            var frameworkShape = contentControl.Content as Shape;
+            var shape = frameworkShape.Tag as IShape;
+
             form.SelectShape(shape);
         }
     }

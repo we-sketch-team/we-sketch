@@ -128,7 +128,6 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </ApplicationDefinition>
-    <Compile Include="Chat\Chat.cs" />
     <Compile Include="Controller\DashboardController.cs" />
     <Compile Include="Controller\IDashboardController.cs" />
     <Compile Include="Controller\ILoginController.cs" />
@@ -152,9 +151,6 @@
     <Compile Include="Data\Tools\LineCreationalTool.cs" />
     <Compile Include="Data\Tools\Toolbar\ToolbarItemRepresent.cs" />
     <Compile Include="Data\Tools\TwoPointCreationalTool.cs" />
-    <Compile Include="Dialogs\AddCollaboratorDialog.xaml.cs">
-      <DependentUpon>AddCollaboratorDialog.xaml</DependentUpon>
-    </Compile>
     <Compile Include="Dialogs\CreateBoardDialog.xaml.cs">
       <DependentUpon>CreateBoardDialog.xaml</DependentUpon>
     </Compile>
@@ -191,10 +187,6 @@
     <Compile Include="View\IDashboardView.cs" />
     <Compile Include="View\ILoginView.cs" />
     <Compile Include="View\IWorkspaceView.cs" />
-    <Page Include="Dialogs\AddCollaboratorDialog.xaml">
-      <SubType>Designer</SubType>
-      <Generator>MSBuild:Compile</Generator>
-    </Page>
     <Page Include="Dialogs\CreateBoardDialog.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>

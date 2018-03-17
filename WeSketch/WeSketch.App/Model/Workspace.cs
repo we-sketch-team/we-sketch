@@ -126,8 +126,7 @@ namespace WeSketch.App.Model
         public void SendMessage(Message message)
         {
             var service = SketchService.GetService();
-            UpdateMessage(message);
-            //service.SendMessage(message);
+            service.SendMessage(message);
         }
     }
 }

@@ -4,6 +4,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using WeSketch.App.Model;
+using WeSketch.Common;
 
 namespace WeSketch.App.Data.API
 {
@@ -61,6 +62,11 @@ namespace WeSketch.App.Data.API
         }
 
         public bool RemoveCollaborator(User user, Board board)
+        {
+            throw new NotImplementedException();
+        }
+
+        public void SendMessage(Message message)
         {
             throw new NotImplementedException();
         }

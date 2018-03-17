@@ -35,7 +35,6 @@ namespace WeSketch.App.Forms
         private IWorkspaceController controller;
 
         private CustomDialog customDialog;
-        private AddCollaboratorDialog addCollaborator;
 
         private Toolbar toolbar;
         private ITool selectedTool;
@@ -48,7 +47,7 @@ namespace WeSketch.App.Forms
             InitializeComponent();
             Init(model);    
             PopulateFormToolbar();
-            _propertyGrid.PropertyValueChanged += _propertyGrid_PropertyValueChanged;
+            //_propertyGrid.PropertyValueChanged += _propertyGrid_PropertyValueChanged;
             canvas.ClipToBounds = true;
         }
 
@@ -64,7 +63,6 @@ namespace WeSketch.App.Forms
             toolbar.Register(new RectangleToolRepresent(controller));
             toolbar.Register(new EllipseToolRepresent(controller));
             
-
             foreach (var tool in toolbar.Tools)
             {
                 formToolbar.Items.Add(tool);
@@ -104,53 +102,19 @@ namespace WeSketch.App.Forms
 
         private void canvas_MouseMove(object sender, MouseEventArgs e)
         {            
-            var point = e.GetPosition(canvas);
-            //rct.MouseDrag((int)point.X, (int)point.Y);
+
         }
 
         private void btnEnableCT_Click(object sender, RoutedEventArgs e)
         {
-            canvas.MouseUp += canvas_MouseUp;
-            canvas.MouseDown += canvas_MouseDown;
-        }
-
-        private void btnAddCollaborator_Click(object sender, RoutedEventArgs e)
-        {
-            AddCollaborator();
-        }
-
-        private async void AddCollaborator()
-        {
-            customDialog = new CustomDialog();
-            addCollaborator = new AddCollaboratorDialog();
-            addCollaborator.btnCancel.Click += BtnCancelAddCollaborator;
-            addCollaborator.btnAdd.Click += BtnAddCollaborator;
-            customDialog.Content = addCollaborator;
-            await this.ShowMetroDialogAsync(customDialog);
-        }
-
-        private void BtnAddCollaborator(object sender, RoutedEventArgs e)
-        {
-            string username = addCollaborator.tbxCollaboratorUsername.Text;
-            controller.AddCollaborator(username);
-            this.HideMetroDialogAsync(customDialog);
-        }
-
-        private void BtnCancelAddCollaborator(object sender, RoutedEventArgs e)
-        {
-            this.HideMetroDialogAsync(customDialog);
+            
         }
 
         private void MetroWindow_Loaded(object sender, RoutedEventArgs e)
         {
             RefreshCollaborators();
-        }
-
-        private void btnRemoveCollaborator_Click(object sender, RoutedEventArgs e)
-        {
-            User user = dataGridCollaborators.SelectedItem as User;
-            if (user == null) return;
-            controller.RemoveCollaborator(user);
+            canvas.MouseUp += canvas_MouseUp;
+            canvas.MouseDown += canvas_MouseDown;
         }
 
         public void RefreshCollaborators()
@@ -164,16 +128,6 @@ namespace WeSketch.App.Forms
             board.Shapes = Utilities.ImportShapes(board.Content);
             board.MyCanvas = canvas;
             board.Draw(canvas);
-        }
-
-        public void CollaboratorAdded()
-        {
-            Utilities.DisplayMessage(this, "Collaborator added", "Collaborator successfuly added!");
-        }
-
-        public void CollaboratorNotAdded()
-        {
-            Utilities.DisplayMessage(this, "Collaborator not added", "Check collaborator username");
         }
 
         public void UpdateSelectedTool()
@@ -194,7 +148,7 @@ namespace WeSketch.App.Forms
         public void SelectShape(IShape shape)
         {
             selectedShape = shape;
-            _propertyGrid.SelectedObject = shape.GetFrameworkShape();
+            //_propertyGrid.SelectedObject = shape.GetFrameworkShape();
         }
 
         private void canvas_KeyUp(object sender, KeyEventArgs e)

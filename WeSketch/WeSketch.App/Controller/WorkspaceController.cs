@@ -16,33 +16,6 @@ namespace WeSketch.App.Controller
         private IWorkspace workspace;
         private IWorkspaceView view;
 
-        private bool IsValidCollaboratorUsername(string username)
-        {
-            if (String.IsNullOrEmpty(username)) return false;
-
-            return true;
-        }
-
-        public void AddCollaborator(string username)
-        {
-           if (!IsValidCollaboratorUsername(username))
-            {
-                view.CollaboratorNotAdded();
-                return;
-            }
-
-            var success = workspace.AddCollaborator(username);
-
-            if (success)
-            {
-                view.CollaboratorAdded();
-                view.RefreshCollaborators();
-            }                
-            else
-                view.CollaboratorNotAdded();
-            
-        }
-
         public void AddShape(IShape shape)
         {
             workspace.AddShape(shape);
@@ -54,12 +27,6 @@ namespace WeSketch.App.Controller
             this.view = view;
         }
 
-        public void RemoveCollaborator(User user)
-        {
-            workspace.RemoveCollaborator(user);
-            view.RefreshCollaborators();
-        }
-
         public void SendMessage(string sender, string text)
         {
             if (String.IsNullOrEmpty(text)) return;
@@ -67,10 +34,11 @@ namespace WeSketch.App.Controller
             Message message = new Message()
             {
                 Sender = sender,
-                Text = text
+                Text = text,
+                BoardId = workspace.GetBoard().Id
             };
 
-            workspace.UpdateMessage(message);
+            workspace.SendMessage(message);
         }
     }
 }

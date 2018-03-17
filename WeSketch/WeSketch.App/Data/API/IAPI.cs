@@ -5,6 +5,7 @@ using System.Text;
 using System.Threading.Tasks;
 using WeSketch.App.Data.Shapes;
 using WeSketch.App.Model;
+using WeSketch.Common;
 
 namespace WeSketch.App.Data.API
 {
@@ -24,5 +25,6 @@ namespace WeSketch.App.Data.API
         void SetBoardContentObserver(IBoardContentObserver observer);
         void SubscribeToBoard(Board board);
         void UnsubscribeFromBoard(Board board);
+        void SendMessage(Message message);
     }
 }

@@ -6,10 +6,10 @@ using System.Threading.Tasks;
 
 namespace WeSketch.Common
 {
-	public class Message
-	{
-		public string Sender { get; set; }
-		public string Text { get; set; }
-		public int BoardId { get; set; }
-	}
+    public class Message
+    {
+        public string Sender { get; set; }
+        public string Text { get; set; }
+        public int BoardId { get; set; }
+    }
 }
