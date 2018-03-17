@@ -66,12 +66,13 @@ namespace WeSketch.BusinessLogic.Providers
 
 			List<UserBoards> userBoards = user.UserBoards.ToList();
 			List<BoardDetailsDTO> result = new List<BoardDetailsDTO>();
-			BoardDetailsDTO boardDetails =  new BoardDetailsDTO();
 
 			foreach (var userBoard in userBoards)
 			{
 				if (userBoard.Role != Utility.CreatorRole())
 					continue;
+
+				BoardDetailsDTO boardDetails = new BoardDetailsDTO();
 
 				boardDetails.Title = userBoard.Board.Title;
 				boardDetails.Id = userBoard.BoardId;
@@ -140,7 +141,7 @@ namespace WeSketch.BusinessLogic.Providers
         {     
             List<Board> boards = unitOfWork.BoardRepository.GetAll().FindAll(x => x.PublicBoard);
 
-            return ConverterToDTO.ListOfBoardsToDetails(boards);
+            return ConverterToDTO.ListOfBoardsToBasicInformation(boards);
         }
 
         public CreateBoardDto CreateBoard(CreateBoardDto createBoards)
