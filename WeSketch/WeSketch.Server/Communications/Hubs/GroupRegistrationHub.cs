@@ -37,13 +37,7 @@ namespace WeSketch.Server.Communications.Hubs
             var message = $"User with connection id {Context.ConnectionId} subscribed to group {groupName}";
             Logger.Log(message);
             AddUser(groupName, Context.ConnectionId);
-        }
-
-        public Task RegisterToChatRoomGroup(int chatRoomId)
-        {
-            string groupName = Config.GroupNames.ChatRoomGroup(chatRoomId);
-            return Groups.Add(Context.ConnectionId, groupName);
-        }
+        }       
 
         public void UnsubscribeFromBoardGroup(int boardId)
         {
@@ -51,12 +45,6 @@ namespace WeSketch.Server.Communications.Hubs
             var message = $"User with connection id {Context.ConnectionId} unsubscribed from group {groupName}";
             Logger.Log(message);
             RemoveUser(groupName, Context.ConnectionId);
-        }
-
-        public Task UnsubscribeFromChatRoomGroup(int chatRoomId)
-        {
-            string groupName = Config.GroupNames.ChatRoomGroup(chatRoomId);
-            return Groups.Remove(Context.ConnectionId, groupName);
         }
 
         public override Task OnDisconnected(bool stopCalled)

@@ -151,6 +151,10 @@
       <Project>{098ccd22-4aeb-4214-b359-e244df33b8fc}</Project>
       <Name>WeSketch.BusinessLogic</Name>
     </ProjectReference>
+    <ProjectReference Include="..\WeSketch.Common\WeSketch.Common.csproj">
+      <Project>{b3a793b5-aa54-4943-9bac-747c5dfbcf09}</Project>
+      <Name>WeSketch.Common</Name>
+    </ProjectReference>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>
