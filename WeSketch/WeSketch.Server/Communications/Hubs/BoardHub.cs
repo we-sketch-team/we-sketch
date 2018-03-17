@@ -62,5 +62,10 @@ namespace WeSketch.Server.Communications.Hubs
             dataService.AddCollaborator(collaboratorDTO);
             Clients.Others.NotifyCollaboratorAddition(collaboratorDTO);
         }
+
+		public List<BoardDetailsDTO> GetPublicBoards()
+		{
+			return dataService.GetAllPublicBoards();
+		}
     }
 }

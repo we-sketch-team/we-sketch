@@ -78,9 +78,27 @@ namespace WeSketch.BusinessLogic.Utilities
 
             return result;
         }
-        #endregion
-        #region ChatRooms
-        public static ChatRoomDetailsDTO ChatToChatDetails(ChatRoom chatRoom)
+
+		public static List<BoardDetailsDTO> ListOfBoardsToBasicInformation(List<Board> boards)
+		{
+			List<BoardDetailsDTO> result = new List<BoardDetailsDTO>();
+
+			foreach (var board in boards)
+			{
+				BoardDetailsDTO boardDetails = new BoardDetailsDTO()
+				{
+					Id = board.Id,
+					Title = board.Title,
+					Desription = board.Desription
+				};
+				result.Add(boardDetails);
+			}
+
+			return result;
+		}
+		#endregion
+		#region ChatRooms
+		public static ChatRoomDetailsDTO ChatToChatDetails(ChatRoom chatRoom)
         {
             return new ChatRoomDetailsDTO
             {
