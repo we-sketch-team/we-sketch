@@ -8,7 +8,8 @@ namespace WeSketch.Server.Queues
 {
 	public class BoardUpdater
 	{
-		public int UserId { get; set; }
+		public string ConnectionId { get; set; }
 		public int BoardId { get; set; }
+		public int UserId { get; set; }
 	}
 }

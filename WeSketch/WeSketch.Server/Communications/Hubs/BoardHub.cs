@@ -1,9 +1,11 @@
 ﻿using Microsoft.AspNet.SignalR;
 using System.Collections.Generic;
+using System.Threading.Tasks;
 using WeSketch.BusinessLogic.DTOs;
 using WeSketch.BusinessLogic.DTOs.BoardDTOs;
 using WeSketch.BusinessLogic.Services;
 using WeSketch.Common;
+using WeSketch.Server.Queues;
 
 namespace WeSketch.Server.Communications.Hubs
 {
@@ -71,8 +73,43 @@ namespace WeSketch.Server.Communications.Hubs
 
         public List<BoardDetailsDTO> GetSharedBoardsWithUser(int userId)
         {
-            var data= dataService.GetBoardsSharedWithUser(userId);
+            var data = dataService.GetBoardsSharedWithUser(userId);
             return data;
         }
-    }
+
+		public void EnterQueue(BoardUpdater updater)
+		{
+			BoardsUpdateQueue.AddToQueue(updater);
+			var groupName = Config.GroupNames.BoardGroup(updater.BoardId);
+			var group = GroupRegistrationHub.BoardGroups[groupName];
+			group.ForEach(u => Clients.Client(u).UserEnteredQueueNotify(updater.UserId));
+		}
+
+		public void LeaveQueue(BoardUpdater updater)
+		{
+			BoardsUpdateQueue.RemoveFromQueue(updater.BoardId, Context.ConnectionId);
+			var groupName = Config.GroupNames.BoardGroup(updater.BoardId);
+			var group = GroupRegistrationHub.BoardGroups[groupName];
+			group.ForEach(u => Clients.Client(u).UserLeftQueueNotify(updater.UserId));
+		}
+
+		public List<BoardUpdater> GetBoardQueue(int boardId)
+		{
+			return BoardsUpdateQueue.GetBoardQueue(boardId);
+		}
+
+		public override Task OnDisconnected(bool stopCalled)
+		{
+			List<int> boardsLeft = BoardsUpdateQueue.RemoveDisconnected(Context.ConnectionId);
+
+			foreach (var id in boardsLeft)
+			{
+				var groupName = Config.GroupNames.BoardGroup(id);
+				var group = GroupRegistrationHub.BoardGroups[groupName];
+				group.ForEach(u => Clients.Client(u).UserLeftQueueNotify(id));
+			}
+
+			return base.OnDisconnected(stopCalled);
+		}
+	}
 }

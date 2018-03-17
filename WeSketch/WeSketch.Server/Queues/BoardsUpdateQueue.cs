@@ -9,35 +9,55 @@ namespace WeSketch.Server.Queues
 {
 	public static class BoardsUpdateQueue
 	{
-		private static Dictionary<int, Queue<BoardUpdater>> boardsUpdateQueues = new Dictionary<int, Queue<BoardUpdater>>();		
+		private static Dictionary<int, List<BoardUpdater>> boardsUpdateQueues = new Dictionary<int, List<BoardUpdater>>();		
 
 		public static void AddToQueue(BoardUpdater updater)
 		{
 			int boardId = updater.BoardId;
 			AddQueue(boardId);
-			boardsUpdateQueues[boardId].Enqueue(updater);
+			boardsUpdateQueues[boardId].Add(updater);
 		}
 
 		private static void AddQueue(int boardId)
 		{
 			if (!boardsUpdateQueues.ContainsKey(boardId))
-				boardsUpdateQueues.Add(boardId, new Queue<BoardUpdater>());
+				boardsUpdateQueues.Add(boardId, new List<BoardUpdater>());
 		}
 
-		public static BoardUpdater RemoveFromQueue(int boardId)
+		public static void RemoveFromQueue(int boardId, string connectionId)
 		{
 			if (boardsUpdateQueues[boardId].Count == 0)
-				return null;
+				return;
 
-			return boardsUpdateQueues[boardId].Dequeue();
+			BoardUpdater boardUpdater = boardsUpdateQueues[boardId].Find(x => x.ConnectionId == connectionId);
+			boardsUpdateQueues[boardId].Remove(boardUpdater);
 		}
 
-		public static Queue<BoardUpdater> GetBoardQueue(int boardId)
+		public static List<BoardUpdater> GetBoardQueue(int boardId)
 		{
 			if (boardsUpdateQueues[boardId].Count == 0)
 				return null;
 
 			return boardsUpdateQueues[boardId];
+		}
+
+		public static List<int> RemoveDisconnected(string connectionId)
+		{
+			List<int> boardsLeft = new List<int>();
+
+			foreach (var dictionaryItem in boardsUpdateQueues)
+			{
+				List<BoardUpdater> queue = dictionaryItem.Value;
+				BoardUpdater boardUpdater = queue.Find(x => x.ConnectionId == connectionId);
+
+				if (boardUpdater == null)
+					continue;
+
+				queue.Remove(boardUpdater);
+				boardsLeft.Add(boardUpdater.BoardId);
+			}
+
+			return boardsLeft;
 		}
 	}
 }
