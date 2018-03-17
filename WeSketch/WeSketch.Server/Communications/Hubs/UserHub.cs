@@ -22,27 +22,34 @@ namespace WeSketch.Server.Communications.Hubs
 
         public UserDetailsDTO CreateAccount(CreateUserDTO createUserDTO)
         {
-            return dataService.CreateAccount(createUserDTO);
+			Logger.Log($"Creating account..");
+			UserDetailsDTO user = dataService.CreateAccount(createUserDTO);
+			Logger.Log($"Account created. UserId: {user.Id}");
+			return user;
         }
 
         public UserDetailsDTO GetUser(int userId)
         {
-            return dataService.GetUser(userId);
+			Logger.Log($"Getting user information for user with id: {userId}");
+			return dataService.GetUser(userId);
         }
 
         public UserDetailsDTO UpdateUser(UserDetailsDTO userDetailsDTO)
         {
-            return dataService.UpdateUser(userDetailsDTO);
+			Logger.Log($"Updating user information for user with id: {userDetailsDTO.Id}");
+			return dataService.UpdateUser(userDetailsDTO);
         }
 
         public UserDetailsDTO GetUserByUsername(string username)
         {
-            return dataService.GetUserByUsername(username);
+			Logger.Log($"Getting user information for user with username: {username}");
+			return dataService.GetUserByUsername(username);
         }
 
         public void DeleteUser(int userId)
         {
             dataService.DeleteUser(userId);
-        }
-    }
+			Logger.Log($"Deleted usr with id: {userId}");
+		}
+	}
 }

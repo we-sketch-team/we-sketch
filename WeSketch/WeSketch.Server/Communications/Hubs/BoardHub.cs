@@ -46,35 +46,41 @@ namespace WeSketch.Server.Communications.Hubs
         public BoardDetailsDTO UpdateBoard(BoardDetailsDTO boardDetailsDTO)
         {
             BoardDetailsDTO board = dataService.UpdateBoard(boardDetailsDTO);
-            Clients.Others.UpdateBoardInformation(boardDetailsDTO);
-            return board;
+			Clients.Others.UpdateBoardInformation(boardDetailsDTO);
+			Logger.Log($"Updated board information for board with id: {board.Id}");
+			return board;
         }
 
         public void DeleteBoard(int boardId)
         {
             dataService.DeleteBoard(boardId);
-        }
+			Logger.Log($"Deleted board with id: {boardId}");
+		}
 
-        public List<UserDetailsDTO> GetCollaborators(int boardId)
+		public List<UserDetailsDTO> GetCollaborators(int boardId)
         {
-            return dataService.GetAllBoardCollaboratros(boardId);
+			Logger.Log($"Requesting collaborators for board with id: {boardId}");
+			return dataService.GetAllBoardCollaboratros(boardId);
         }
 
         public void AddCollaborator(CollaboratorDTO collaboratorDTO)
         {
             dataService.AddCollaborator(collaboratorDTO);
             Clients.Others.NotifyCollaboratorAddition(collaboratorDTO);
-        }
+			Logger.Log($"Collavorator with id {collaboratorDTO.UserId} added to board with id {collaboratorDTO.BoardId}");
+		}
 
 		public List<BoardDetailsDTO> GetPublicBoards()
 		{
+			Logger.Log($"Requesting public boards");
 			return dataService.GetAllPublicBoards();
 		}
 
         public List<BoardDetailsDTO> GetSharedBoardsWithUser(int userId)
         {
             var data = dataService.GetBoardsSharedWithUser(userId);
-            return data;
+			Logger.Log($"Requesting shared boards");
+			return data;
         }
 
 		public void EnterQueue(BoardUpdater updater)
@@ -84,6 +90,7 @@ namespace WeSketch.Server.Communications.Hubs
 			var groupName = Config.GroupNames.BoardGroup(updater.BoardId);
 			var group = GroupRegistrationHub.BoardGroups[groupName];
 			group.ForEach(u => Clients.Client(u).UserEnteredQueueNotify(updater.UserId));
+			Logger.Log($"User with id {updater.UserId} entered queue for board with id{updater.BoardId}");
 		}
 
 		public void LeaveQueue(BoardUpdater updater)
@@ -92,10 +99,12 @@ namespace WeSketch.Server.Communications.Hubs
 			var groupName = Config.GroupNames.BoardGroup(updater.BoardId);
 			var group = GroupRegistrationHub.BoardGroups[groupName];
 			group.ForEach(u => Clients.Client(u).UserLeftQueueNotify(updater.UserId));
+			Logger.Log($"User with id {updater.UserId} left queue for board with id{updater.BoardId}");
 		}
 
 		public List<BoardUpdater> GetBoardQueue(int boardId)
 		{
+			Logger.Log($"Requesting queue for board with id {boardId}");
 			return BoardsUpdateQueue.GetBoardQueue(boardId);
 		}
 
@@ -110,6 +119,7 @@ namespace WeSketch.Server.Communications.Hubs
 				group.ForEach(u => Clients.Client(u).UserLeftQueueNotify(id));
 			}
 
+			Logger.Log($"User with ConnectionId {Context.ConnectionId} disconnected");
 			return base.OnDisconnected(stopCalled);
 		}
 	}

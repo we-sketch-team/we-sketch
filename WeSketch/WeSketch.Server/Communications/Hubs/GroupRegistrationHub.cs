@@ -19,9 +19,11 @@ namespace WeSketch.Server.Communications.Hubs
             }
             var list = BoardGroups[groupName];
             if (!list.Contains(connectionId)) list.Add(connectionId);
-        }
+			Logger.Log($"User with ConnectionId {connectionId} added");
 
-        private void RemoveUser(string groupName, string connectionId)
+		}
+
+		private void RemoveUser(string groupName, string connectionId)
         {
             if (!BoardGroups.ContainsKey(groupName))
             {
@@ -29,9 +31,10 @@ namespace WeSketch.Server.Communications.Hubs
             }
             var list = BoardGroups[groupName];
             list.Remove(connectionId);
-        }
+			Logger.Log($"User with ConnectionId {connectionId} removed");
+		}
 
-        public void RegisterToBoardGroup(int boardId)
+		public void RegisterToBoardGroup(int boardId)
         {
             string groupName = Config.GroupNames.BoardGroup(boardId);
             var message = $"User with connection id {Context.ConnectionId} subscribed to group {groupName}";
@@ -60,7 +63,8 @@ namespace WeSketch.Server.Communications.Hubs
                 }
             }
 
-            return base.OnDisconnected(stopCalled);
+			Logger.Log($"User with ConnectionId {Context.ConnectionId} disconnected");
+			return base.OnDisconnected(stopCalled);
         }
     }
 }

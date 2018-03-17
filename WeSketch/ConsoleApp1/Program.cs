@@ -130,28 +130,13 @@ namespace ConsoleApp1
 			WeSketch.Server.Queues.BoardsUpdateQueue.AddToQueue(board3);
 			WeSketch.Server.Queues.BoardsUpdateQueue.AddToQueue(board4);
 
-			foreach (var item in BoardsUpdateQueue.GetBoardQueue(1))
+			foreach (var item in BoardsUpdateQueue.GetBoardQueue(100))
 			{
 				Console.WriteLine(item.ConnectionId);
 			}		
 
-			foreach (var item in BoardsUpdateQueue.GetBoardQueue(46))
-			{
-				Console.WriteLine(item.ConnectionId);
-			}
-
-			Console.WriteLine("remove");
-			BoardsUpdateQueue.RemoveDisconnected("2");
-
-			foreach (var item in BoardsUpdateQueue.GetBoardQueue(1))
-			{
-				Console.WriteLine(item.ConnectionId);
-			}
-
-			foreach (var item in BoardsUpdateQueue.GetBoardQueue(46))
-			{
-				Console.WriteLine(item.ConnectionId);
-			}
+			
+			
 			#endregion
 		}
 	}
