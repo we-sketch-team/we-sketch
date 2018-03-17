@@ -17,27 +17,36 @@ namespace WeSketch.App.Data.API
 
         public bool AddCollaborator(User user, Board board)
         {
-            throw new NotImplementedException();
+			return false;
         }
 
         public bool CreateBoard(string title, bool isPublic, User user)
         {
-            throw new NotImplementedException();
-        }
+			Board board = new Board() { Title = title, IsPublic = isPublic };
+			user.Boards.Add(board);
+			return true;
+		}
 
-        public bool DeleteBoard(Board board, User user)
+		public bool DeleteBoard(Board board, User user)
         {
-            throw new NotImplementedException();
+			Board boardToDelete = user.Boards.Find(x => x.Id == board.Id);
+
+			if (boardToDelete == null)
+				return false;
+
+			user.Boards.Remove(boardToDelete);
+			return true;
         }
 
         public Board GetBoardById(int id)
         {
-            throw new NotImplementedException();
+			Board board = Global.CurrentUser.Boards.Find(x => x.Id == id);
+			return board != null ? board : new Board();
         }
 
         public List<User> GetBoardCollaborators(Board board)
         {
-            throw new NotImplementedException();
+			return board?.Collaborators.Collaborators;
         }
 
         public List<Board> GetMyBoards(User user)
@@ -48,37 +57,37 @@ namespace WeSketch.App.Data.API
 
         public List<Board> GetSharedBoardsWithUser(User user)
         {
-            throw new NotImplementedException();
+			return new List<Board>();
         }
 
         public List<Board> GetSharedBoardsWithWithUser(User user)
         {
-            throw new NotImplementedException();
-        }
+			return new List<Board>();
+		}
 
-        public User GetUserByUsername(string username)
+		public User GetUserByUsername(string username)
         {
-            throw new NotImplementedException();
+			return new User();
         }
 
         public User Login(string username, string password)
         {
-            throw new NotImplementedException();
-        }
+			return new User();
+		}
 
-        public bool Register(UserRegistrationOptions options)
+		public bool Register(UserRegistrationOptions options)
         {
-            throw new NotImplementedException();
+			return false;
         }
 
         public bool RemoveCollaborator(User user, Board board)
         {
-            throw new NotImplementedException();
+			return false;
         }
 
         public void SendMessage(Message message)
         {
-            throw new NotImplementedException();
+			return;
         }
 
         public void SetBoardContentObserver(IBoardContentObserver observer)
@@ -88,17 +97,17 @@ namespace WeSketch.App.Data.API
 
         public void SubscribeToBoard(Board board)
         {
-            throw new NotImplementedException();
+			return;
         }
 
         public void UnsubscribeFromBoard(Board board)
         {
-            throw new NotImplementedException();
+			return;
         }
 
         public void UpdateBoardContent(Board board)
         {
-            throw new NotImplementedException();
+			return;
         }
     }
 }

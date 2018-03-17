@@ -79,6 +79,7 @@ namespace WeSketch.Server.Communications.Hubs
 
 		public void EnterQueue(BoardUpdater updater)
 		{
+			updater.ConnectionId = Context.ConnectionId;
 			BoardsUpdateQueue.AddToQueue(updater);
 			var groupName = Config.GroupNames.BoardGroup(updater.BoardId);
 			var group = GroupRegistrationHub.BoardGroups[groupName];

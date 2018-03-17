@@ -20,6 +20,7 @@ namespace WeSketch.App.Data
         public CollaboratorList Collaborators { get; set; }
         public Canvas MyCanvas { get; set; }
         public string Role { get; set; }
+		public bool IsPublic { get; set; }
 
         public Board()
         {
