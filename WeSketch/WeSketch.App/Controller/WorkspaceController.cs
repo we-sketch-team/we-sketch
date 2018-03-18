@@ -30,6 +30,7 @@ namespace WeSketch.App.Controller
         {
             this.workspace = model;
             this.view = view;
+            view.SetController(this);
         }
 
         public void SendMessage(string sender, string text)

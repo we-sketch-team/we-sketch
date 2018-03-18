@@ -59,9 +59,10 @@ namespace WeSketch.App.Forms
         private void PopulateFormToolbar()
         {
             toolbar = new Toolbar(this);
+            toolbar.Controller = controller;
             toolbar.Register(new SelectToolRepresent(this));
-            toolbar.Register(new RectangleToolRepresent(controller));
-            toolbar.Register(new EllipseToolRepresent(controller));
+            toolbar.Register(new RectangleToolRepresent(toolbar));
+            toolbar.Register(new EllipseToolRepresent(toolbar));
             
             foreach (var tool in toolbar.Tools)
             {
@@ -84,7 +85,7 @@ namespace WeSketch.App.Forms
 
         public void MakeController()
         {
-            this.controller = new WorkspaceController();
+            this.controller = new GuestWorkspaceController();
             controller.Init(workspace, this);
         }
 
@@ -113,6 +114,7 @@ namespace WeSketch.App.Forms
         private void MetroWindow_Loaded(object sender, RoutedEventArgs e)
         {
             RefreshCollaborators();
+            RefreshUserQueue();
             canvas.MouseUp += canvas_MouseUp;
             canvas.MouseDown += canvas_MouseDown;
         }
@@ -208,6 +210,10 @@ namespace WeSketch.App.Forms
         public void SetController(IWorkspaceController workspaceController)
         {
             this.controller = workspaceController;
+            if (toolbar == null) return;
+
+            toolbar.SelectedTool.SetController(this.controller);
+            toolbar.Controller = this.controller;
         }
 
         private void QueueButton_Click(object sender, RoutedEventArgs e)

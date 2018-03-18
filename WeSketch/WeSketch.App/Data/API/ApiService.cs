@@ -64,6 +64,7 @@ namespace WeSketch.App.Data.API
 
             boardHub.On<User>("UserEnteredQueueNotify", (user) => Application.Current.Dispatcher.Invoke(DispatcherPriority.Normal, new Action(() =>
             {
+                if (workspace == null) return;
                 var queue = workspace.GetBoard().UserQueue;
                 queue.Enqueue(user);
                 workspace.UpdateUserQueue(queue);
@@ -71,6 +72,7 @@ namespace WeSketch.App.Data.API
 
             boardHub.On<int>("UserLeftQueueNotify", (userId) => Application.Current.Dispatcher.Invoke(DispatcherPriority.Normal, new Action(() =>
             {
+                if (workspace == null) return;
                 var queue = workspace.GetBoard().UserQueue;
                 queue.RemoveFromQueue(userId);
                 workspace.UpdateUserQueue(queue);
@@ -84,7 +86,6 @@ namespace WeSketch.App.Data.API
             {
                 workspace.UpdateMessage(message);
             })));
-
         }
 
         public List<Board> GetMyBoards(User user)

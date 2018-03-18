@@ -33,10 +33,12 @@ namespace WeSketch.App.Data
 
         public override string ToString()
         {
+            if (IsEmpty()) return "Queue";
+
             string res = "";
             foreach (var u in usersInQueue)
             {
-                res += $"{u.Username}, "; 
+                res += $"{u.Username} "; 
             }
             return res;
         }

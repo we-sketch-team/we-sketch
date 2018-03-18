@@ -9,10 +9,12 @@ namespace WeSketch.App.Data.Tools.Toolbar
 {
     public class EllipseToolRepresent:ToolbarItemRepresent
     {
-        public EllipseToolRepresent(IWorkspaceController controller)
+
+        public EllipseToolRepresent(Toolbar toolbar)
         {
-            ICreationalTool tool = new EllipseCreationalTool();
-            tool.SetController(controller);
+            this.toolbar = toolbar;
+            tool = new EllipseCreationalTool();
+            tool.SetController(toolbar.Controller);
             this.AttachTool(tool);
         }
 

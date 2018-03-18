@@ -108,7 +108,7 @@ namespace WeSketch.Server.Communications.Hubs
 			Logger.Log($"Requesting queue for board with id {boardId}");
             var users = new List<UserDetailsDTO>();
             List<BoardUpdater> list = BoardsUpdateQueue.GetBoardQueue(boardId);
-            list.ForEach(u => users.Add(new UserDetailsDTO() { Id = u.UserId }));
+            list.ForEach(u => users.Add(dataService.GetUser(u.UserId)));
             return users;
 		}
 
