@@ -129,12 +129,14 @@
       <SubType>Designer</SubType>
     </ApplicationDefinition>
     <Compile Include="Controller\DashboardController.cs" />
+    <Compile Include="Controller\GuestWorkspaceController.cs" />
     <Compile Include="Controller\IDashboardController.cs" />
     <Compile Include="Controller\ILoginController.cs" />
     <Compile Include="Controller\IWorkspaceController.cs" />
     <Compile Include="Controller\LoginController.cs" />
     <Compile Include="Controller\WorkspaceController.cs" />
     <Compile Include="Data\API\ApiService.cs" />
+    <Compile Include="Data\BoardQueue.cs" />
     <Compile Include="Data\Global.cs" />
     <Compile Include="Data\Shapes\MoveThumb.cs" />
     <Compile Include="Data\Shapes\ResizeThumb.cs" />
@@ -178,7 +180,6 @@
     <Compile Include="Model\Dashboard.cs" />
     <Compile Include="Model\IDashboard.cs" />
     <Compile Include="Model\ILogin.cs" />
-    <Compile Include="Model\IBoardContentObserver.cs" />
     <Compile Include="Model\ISketch.cs" />
     <Compile Include="Model\IWorkspace.cs" />
     <Compile Include="Model\Login.cs" />

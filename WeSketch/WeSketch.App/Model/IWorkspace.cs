@@ -27,5 +27,9 @@ namespace WeSketch.App.Model
         List<User> LoadBoardCollaborators();
         void UpdateMessage(Message message);
         void SendMessage(Message message);
+        void UpdateBoardContent(Board board);
+        void UpdateUserQueue(BoardQueue queue);
+        void EnterQueue();
+        void LeaveQueue();
     }
 }

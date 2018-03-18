@@ -21,11 +21,22 @@ namespace WeSketch.App.Data
         public Canvas MyCanvas { get; set; }
         public string Role { get; set; }
 		public bool IsPublic { get; set; }
+        public BoardQueue UserQueue { get; set; }
+
+        public bool CanEdit
+        {
+            get
+            {
+                if (UserQueue.IsEmpty()) return false;
+                return UserQueue.GetFirst().Id == Global.CurrentUser.Id;
+            }
+        }
 
         public Board()
         {
             Shapes = new ShapeList();
             Collaborators = new CollaboratorList();
+            UserQueue = new BoardQueue();
         }
 
         public void AddShape(IShape shape)

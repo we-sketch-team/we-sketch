@@ -21,7 +21,7 @@ namespace WeSketch.App.Data.API
         private string ServerURI = Global.ServerURI;
         private HubConnection connection;
         IHubProxy userHub, boardHub, groupsHub, chatHub;
-        IBoardContentObserver workspace;
+        IWorkspace workspace;
 
         public ApiService()
         {
@@ -56,10 +56,25 @@ namespace WeSketch.App.Data.API
         private void BoardHubSetup()
         {
             boardHub = connection.CreateHubProxy("BoardHub");
+
             boardHub.On<Board>("NotifyBoardUpdate", (board) => Application.Current.Dispatcher.Invoke(DispatcherPriority.Normal, new Action(() =>
              {
                  workspace.UpdateBoardContent(board);
              })));
+
+            boardHub.On<User>("UserEnteredQueueNotify", (user) => Application.Current.Dispatcher.Invoke(DispatcherPriority.Normal, new Action(() =>
+            {
+                var queue = workspace.GetBoard().UserQueue;
+                queue.Enqueue(user);
+                workspace.UpdateUserQueue(queue);
+            })));
+
+            boardHub.On<int>("UserLeftQueueNotify", (userId) => Application.Current.Dispatcher.Invoke(DispatcherPriority.Normal, new Action(() =>
+            {
+                var queue = workspace.GetBoard().UserQueue;
+                queue.RemoveFromQueue(userId);
+                workspace.UpdateUserQueue(queue);
+            })));
         }
 
         private void ChatHubSetup()
@@ -196,11 +211,6 @@ namespace WeSketch.App.Data.API
             return collabs;
         }
 
-        public void SetBoardContentObserver(IBoardContentObserver observer)
-        {
-            workspace = observer;
-        }
-
         public void SubscribeToBoard(Board board)
         {
             Application.Current.Dispatcher.Invoke(DispatcherPriority.Normal, new Action(() =>
@@ -237,6 +247,53 @@ namespace WeSketch.App.Data.API
             }));
 
             return boards;
+        }
+
+        public void SetWorkspace(IWorkspace workspace)
+        {
+            this.workspace = workspace;
+        }
+
+        public User GetUserById(int userId)
+        {
+            User user = new User();
+            Application.Current.Dispatcher.Invoke(DispatcherPriority.Normal, new Action(() =>
+            {
+                user = userHub.Invoke<User>("GetUser", userId).Result;
+            }));
+
+            return user;
+        }
+
+        public void EnterQueue(User user, Board board)
+        {
+            Application.Current.Dispatcher.Invoke(DispatcherPriority.Normal, new Action(() =>
+            {
+                var boardUpdater = new { BoardId = board.Id, UserId = user.Id};
+                boardHub.Invoke("EnterQueue", boardUpdater);
+            }));
+        }
+
+        public void LeaveQueue(User user, Board board)
+        {
+            Application.Current.Dispatcher.Invoke(DispatcherPriority.Normal, new Action(() =>
+            {
+                var boardUpdater = new { BoardId = board.Id, UserId = user.Id };
+                boardHub.Invoke("LeaveQueue", boardUpdater);
+            }));
+        }
+
+        public BoardQueue GetQueue(Board board)
+        {
+            BoardQueue boardQueue = new BoardQueue();
+
+            Application.Current.Dispatcher.Invoke(DispatcherPriority.Normal, new Action(() =>
+            {
+                List<User> users = boardHub.Invoke<List<User>>("GetBoardQueue", board.Id).Result;
+                users.ForEach(u => boardQueue.Enqueue(u));
+            }));
+
+            return boardQueue;
         }
     }
 }

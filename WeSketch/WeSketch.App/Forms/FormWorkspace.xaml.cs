@@ -159,7 +159,7 @@ namespace WeSketch.App.Forms
         private void MetroWindow_KeyUp(object sender, KeyEventArgs e)
         {
             if (e.Key == Key.Delete)
-                workspace.DeleteShape(selectedShape);
+                controller.DeleteShape(selectedShape);
         }
 
         private void MetroWindow_Closing(object sender, System.ComponentModel.CancelEventArgs e)
@@ -197,6 +197,29 @@ namespace WeSketch.App.Forms
                 SendMessage();
                 e.Handled = true;
             }
+        }
+
+        public void RefreshUserQueue()
+        {
+            var board = workspace.GetBoard();
+            UsersQueueLabel.Content = board.UserQueue.ToString();
+        }
+
+        public void SetController(IWorkspaceController workspaceController)
+        {
+            this.controller = workspaceController;
+        }
+
+        private void QueueButton_Click(object sender, RoutedEventArgs e)
+        {
+            workspace.EnterQueue();
+            RefreshUserQueue();
+        }
+
+        private void QueueButton_Copy_Click(object sender, RoutedEventArgs e)
+        {
+            workspace.LeaveQueue();
+            RefreshUserQueue();
         }
     }
 }

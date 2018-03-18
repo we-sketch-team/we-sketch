@@ -38,6 +38,11 @@ namespace WeSketch.App.Data.API
 			return true;
         }
 
+        public void EnterQueue(User user, Board board)
+        {
+            throw new NotImplementedException();
+        }
+
         public Board GetBoardById(int id)
         {
 			Board board = Global.CurrentUser.Boards.Find(x => x.Id == id);
@@ -55,6 +60,11 @@ namespace WeSketch.App.Data.API
             return boards;
         }
 
+        public BoardQueue GetQueue(Board board)
+        {
+            throw new NotImplementedException();
+        }
+
         public List<Board> GetSharedBoardsWithUser(User user)
         {
 			return new List<Board>();
@@ -65,9 +75,19 @@ namespace WeSketch.App.Data.API
 			return new List<Board>();
 		}
 
-		public User GetUserByUsername(string username)
+        public User GetUserById(int userId)
+        {
+            throw new NotImplementedException();
+        }
+
+        public User GetUserByUsername(string username)
         {
 			return new User();
+        }
+
+        public void LeaveQueue(User user, Board board)
+        {
+            throw new NotImplementedException();
         }
 
         public User Login(string username, string password)
@@ -90,7 +110,7 @@ namespace WeSketch.App.Data.API
 			return;
         }
 
-        public void SetBoardContentObserver(IBoardContentObserver observer)
+        public void SetWorkspace(IWorkspace workspace)
         {
             throw new NotImplementedException();
         }

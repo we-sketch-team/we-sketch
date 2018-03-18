@@ -22,10 +22,14 @@ namespace WeSketch.App.Data.API
         bool RemoveCollaborator(User user, Board board);
         List<User> GetBoardCollaborators(Board board);
         Board GetBoardById(int id);
-        void SetBoardContentObserver(IBoardContentObserver observer);
+        void SetWorkspace(IWorkspace workspace);
         void SubscribeToBoard(Board board);
         void UnsubscribeFromBoard(Board board);
         void SendMessage(Message message);
         List<Board> GetSharedBoardsWithUser(User user);
+        User GetUserById(int userId);
+        void EnterQueue(User user, Board board);
+        void LeaveQueue(User user, Board board);
+        BoardQueue GetQueue(Board board);
     }
 }
