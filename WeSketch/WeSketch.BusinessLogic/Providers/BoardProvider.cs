@@ -163,7 +163,6 @@ namespace WeSketch.BusinessLogic.Providers
             board = ConverterFromDTO.BoardFromCreateBoard(createBoards);
             board.DateCreated = DateTime.Now;
             board.ActiveBoard = true;
-			board.Password = createBoards.Password;
             unitOfWork.BoardRepository.Insert(board);
             unitOfWork.Save();
 
