@@ -32,7 +32,7 @@ namespace ConsoleApp1
                 UserId = 4,
                 Desription = "again...",
                 Title = "Title",
-                PublicBoard = false
+                Password = ""
             };
             dataService.CreateBoard(createBoardDto);
         }

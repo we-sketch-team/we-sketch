@@ -156,7 +156,5 @@ namespace WeSketch.BusinessLogic.Providers
             var user = unitOfWork.UserRepository.GetByUsername(username);
             return ConverterToDTO.UserToUserDetails(user);
         }
-
-
     }
 }

@@ -4,7 +4,6 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
-using WeSketch.BusinessLogic.DTOs.ChatRoomDTOs;
 using WeSketch.BusinessLogic.Services;
 using WeSketch.Common;
 

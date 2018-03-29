@@ -16,14 +16,11 @@ namespace WeSketch.DataLayer.Model
         public int Id { get; set; }
         public DateTime DateCreated { get; set; }
         public bool ActiveBoard { get; set; }
-        public bool PublicBoard { get; set; }
         public string Title { get; set; }
         public string Desription { get; set; }
         public string Content { get; set; }
+		public string Password { get; set; }
 
-        public virtual ChatRoom ChatRoom { get; set; }
-        public virtual User LockedBy { get; set; }
-
-        public virtual ICollection<UserBoards> UserBoards { get; set; }
+		public virtual ICollection<UserBoards> UserBoards { get; set; }
     }
 }

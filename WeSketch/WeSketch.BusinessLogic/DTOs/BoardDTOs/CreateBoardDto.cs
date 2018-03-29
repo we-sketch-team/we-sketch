@@ -9,7 +9,7 @@ namespace WeSketch.BusinessLogic.DTOs.BoardDTOs
     public class CreateBoardDto
     {
         public DateTime DateCreated { get; set; }
-        public bool PublicBoard { get; set; }
+        public string Password { get; set; }
         public string Title { get; set; }
         public string Desription { get; set; }
         public string Content { get; set; }

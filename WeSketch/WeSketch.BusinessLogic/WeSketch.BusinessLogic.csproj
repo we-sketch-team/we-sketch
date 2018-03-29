@@ -67,17 +67,12 @@
     <Compile Include="DTOs\BoardDTOs\CollaboratorListDTO.cs" />
     <Compile Include="DTOs\BoardDTOs\CreateBoardDto.cs" />
     <Compile Include="DTOs\BoardDTOs\BoardPreferenceDTO.cs" />
-    <Compile Include="DTOs\ChatRoomDTOs\ChatRoomDetailsDTO.cs" />
-    <Compile Include="DTOs\ChatRoomDTOs\UpdateChatRoomDTO.cs" />
-    <Compile Include="DTOs\MessageDTOs\CreateMessageDTO.cs" />
-    <Compile Include="DTOs\MessageDTOs\MessageDetailsDTO.cs" />
     <Compile Include="DTOs\BoardDTOs\CollaboratorDTO.cs" />
     <Compile Include="DTOs\UserDTOs\CreateUserDTO.cs" />
     <Compile Include="DTOs\UserDTOs\UserDetailsDTO.cs" />
     <Compile Include="DTOs\UserDTOs\LoginDTO.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Providers\BoardProvider.cs" />
-    <Compile Include="Providers\ChatRoomProvider.cs" />
     <Compile Include="Services\DataService.cs" />
     <Compile Include="Providers\UserProvider.cs" />
     <Compile Include="Utilities\ConverterFromDTO.cs" />

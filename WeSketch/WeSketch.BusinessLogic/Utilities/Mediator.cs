@@ -11,6 +11,5 @@ namespace WeSketch.BusinessLogic.Utilities
     {
         public User User { get; set; }
         public Board Board { get; set; }
-        public ChatRoom ChatRoom { get; set; }
     }
 }

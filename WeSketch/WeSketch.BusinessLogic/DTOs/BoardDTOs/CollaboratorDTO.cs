@@ -10,5 +10,6 @@ namespace WeSketch.BusinessLogic.DTOs.BoardDTOs
     {
         public int UserId { get; set; }
         public int BoardId { get; set; }
-    }
+		public string Password { get; set; }
+	}
 }

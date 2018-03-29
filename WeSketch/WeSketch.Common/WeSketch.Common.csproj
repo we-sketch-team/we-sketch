@@ -43,7 +43,6 @@
     <Compile Include="Message.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="RemoteMethods\BoardHubMethods.cs" />
-    <Compile Include="RemoteMethods\ChatRoomHubMethods.cs" />
     <Compile Include="RemoteMethods\UserHubMethods.cs" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />

@@ -19,8 +19,6 @@ namespace WeSketch.DataLayer.Model
 
         #region DbSets
         public DbSet<Board> Boards { get; set; }
-        public DbSet<ChatRoom> ChatRooms { get; set; }
-        public DbSet<Message> Messages { get; set; }
         public DbSet<User> Users { get; set; }
         #endregion
 
@@ -30,16 +28,10 @@ namespace WeSketch.DataLayer.Model
 
             #region PrimaryKeys
             modelBuilder.Entity<Board>().HasKey<int>(s => s.Id);
-            modelBuilder.Entity<ChatRoom>().HasKey<int>(s => s.Id);
-            modelBuilder.Entity<Message>().HasKey<int>(s => s.Id);
             modelBuilder.Entity<User>().HasKey<int>(s => s.Id);
             modelBuilder.Entity<UserBoards>().HasKey(s => new {s.UserId, s.BoardId});
-
-
             #region Auto increment             
             modelBuilder.Entity<Board>().Property(p => p.Id).HasDatabaseGeneratedOption(DatabaseGeneratedOption.Identity);
-            modelBuilder.Entity<ChatRoom>().Property(p => p.Id).HasDatabaseGeneratedOption(DatabaseGeneratedOption.Identity);
-            modelBuilder.Entity<Message>().Property(p => p.Id).HasDatabaseGeneratedOption(DatabaseGeneratedOption.Identity);
             modelBuilder.Entity<User>().Property(p => p.Id).HasDatabaseGeneratedOption(DatabaseGeneratedOption.Identity);
             #endregion  
             #endregion
@@ -59,23 +51,12 @@ namespace WeSketch.DataLayer.Model
                         .Property(s => s.ActiveBoard)
                         .IsOptional();
             modelBuilder.Entity<Board>()
-                        .Property(s => s.PublicBoard)
+                        .Property(s => s.Password)
                         .IsOptional();
             modelBuilder.Entity<Board>()
                         .Property(s => s.Content)
                         .HasColumnType("ntext");
 
-            modelBuilder.Entity<ChatRoom>()
-                        .Property(s => s.ActiveChat)
-                        .IsOptional();
-            modelBuilder.Entity<ChatRoom>()
-                        .Property(s => s.DateCreated)
-                        .IsOptional();
-
-            modelBuilder.Entity<Message>()
-                        .Property(s => s.Content)
-                        .HasMaxLength(1000)
-                        .IsRequired();
 
             modelBuilder.Entity<UserBoards>()
                         .Property(s => s.Role)
@@ -115,34 +96,7 @@ namespace WeSketch.DataLayer.Model
                         .Property(s => s.ActiveAccount)
                         .IsOptional();
                         #endregion
-            #region Foreign Keys
-            modelBuilder.Entity<Board>()
-                        .HasOptional(s => s.ChatRoom)
-                        .WithOptionalPrincipal(s => s.Board);
-            modelBuilder.Entity<Board>()
-                        .HasOptional(s => s.LockedBy)
-                        .WithOptionalPrincipal(s => s.LockedBoard);          
-            
-            modelBuilder.Entity<ChatRoom>()
-                        .HasMany<User>(s => s.UsersInChatRoom)
-                        .WithMany(s => s.ChatRooms)
-                        .Map(s =>
-                        {
-                            s.MapLeftKey("ChatRooms");
-                            s.MapRightKey("Users");
-                            s.ToTable("ChatRoomUsers");
-                        });          
-
-            modelBuilder.Entity<Message>()
-                        .HasRequired<ChatRoom>(s => s.SentIn)
-                        .WithMany(s => s.Messages)
-                        .HasForeignKey<int>(s => s.ChatRoomId);
-
-            modelBuilder.Entity<Message>()
-                        .HasRequired<User>(s => s.Sender)
-                        .WithMany(s => s.Messages)
-                        .HasForeignKey<int>(s => s.UserID);      
-                    
+            #region Foreign Keys        
             modelBuilder.Entity<UserBoards>()
                         .HasRequired(s => s.User)
                         .WithMany(s => s.UserBoards)

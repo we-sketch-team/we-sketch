@@ -10,9 +10,7 @@ namespace WeSketch.DataLayer.Model
     public class User
     {
         public User()
-        {
-            ChatRooms = new HashSet<ChatRoom>();
-            Messages = new HashSet<Message>();
+        {           
             UserBoards = new HashSet<UserBoards>();
         }
 
@@ -25,11 +23,6 @@ namespace WeSketch.DataLayer.Model
         public DateTime DateRegistered { get; set; }
         public bool ActiveAccount { get; set; }
         public DateTime DateOfBirth { get; set; }
-
-        public virtual Board LockedBoard { get; set; }
-
-        public virtual ICollection<ChatRoom> ChatRooms { get; set; }
-        public ICollection<Message> Messages { get; set; }
 
         public virtual ICollection<UserBoards> UserBoards { get; set; }
     }

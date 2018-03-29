@@ -68,13 +68,7 @@ namespace WeSketch.Server.Communications.Hubs
             dataService.AddCollaborator(collaboratorDTO);
             Clients.Others.NotifyCollaboratorAddition(collaboratorDTO);
 			Logger.Log($"Collavorator with id {collaboratorDTO.UserId} added to board with id {collaboratorDTO.BoardId}");
-		}
-
-		public List<BoardDetailsDTO> GetPublicBoards()
-		{
-			Logger.Log($"Requesting public boards");
-			return dataService.GetAllPublicBoards();
-		}
+		}		
 
         public List<BoardDetailsDTO> GetSharedBoardsWithUser(int userId)
         {
