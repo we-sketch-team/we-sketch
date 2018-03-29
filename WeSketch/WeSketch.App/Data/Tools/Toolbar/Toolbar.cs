@@ -39,11 +39,13 @@ namespace WeSketch.App.Data.Tools.Toolbar
 
         public void Select(ToolbarItemRepresent tool)
         {
-            if(selectedTool != null)
-                selectedTool.Deactivate();
+            selectedTool?.Deactivate();
             selectedTool = tool;
             selectedTool.Activate();
+            selectedTool.SetController(Controller);
             form.UpdateSelectedTool();
         }
+
+        public IWorkspaceController Controller { get; internal set; }
     }
 }

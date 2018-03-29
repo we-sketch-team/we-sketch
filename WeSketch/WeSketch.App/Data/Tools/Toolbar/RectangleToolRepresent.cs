@@ -7,14 +7,15 @@ using WeSketch.App.Controller;
 
 namespace WeSketch.App.Data.Tools.Toolbar
 {
-    public class RectangleToolRepresent:ToolbarItemRepresent
+    public class RectangleToolRepresent: ToolbarItemRepresent
     {
-
-        public RectangleToolRepresent(IWorkspaceController controller)
+        public RectangleToolRepresent(Toolbar toolbar)
         {
-            ICreationalTool tool = new RectangleCreationalTool();
-            tool.SetController(controller);
+            this.toolbar = toolbar;
+            tool = new RectangleCreationalTool();
+            tool.SetController(toolbar.Controller);
             this.AttachTool(tool);
+
         }
 
         protected override void SetButtonIcon()

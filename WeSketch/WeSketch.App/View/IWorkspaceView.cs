@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using WeSketch.App.Controller;
 using WeSketch.App.Data;
 using WeSketch.App.Data.Shapes;
 using WeSketch.App.Model;
@@ -17,5 +18,7 @@ namespace WeSketch.App.View
         void RefreshCollaborators();
         void RefreshCanvas();
         void UpdateMessage(Message message);
+        void RefreshUserQueue();
+        void SetController(IWorkspaceController workspaceController);
     }
 }

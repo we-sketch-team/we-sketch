@@ -5,6 +5,7 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Controls;
 using System.Windows.Shapes;
+using WeSketch.App.Controller;
 using WeSketch.App.Data.Shapes;
 using WeSketch.App.Forms;
 
@@ -13,6 +14,7 @@ namespace WeSketch.App.Data.Tools
     public class SelectTool : ITool
     {
         private IDrawable form;
+        private IWorkspaceController controller;
 
         public SelectTool(IDrawable form)
         {
@@ -45,6 +47,11 @@ namespace WeSketch.App.Data.Tools
             var shape = frameworkShape.Tag as IShape;
 
             form.SelectShape(shape);
+        }
+
+        public void SetController(IWorkspaceController controller)
+        {
+            this.controller = controller;
         }
     }
 }

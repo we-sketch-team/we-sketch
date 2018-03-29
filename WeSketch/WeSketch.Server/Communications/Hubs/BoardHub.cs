@@ -83,7 +83,8 @@ namespace WeSketch.Server.Communications.Hubs
 			BoardsUpdateQueue.AddToQueue(updater);
 			var groupName = Config.GroupNames.BoardGroup(updater.BoardId);
 			var group = GroupRegistrationHub.BoardGroups[groupName];
-			group.ForEach(u => Clients.Client(u).UserEnteredQueueNotify(updater.UserId));
+            var user = dataService.GetUser(updater.UserId);
+			group.ForEach(u => Clients.Client(u).UserEnteredQueueNotify(user));
 			Logger.Log($"User with id {updater.UserId} entered queue for board with id{updater.BoardId}");
 		}
 
@@ -96,10 +97,13 @@ namespace WeSketch.Server.Communications.Hubs
 			Logger.Log($"User with id {updater.UserId} left queue for board with id{updater.BoardId}");
 		}
 
-		public List<BoardUpdater> GetBoardQueue(int boardId)
+		public List<UserDetailsDTO> GetBoardQueue(int boardId)
 		{
 			Logger.Log($"Requesting queue for board with id {boardId}");
-			return BoardsUpdateQueue.GetBoardQueue(boardId);
+            var users = new List<UserDetailsDTO>();
+            List<BoardUpdater> list = BoardsUpdateQueue.GetBoardQueue(boardId);
+            list.ForEach(u => users.Add(dataService.GetUser(u.UserId)));
+            return users;
 		}
 
 		public override Task OnDisconnected(bool stopCalled)

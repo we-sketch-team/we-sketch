@@ -35,8 +35,8 @@ namespace WeSketch.Server.Queues
 
 		public static List<BoardUpdater> GetBoardQueue(int boardId)
 		{
-			if (boardsUpdateQueues[boardId].Count == 0)
-				return null;
+            if (!boardsUpdateQueues.ContainsKey(boardId))            
+                AddQueue(boardId);            
 
 			return boardsUpdateQueues[boardId];
 		}

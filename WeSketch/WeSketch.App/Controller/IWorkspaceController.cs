@@ -15,5 +15,6 @@ namespace WeSketch.App.Controller
         void Init(IWorkspace model, IWorkspaceView view);
         void AddShape(IShape shape);
         void SendMessage(string sender, string text);
+        void DeleteShape(IShape selectedShape);
     }
 }

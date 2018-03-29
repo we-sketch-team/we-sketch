@@ -5,15 +5,17 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Controls;
+using WeSketch.App.Controller;
 
 namespace WeSketch.App.Data.Tools.Toolbar
 {
     public abstract class ToolbarItemRepresent: Button
     {
-        private ITool tool;
-        private Toolbar toolbar;
+        protected ITool tool;
+        protected Toolbar toolbar;
         private Color activatedIndicator = Color.FromRgb(150, 150, 150);
         private Color deactivatedIndicator = Color.FromRgb(220, 220, 220);
+        protected IWorkspaceController controller;
 
         public ToolbarItemRepresent()
         {
@@ -65,6 +67,12 @@ namespace WeSketch.App.Data.Tools.Toolbar
         {
             tool.Deactivate();
             SetBackColor(deactivatedIndicator);
+        }
+
+        public void SetController(IWorkspaceController controller)
+        {
+            this.controller = controller;
+            tool.SetController(controller);
         }
     }
 }

@@ -4,6 +4,7 @@ using System.Drawing;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using WeSketch.App.Controller;
 using WeSketch.App.Data;
 using WeSketch.App.Data.API;
 using WeSketch.App.Data.Shapes;
@@ -12,7 +13,7 @@ using WeSketch.Common;
 
 namespace WeSketch.App.Model
 {
-    public class Workspace : IWorkspace, IBoardContentObserver
+    public class Workspace : IWorkspace
     {
         private Board board;
         private List<IWorkspaceView> observers;
@@ -53,7 +54,7 @@ namespace WeSketch.App.Model
 
             var service = SketchService.GetService();
             service.UnsubscribeFromBoard(board);
-            service.SetBoardContentObserver(null);
+            service.SetWorkspace(null);
             board = null; // ?
         }
 
@@ -64,6 +65,7 @@ namespace WeSketch.App.Model
 
         public void Dispose()
         {
+            LeaveQueue();
             CloseBoard();
         }
 
@@ -102,7 +104,8 @@ namespace WeSketch.App.Model
             var service = SketchService.GetService();
             this.board = service.GetBoardById(board.Id);
             this.board.Shapes = Utilities.ImportShapes(board.Content);
-            service.SetBoardContentObserver(this);
+            this.board.UserQueue = service.GetQueue(board);
+            service.SetWorkspace(this);
             service.SubscribeToBoard(board);
         }
 
@@ -127,6 +130,34 @@ namespace WeSketch.App.Model
         {
             var service = SketchService.GetService();
             service.SendMessage(message);
+        }
+
+        public void UpdateUserQueue(BoardQueue queue)
+        {
+            board.UserQueue = queue;
+            observers.ForEach(obs => obs.RefreshUserQueue());
+            IWorkspaceController ctrl;
+
+            if (!board.CanEdit)
+                ctrl = new GuestWorkspaceController();
+            else            
+                ctrl = new WorkspaceController();            
+
+            ctrl.Init(this, observers[0]);                
+        }
+
+        public void EnterQueue()
+        {
+            var service = SketchService.GetService();
+            var user = Global.CurrentUser;
+            service.EnterQueue(user, board);
+        }
+
+        public void LeaveQueue()
+        {
+            var service = SketchService.GetService();
+            var user = Global.CurrentUser;
+            service.LeaveQueue(user, board);
         }
     }
 }

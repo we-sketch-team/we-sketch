@@ -11,19 +11,19 @@ using WeSketch.Common;
 
 namespace WeSketch.App.Controller
 {
-    public class WorkspaceController : IWorkspaceController
+    public class GuestWorkspaceController : IWorkspaceController
     {
         private IWorkspace workspace;
         private IWorkspaceView view;
 
         public void AddShape(IShape shape)
         {
-            workspace.AddShape(shape);
+            
         }
 
         public void DeleteShape(IShape selectedShape)
         {
-            workspace.DeleteShape(selectedShape);
+            
         }
 
         public void Init(IWorkspace model, IWorkspaceView view)

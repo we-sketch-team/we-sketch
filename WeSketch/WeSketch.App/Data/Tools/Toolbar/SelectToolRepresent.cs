@@ -11,7 +11,7 @@ namespace WeSketch.App.Data.Tools.Toolbar
     {
         public SelectToolRepresent(IDrawable form)
         {
-            ITool tool = new SelectTool(form);
+            tool = new SelectTool(form);
             this.AttachTool(tool);
         }
 
