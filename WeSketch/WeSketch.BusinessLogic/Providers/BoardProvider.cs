@@ -8,6 +8,7 @@ using WeSketch.DataLayer.UnitOfWork;
 using WeSketch.BusinessLogic.DTOs.BoardDTOs;
 using WeSketch.BusinessLogic.DTOs;
 using WeSketch.DataLayer.Model;
+using WeSketch.Common.CommonClasses;
 
 namespace WeSketch.BusinessLogic.Providers
 {
@@ -328,5 +329,57 @@ namespace WeSketch.BusinessLogic.Providers
 
             return list;
         }
-    }
+
+		public void SyncDeletedBoards(List<int> ids)
+		{
+			foreach (var id in ids)
+			{
+				unitOfWork.BoardRepository.Delete(id);
+			}
+			unitOfWork.Save();
+		}
+
+		public void SyncUpdatedBoards(List<CommonBoard> boards)
+		{
+			foreach (var boardToUpdate in boards)
+			{
+				Board board = unitOfWork.BoardRepository.GetById(boardToUpdate.BoardId);
+				board.Content = boardToUpdate.Content;
+				board.Desription = boardToUpdate.Description;
+				board.Title = boardToUpdate.Title;
+				board.ActiveBoard = true;
+				unitOfWork.BoardRepository.Update(board);
+			}
+			unitOfWork.Save();
+		}
+
+		public void SyncCreatedBoards(List<CommonBoard> boards)
+		{
+			foreach (var boardToCreate in boards)
+			{
+				Board board = new Board()
+				{
+					Content = boardToCreate.Content,
+					Title = boardToCreate.Title,
+					Desription = boardToCreate.Description,
+					DateCreated = DateTime.Now,
+					ActiveBoard = true
+				};
+				unitOfWork.BoardRepository.Insert(board);
+				unitOfWork.Save();
+				User user = unitOfWork.UserRepository.GetById(boardToCreate.UserId);
+				UserBoards userBoards = ConnectBoardAndUser(user, board);
+				userBoards.Role = Utility.CreatorRole();
+				user.UserBoards.Add(userBoards);
+				board.UserBoards.Add(userBoards);
+				board.UserBoards.Add(userBoards);
+				user.UserBoards.Add(userBoards);
+				unitOfWork.Save();
+
+				unitOfWork.BoardRepository.Update(board);
+				unitOfWork.UserRepository.Update(user);
+			}
+			unitOfWork.Save();
+		}
+	}
 }

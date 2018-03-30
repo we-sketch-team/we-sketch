@@ -80,6 +80,8 @@
     <Compile Include="Utilities\InvalidDTOFactory.cs" />
     <Compile Include="Utilities\Mediator.cs" />
     <Compile Include="Utilities\ObjectFactory.cs" />
+    <Compile Include="Utilities\OfflineSyncer.cs" />
+    <Compile Include="Utilities\Syncer.cs" />
     <Compile Include="Utilities\Utility.cs" />
   </ItemGroup>
   <ItemGroup>
@@ -90,6 +92,10 @@
     <Content Include="Scripts\jquery.signalR-2.2.2.min.js" />
   </ItemGroup>
   <ItemGroup>
+    <ProjectReference Include="..\WeSketch.Common\WeSketch.Common.csproj">
+      <Project>{b3a793b5-aa54-4943-9bac-747c5dfbcf09}</Project>
+      <Name>WeSketch.Common</Name>
+    </ProjectReference>
     <ProjectReference Include="..\WeSketch.DataLayer\WeSketch.DataLayer.csproj">
       <Project>{2b7da65d-8ea8-4f50-8de8-f5dec1f98698}</Project>
       <Name>WeSketch.DataLayer</Name>

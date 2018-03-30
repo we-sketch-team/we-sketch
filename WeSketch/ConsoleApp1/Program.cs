@@ -8,6 +8,7 @@ using WeSketch.BusinessLogic.DTOs;
 using WeSketch.BusinessLogic.DTOs.BoardDTOs;
 using WeSketch.Server.NotificationsSystem;
 using WeSketch.Server.Queues;
+using WeSketch.Common.CommonClasses;
 
 namespace ConsoleApp1
 {
@@ -85,59 +86,44 @@ namespace ConsoleApp1
 			return dataService.GetMyBoardsBasicInformation(17);
 		}
 
+		public static void TestSyncOflline()
+		{
+			List<CommonBoard> boardsToCreate = new List<CommonBoard>();
+			boardsToCreate.Add(new CommonBoard()
+			{
+				Content = "this is new",
+				Description = "described",
+				Title = "this is cool title",
+				UserId = 4
+			});
+
+
+			List<CommonBoard> boardsToUpdate = new List<CommonBoard>();
+			boardsToUpdate.Add(new CommonBoard()
+			{
+				BoardId = 100,
+				Content = "hell yeah!",
+				Description = "hell yeah!",
+				Title = "hell yeah title",
+				UserId = 2
+			});
+
+			SyncerData data = new SyncerData()
+			{
+				BoardsToCreate = boardsToCreate,
+				BoardsToUpdate = boardsToUpdate				
+			};
+
+			data.BoardsToDelete.Add(106);
+
+			dataService.SyncOfllineMode(data);
+		}
+
         static void Main(string[] args)
         {
-			#region Boards update queues
-			BoardUpdater board = new BoardUpdater
-			{
-				BoardId = 1,
-				ConnectionId = "2"
-			};
-
-			BoardUpdater board1 = new BoardUpdater
-			{
-				BoardId = 1,
-				ConnectionId = "21"
-			};
-
-			BoardUpdater boardw1 = new BoardUpdater
-			{
-				BoardId = 1,
-				ConnectionId = "21w"
-			};
-
-			BoardUpdater board2 = new BoardUpdater
-			{
-				BoardId = 46,
-				ConnectionId = "2"
-			};
-
-			BoardUpdater board3 = new BoardUpdater
-			{
-				BoardId = 32,
-				ConnectionId = "2"
-			};
-
-			BoardUpdater board4 = new BoardUpdater
-			{
-				BoardId = 46,
-				ConnectionId = "23"
-			};
-
-			WeSketch.Server.Queues.BoardsUpdateQueue.AddToQueue(board);
-			WeSketch.Server.Queues.BoardsUpdateQueue.AddToQueue(board1);
-			WeSketch.Server.Queues.BoardsUpdateQueue.AddToQueue(board2);
-			WeSketch.Server.Queues.BoardsUpdateQueue.AddToQueue(board3);
-			WeSketch.Server.Queues.BoardsUpdateQueue.AddToQueue(board4);
-
-			foreach (var item in BoardsUpdateQueue.GetBoardQueue(100))
-			{
-				Console.WriteLine(item.ConnectionId);
-			}		
-
-			
-			
-			#endregion
+			TestSyncOflline();
+			//CreateBoard();
+			Console.WriteLine("Check it out now..");
 		}
 	}
 }

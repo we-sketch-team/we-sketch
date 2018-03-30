@@ -7,6 +7,7 @@ using WeSketch.BusinessLogic.Providers;
 using WeSketch.BusinessLogic.Utilities;
 using WeSketch.BusinessLogic.DTOs;
 using WeSketch.BusinessLogic.DTOs.BoardDTOs;
+using WeSketch.Common.CommonClasses;
 
 namespace WeSketch.BusinessLogic.Services
 {
@@ -131,5 +132,11 @@ namespace WeSketch.BusinessLogic.Services
             userProvider.SetMediatorUser(userId);
             return boardProvider.GetSharedBoardsWithUser();
         }
+
+		public void SyncOfllineMode(SyncerData data)
+		{
+			Syncer syncer = new Syncer(data);
+			syncer.Sync();
+		}
     }
 }
