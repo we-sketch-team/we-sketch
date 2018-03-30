@@ -79,6 +79,7 @@ namespace WeSketch.BusinessLogic.Providers
 				boardDetails.Id = userBoard.BoardId;
 				boardDetails.Desription = userBoard.Board.Desription;
 				boardDetails.Password = userBoard.Board.Password;
+				boardDetails.IsPasswordProtected = Utility.IsPasswordProtected(boardDetails.Password);
 				result.Add(boardDetails);
 			}
 
@@ -106,6 +107,7 @@ namespace WeSketch.BusinessLogic.Providers
                 boardDetails.IsFavoriteToUser = userBoard.IsFavoriteToUser;
                 boardDetails.Role = userBoard.Role;
 				boardDetails.Password = userBoard.Board.Password;
+				boardDetails.IsPasswordProtected = Utility.IsPasswordProtected(boardDetails.Password);
                 result.Add(boardDetails);
             }
 
@@ -122,7 +124,10 @@ namespace WeSketch.BusinessLogic.Providers
             if (board == null)
                 return InvalidDTOFactory.InvalidBoard();
 
-            return ConverterToDTO.BoardToBoardDetails(board); 
+            BoardDetailsDTO result = ConverterToDTO.BoardToBoardDetails(board);
+			result.IsPasswordProtected = Utility.IsPasswordProtected(result.Password);
+
+			return result;
         }
 
 		public BoardDetailsDTO GetBoadWithRole(int boardId)
@@ -137,6 +142,7 @@ namespace WeSketch.BusinessLogic.Providers
 
 			BoardDetailsDTO result = ConverterToDTO.BoardToBoardDetails(board);
 			result.Role = Utility.GetRole(mediator.User, board);
+			result.IsPasswordProtected = Utility.IsPasswordProtected(result.Password);
 			return result;
 		}	
 
@@ -325,7 +331,8 @@ namespace WeSketch.BusinessLogic.Providers
                 {
                     Id = ub.BoardId,
                     Title = ub.Board.Title,
-                    Desription = ub.Board.Desription
+                    Desription = ub.Board.Desription,
+					IsPasswordProtected = Utility.IsPasswordProtected(ub.Board.Password)
                 });
             }
 

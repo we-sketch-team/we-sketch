@@ -27,6 +27,11 @@ namespace WeSketch.BusinessLogic.Utilities
         public static string CollaboratorRole()
         {
             return "Collaborator";
-        }      
+        }
+		
+		public static bool IsPasswordProtected(string password)
+		{
+			return password != null && password != string.Empty;
+		}
     }
 }
