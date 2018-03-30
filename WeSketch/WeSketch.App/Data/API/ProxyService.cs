@@ -130,6 +130,14 @@ namespace WeSketch.App.Data.API
 
         public void UpdateBoardContent(Board board)
         {
+			CommonBoard boardToUpdate = new CommonBoard()
+			{
+				Content = board.Content,
+				Title = board.Title,
+				UserId = Global.CurrentUser.Id
+			};
+
+			Global.Syncer.BoardsToUpdate.Add(boardToUpdate);
 			return;
         }
     }

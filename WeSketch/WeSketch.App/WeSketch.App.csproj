@@ -137,12 +137,14 @@
     <Compile Include="Controller\WorkspaceController.cs" />
     <Compile Include="Data\API\ApiService.cs" />
     <Compile Include="Data\BoardQueue.cs" />
+    <Compile Include="Data\DatabaseSyncronizer.cs" />
     <Compile Include="Data\Global.cs" />
     <Compile Include="Data\Shapes\MoveThumb.cs" />
     <Compile Include="Data\Shapes\ResizeThumb.cs" />
     <Compile Include="Data\Shapes\ShapeEllipse.cs" />
     <Compile Include="Data\Shapes\ShapeList.cs" />
     <Compile Include="Data\Shapes\ShapesFactory.cs" />
+    <Compile Include="Data\Syncronizer.cs" />
     <Compile Include="Data\Tools\ITool.cs" />
     <Compile Include="Data\Tools\SelectTool.cs" />
     <Compile Include="Data\Tools\Toolbar\EllipseToolRepresent.cs" />
