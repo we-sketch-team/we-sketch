@@ -5,6 +5,7 @@ using WeSketch.BusinessLogic.DTOs;
 using WeSketch.BusinessLogic.DTOs.BoardDTOs;
 using WeSketch.BusinessLogic.Services;
 using WeSketch.Common;
+using WeSketch.Common.CommonClasses;
 using WeSketch.Server.Queues;
 
 namespace WeSketch.Server.Communications.Hubs
@@ -119,6 +120,12 @@ namespace WeSketch.Server.Communications.Hubs
 
 			Logger.Log($"User with ConnectionId {Context.ConnectionId} disconnected");
 			return base.OnDisconnected(stopCalled);
+		}
+
+		public void SyncOfflineModeChanges(SyncerData data)
+		{
+			dataService.SyncOfllineMode(data);
+			Logger.Log($"User with ConnectionId {Context.ConnectionId} synced");
 		}
 	}
 }
