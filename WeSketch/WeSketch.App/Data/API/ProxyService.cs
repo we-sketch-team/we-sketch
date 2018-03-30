@@ -16,16 +16,16 @@ namespace WeSketch.App.Data.API
 
         }
 
-        public bool AddCollaborator(User user, Board board)
+        public bool AddCollaborator(User user, Board board, string message)
         {
 			return false;
         }
 
-        public bool CreateBoard(string title, bool isPublic, User user)
+        public bool CreateBoard(string title, string password, User user)
         {
-			Board board = new Board() { Title = title, IsPublic = isPublic };
+			Board board = new Board() { Title = title, IsPasswordProtected = string.IsNullOrEmpty(password) };
 			user.Boards.Add(board);
-			Global.Syncer.BoardsToCreate.Add(new CommonBoard() { Title = title, UserId = user.Id });
+			Global.Syncer.BoardsToCreate.Add(new CommonBoard() { Title = title, UserId = user.Id, Password = password });
 			return true;
 		}
 

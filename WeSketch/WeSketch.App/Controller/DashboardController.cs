@@ -15,22 +15,22 @@ namespace WeSketch.App.Controller
         private IDashboard dashboard;
         private IDashboardView view;
 
-        private bool IsValid(string title)
+        private bool IsValid(string title, string password)
         {
             if (String.IsNullOrEmpty(title)) return false;
             return true;
         }
 
-        public void CreateBoard(string title, bool isPublic)
+        public void CreateBoard(string title, string password)
         {
-            bool isValid = IsValid(title);
+            bool isValid = IsValid(title, password);
             if (!isValid)
             {
                 view.BoardNotCreated();
                 return;
             }
 
-            bool success = dashboard.CreateBoard(title, isPublic);
+            bool success = dashboard.CreateBoard(title, password);
             if (success)
             {
                 view.BoardCreated();

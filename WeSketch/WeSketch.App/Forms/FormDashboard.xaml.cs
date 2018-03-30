@@ -42,10 +42,10 @@ namespace WeSketch.App.Forms
         private void ButtonCreate_Click(object sender, RoutedEventArgs e)
         {
             var title = createBoardDialog.tbxBoardTitle.Text;
-            var isPublic = createBoardDialog.cbxIsPublic.IsChecked;
+            var pwd = createBoardDialog.pbxPassword.Password;
             this.HideMetroDialogAsync(customDialog);
 
-            controller.CreateBoard(title, (bool)isPublic);
+            controller.CreateBoard(title, pwd);
         }
 
         private void ButtonCancel_Click(object sender, RoutedEventArgs e)
@@ -61,7 +61,7 @@ namespace WeSketch.App.Forms
 
         private void LoadBoardsSharedWithMe()
         {
-            var boards = dashboard.GetSharedBoardsWithUser();
+            var boards = dashboard.GetOtherBoards();
             dataSharedWithMe.ItemsSource = boards;
         }
 

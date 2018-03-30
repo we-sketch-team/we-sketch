@@ -15,25 +15,24 @@ namespace WeSketch.App.Model
             
         }
 
-        public bool CreateBoard(string title, bool isPublic)
+        public bool CreateBoard(string title, string password)
         {
             // check if board title is unique for user
             var user = Global.CurrentUser;
             var service = SketchService.GetService();
-            service.CreateBoard(title, isPublic, user);
+            service.CreateBoard(title, password, user);
             return true;
         }
 
         public bool DeleteBoard(Board board)
         {
-            // check if user can delete the board
             var user = Global.CurrentUser;
             var service = SketchService.GetService();
             service.DeleteBoard(board, user);
             return true;
         }
 
-        public List<Board> GetSharedBoardsWithUser()
+        public List<Board> GetOtherBoards()
         {
             var user = Global.CurrentUser;
             var service = SketchService.GetService();

@@ -10,9 +10,9 @@ namespace WeSketch.App.Model
 {
     public interface IDashboard
     {
-        bool CreateBoard(string title, bool isPublic);
+        bool CreateBoard(string title, string password);
         bool DeleteBoard(Board board);
         List<Board> GetCurrentUserBoardList();
-        List<Board> GetSharedBoardsWithUser();
+        List<Board> GetOtherBoards();
     }
 }

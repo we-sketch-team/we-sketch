@@ -14,11 +14,11 @@ namespace WeSketch.App.Data.API
         User GetUserByUsername(string username);
         User Login(string username, string password);
         bool Register(UserRegistrationOptions options);
-        bool CreateBoard(string title, bool isPublic, User user);
+        bool CreateBoard(string title, string password, User user);
         bool DeleteBoard(Board board, User user);
         void UpdateBoardContent(Board board);
         List<Board> GetMyBoards(User user);
-        bool AddCollaborator(User user, Board board);
+        bool AddCollaborator(User user, Board board, string password);
         bool RemoveCollaborator(User user, Board board);
         List<User> GetBoardCollaborators(Board board);
         Board GetBoardById(int id);

@@ -32,6 +32,8 @@ namespace WeSketch.App.Data
             }
         }
 
+        public bool IsPasswordProtected { get; internal set; }
+
         public Board()
         {
             Shapes = new ShapeList();

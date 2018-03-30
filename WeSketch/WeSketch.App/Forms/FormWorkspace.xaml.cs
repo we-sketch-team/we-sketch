@@ -100,7 +100,7 @@ namespace WeSketch.App.Forms
             var point = e.GetPosition(canvas);
             selectedTool.MouseUp((int)point.X, (int)point.Y);
             //
-            workspace.SaveBoard();
+            //workspace.SaveBoard();
         }
 
         private void canvas_MouseMove(object sender, MouseEventArgs e)

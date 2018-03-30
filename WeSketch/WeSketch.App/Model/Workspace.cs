@@ -28,8 +28,7 @@ namespace WeSketch.App.Model
             var service = SketchService.GetService();
             var user = service.GetUserByUsername(username);
             if (user.Username != username) return false;
-
-            service.AddCollaborator(user, board);
+            // TODO: rework method
             return true;
         }
 

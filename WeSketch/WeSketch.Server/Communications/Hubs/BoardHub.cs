@@ -64,11 +64,14 @@ namespace WeSketch.Server.Communications.Hubs
 			return dataService.GetAllBoardCollaboratros(boardId);
         }
 
-        public void AddCollaborator(CollaboratorDTO collaboratorDTO)
+        public bool AddCollaborator(CollaboratorDTO collaboratorDTO)
         {
-            dataService.AddCollaborator(collaboratorDTO);
+            if (!dataService.AddCollaborator(collaboratorDTO))
+                return false;
+
             Clients.Others.NotifyCollaboratorAddition(collaboratorDTO);
-			Logger.Log($"Collavorator with id {collaboratorDTO.UserId} added to board with id {collaboratorDTO.BoardId}");
+			Logger.Log($"Collaborator with id {collaboratorDTO.UserId} added to board with id {collaboratorDTO.BoardId}");
+            return true;
 		}		
 
         public List<BoardDetailsDTO> GetSharedBoardsWithUser(int userId)

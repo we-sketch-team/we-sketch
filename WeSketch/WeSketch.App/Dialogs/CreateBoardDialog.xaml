@@ -27,7 +27,7 @@
         <TextBlock Grid.Column="1" Grid.Row="0" >Board title :</TextBlock>
         <TextBlock Grid.Column="1" Grid.Row="2" >Public :</TextBlock>
         <TextBox Name="tbxBoardTitle" Height="25" VerticalAlignment="Top" Grid.Column="2" Grid.Row="0" Grid.ColumnSpan="2"/>
-        <CheckBox IsChecked="True"  Grid.Column="2" Grid.Row="2" Name="cbxIsPublic" Height="25" VerticalAlignment="Top" Grid.ColumnSpan="2"/>
+        <PasswordBox Name="pbxPassword"  Grid.Column="2" Grid.Row="2" Height="25" VerticalAlignment="Top" Grid.ColumnSpan="2"/>
         <Button Grid.Column="2" IsDefault="True" Grid.Row="4" VerticalAlignment="Top" Width="100" Name="btnCreate" Click="btnCreate_Click">Create</Button>
         <Button Grid.Column="3" Grid.Row="4" Name="btnCancel" VerticalAlignment="Top" Width="100">Cancel</Button>
     </Grid>

@@ -26,10 +26,7 @@ namespace WeSketch.App.Data.API
         public ApiService()
         {
             connection = new HubConnection(ServerURI);
-            //var writer = new StreamWriter("ClientLog.txt");
-            //writer.AutoFlush = true;
             connection.TraceLevel = TraceLevels.All;
-            //connection.TraceWriter = writer;
             ServicePointManager.DefaultConnectionLimit = 10;
             HubsSetup();
             connection.Start().Wait();
@@ -148,13 +145,13 @@ namespace WeSketch.App.Data.API
             return user.Username == options.Username;
         }
 
-        public bool CreateBoard(string title, bool isPublic, User user)
+        public bool CreateBoard(string title, string password, User user)
         {
             Board board = new Board();
 
             Application.Current.Dispatcher.Invoke(DispatcherPriority.Normal, new Action(() =>
             {
-                board = boardHub.Invoke<Board>("CreateBoard", new { PublicBoard = isPublic, Title = title, UserId = user.Id, DateCreated = DateTime.Now }).Result;
+                board = boardHub.Invoke<Board>("CreateBoard", new { Password = password, Title = title, UserId = user.Id, DateCreated = DateTime.Now }).Result;
             }));
 
             return board.Title == title;
@@ -180,14 +177,15 @@ namespace WeSketch.App.Data.API
             }));
         }
 
-        public bool AddCollaborator(User user, Board board)
+        public bool AddCollaborator(User user, Board board, string password)
         {
+            bool success = false;
             Application.Current.Dispatcher.Invoke(DispatcherPriority.Normal, new Action(() =>
             {
-                boardHub.Invoke<Board>("AddCollaborator", new { UserId = user.Id, BoardId = board.Id });
+                success = boardHub.Invoke<bool>("AddCollaborator", new { UserId = user.Id, BoardId = board.Id, Password = password }).Result;
             }));
 
-            return true;
+            return success;
         }
 
         public bool RemoveCollaborator(User user, Board board)

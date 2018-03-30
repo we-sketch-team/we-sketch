@@ -28,7 +28,7 @@
         <WrapPanel x:Name="UsersQueueWrapPanel" Height="29" Margin="121,10,197,0" VerticalAlignment="Top">
             <Label x:Name="UsersQueueLabel" Content="Queue&#xD;&#xA;"/>
         </WrapPanel>
-        <Button x:Name="QueueButton" Content="Enter Queue" HorizontalAlignment="Left" Margin="633,10,0,0" VerticalAlignment="Top" Width="103" Click="QueueButton_Click"/>
-        <Button x:Name="QueueButton_Copy" Content="Leave Queue" HorizontalAlignment="Left" Margin="633,44,0,0" VerticalAlignment="Top" Width="103" Click="QueueButton_Copy_Click"/>
+        <Button x:Name="QueueButton" Content="Enter Queue" HorizontalAlignment="Right" Margin="0,10,10,0" VerticalAlignment="Top" Width="103" Click="QueueButton_Click"/>
+        <Button x:Name="QueueButton_Copy" Content="Leave Queue" HorizontalAlignment="Right" Margin="0,44,10,0" VerticalAlignment="Top" Width="103" Click="QueueButton_Copy_Click"/>
     </Grid>
 </Controls:MetroWindow>

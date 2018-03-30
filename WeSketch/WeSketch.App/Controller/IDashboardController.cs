@@ -12,7 +12,7 @@ namespace WeSketch.App.Controller
     interface IDashboardController
     {
         void Init(IDashboard model, IDashboardView view);
-        void CreateBoard(string title, bool isPublic);
+        void CreateBoard(string title, string password);
         void DeleteBoard(Board board);
     }
 }

@@ -100,10 +100,10 @@ namespace WeSketch.BusinessLogic.Services
             userProvider.DeleteUser(id);
         }            
 
-        public void AddCollaborator(CollaboratorDTO collaboratorDTO)
+        public bool AddCollaborator(CollaboratorDTO collaboratorDTO)
         {
             userProvider.SetMediatorUser(collaboratorDTO.UserId);
-            boardProvider.AddCollaborator(collaboratorDTO);
+            return boardProvider.AddCollaborator(collaboratorDTO);
         }
 
         public List<UserDetailsDTO> GetAllBoardCollaboratros(int id)

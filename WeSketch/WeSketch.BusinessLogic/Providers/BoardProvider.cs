@@ -239,7 +239,7 @@ namespace WeSketch.BusinessLogic.Providers
             return ConverterToDTO.BoardToBoardDetails(board);
         }
 
-        public void AddCollaborator(CollaboratorDTO collaboratorDTO)
+        public bool AddCollaborator(CollaboratorDTO collaboratorDTO)
         {
             int boardId = collaboratorDTO.BoardId;
             int userId = collaboratorDTO.UserId;
@@ -247,15 +247,15 @@ namespace WeSketch.BusinessLogic.Providers
             Board board = unitOfWork.BoardRepository.GetById(boardId);
 
             if (board == null)
-                return;
+                return false;
 
 			if (board.Password != collaboratorDTO.Password)
-				return;
+				return false;
 
             User user = mediator.User;
 
             if (user == null)
-                return;
+                return false;
 
             UserBoards userBoard = ConnectBoardAndUser(user, board);
             userBoard.Role = Utility.CollaboratorRole();
@@ -267,6 +267,8 @@ namespace WeSketch.BusinessLogic.Providers
             unitOfWork.UserRepository.Update(user);
 
             unitOfWork.Save();
+
+            return true;
         }
 
         public void RemoveCollaboratro(CollaboratorDTO collaboratorDTO)
