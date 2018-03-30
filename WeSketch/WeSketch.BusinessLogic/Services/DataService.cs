@@ -24,6 +24,11 @@ namespace WeSketch.BusinessLogic.Services
             userProvider = ObjectFactory.GetUserProvider(mediator);
         }
 
+        public List<BoardDetailsDTO> GetAllUserBoards()
+        {
+            return boardProvider.GetAllBoards();
+        }
+
         public UserDetailsDTO Login(LoginDTO login)
         {
             return userProvider.Login(login);

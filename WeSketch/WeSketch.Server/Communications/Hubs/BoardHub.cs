@@ -14,6 +14,10 @@ namespace WeSketch.Server.Communications.Hubs
     {
         private DataService dataService = BusinessLogic.Utilities.ObjectFactory.GetDataService();
 
+        public List<BoardDetailsDTO> GetAllBoards()
+        {
+            return dataService.GetAllUserBoards();
+        }
         public List<BoardDetailsDTO> GetMyBoards(int userId)
         {
             var message = $"Board list requested from user with id: {userId}";

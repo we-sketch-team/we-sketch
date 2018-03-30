@@ -81,6 +81,7 @@ namespace WeSketch.App.Forms
             if (table == null) return;
             if (table.SelectedItem == null) return;
 
+            // TODO: Password check!
             var board = table.SelectedItem as Board;
             IWorkspace workspace = new Workspace();
             workspace.SetBoard(board);
@@ -96,6 +97,7 @@ namespace WeSketch.App.Forms
         private void btnDeleteSelected_Click(object sender, RoutedEventArgs e)
         {
             if (dataMyBoards.SelectedItem == null) return;
+            // TODO: Check if can delete
             var board = dataMyBoards.SelectedItem as Board;
             controller.DeleteBoard(board);
         }

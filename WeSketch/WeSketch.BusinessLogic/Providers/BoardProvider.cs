@@ -34,6 +34,11 @@ namespace WeSketch.BusinessLogic.Providers
             this.mediator.Board = board;
         }
 
+        internal List<BoardDetailsDTO> GetAllBoards()
+        {
+            return ConverterToDTO.ListOfBoardsToDetails(unitOfWork.BoardRepository.GetAll());
+        }
+
         public List<UserDetailsDTO> GetAllBoardCollaboratros(int id)
         {
             List<User> collaborators = new List<User>();
