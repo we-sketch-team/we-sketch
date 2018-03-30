@@ -103,7 +103,7 @@ namespace WeSketch.App.Model
             CloseBoard();
             var service = SketchService.GetService();
             this.board = service.GetBoardById(board.Id);
-            this.board.Shapes = Utilities.ImportShapes(board.Content);
+            this.board.Shapes = Utilities.ImportShapes(this.board.Content);
             this.board.UserQueue = service.GetQueue(board);
             service.SetWorkspace(this);
             service.SubscribeToBoard(board);
@@ -134,6 +134,8 @@ namespace WeSketch.App.Model
 
         public void UpdateUserQueue(BoardQueue queue)
         {
+            if (observers.Count == 0)
+                return;
             board.UserQueue = queue;
             observers.ForEach(obs => obs.RefreshUserQueue());
             IWorkspaceController ctrl;
