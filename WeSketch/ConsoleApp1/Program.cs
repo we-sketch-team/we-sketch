@@ -30,7 +30,7 @@ namespace ConsoleApp1
         {
             CreateBoardDto createBoardDto = new CreateBoardDto()
             {
-                UserId = 4,
+                UserId = 17,
                 Desription = "again...",
                 Title = "Title",
                 Password = ""
@@ -121,8 +121,8 @@ namespace ConsoleApp1
 
         static void Main(string[] args)
         {
-			TestSyncOflline();
-			//CreateBoard();
+
+			List<BoardDetailsDTO> board = dataService.GetBoardsSharedWithUser(17);
 			Console.WriteLine("Check it out now..");
 		}
 	}
