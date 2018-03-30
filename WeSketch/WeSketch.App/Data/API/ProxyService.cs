@@ -5,6 +5,7 @@ using System.Text;
 using System.Threading.Tasks;
 using WeSketch.App.Model;
 using WeSketch.Common;
+using WeSketch.Common.CommonClasses;
 
 namespace WeSketch.App.Data.API
 {
@@ -24,6 +25,7 @@ namespace WeSketch.App.Data.API
         {
 			Board board = new Board() { Title = title, IsPublic = isPublic };
 			user.Boards.Add(board);
+			Global.Syncer.BoardsToCreate.Add(new CommonBoard() { Title = title, UserId = user.Id });
 			return true;
 		}
 
@@ -35,12 +37,13 @@ namespace WeSketch.App.Data.API
 				return false;
 
 			user.Boards.Remove(boardToDelete);
+			Global.Syncer.BoardsToDelete.Add(board.Id);
 			return true;
         }
 
         public void EnterQueue(User user, Board board)
         {
-            throw new NotImplementedException();
+			return;
         }
 
         public Board GetBoardById(int id)
