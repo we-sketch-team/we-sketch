@@ -12,7 +12,7 @@ namespace WeSketch.DataLayer.Model
 {
     public class WeSketchContext : DbContext
     {
-        public WeSketchContext() : base("Data Source=160.99.38.140,14330;Initial Catalog=db_wesketch;Persist Security Info=True;User ID=stefan81888;Password=stefan1234;")
+        public WeSketchContext() : base("Data Source=160.99.38.140,14330;Initial Catalog=DB_WeSketch;Persist Security Info=True;User ID=stefan81888;Password=sifra1234;")
         {
 
         }
