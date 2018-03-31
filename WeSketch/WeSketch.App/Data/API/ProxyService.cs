@@ -18,6 +18,7 @@ namespace WeSketch.App.Data.API
 		public ProxyService()
         {
 			onlineService = new ApiService();
+			HasInternetConnection = new Ping().Send("8.8.8.8").Status == IPStatus.Success;
 			NetworkChange.NetworkAvailabilityChanged += NetworkChange_NetworkAvailabilityChanged;
         }
 
