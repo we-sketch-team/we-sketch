@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Net.NetworkInformation;
 using System.Text;
 using System.Threading.Tasks;
 using WeSketch.App.Model;
@@ -11,18 +12,37 @@ namespace WeSketch.App.Data.API
 {
     public class ProxyService : IAPI
     {
-        public ProxyService()
-        {
+		private ApiService onlineService;
+		public bool HasInternetConnection { get; set; }
 
+		public ProxyService()
+        {
+			onlineService = new ApiService();
+			NetworkChange.NetworkAvailabilityChanged += NetworkChange_NetworkAvailabilityChanged;
         }
 
-        public bool AddCollaborator(User user, Board board, string message)
+		private void NetworkChange_NetworkAvailabilityChanged(object sender, NetworkAvailabilityEventArgs e)
+		{
+			HasInternetConnection = e.IsAvailable;
+		}
+
+		public bool AddCollaborator(User user, Board board, string password)
         {
-			return false;
+			if (!HasInternetConnection)
+				return false;
+
+			onlineService.AddCollaborator(user, board, password);
+			return true;
         }
 
         public bool CreateBoard(string title, string password, User user)
         {
+			if (HasInternetConnection)
+			{
+				onlineService.CreateBoard(title,password, user);
+				return true;
+			}
+
 			Board board = new Board() { Title = title, IsPasswordProtected = string.IsNullOrEmpty(password) };
 			user.Boards.Add(board);
 			Global.Syncer.BoardsToCreate.Add(new CommonBoard() { Title = title, UserId = user.Id, Password = password });
@@ -31,6 +51,12 @@ namespace WeSketch.App.Data.API
 
 		public bool DeleteBoard(Board board, User user)
         {
+			if (HasInternetConnection)
+			{
+				onlineService.DeleteBoard(board, user);
+				return true;
+			}
+
 			Board boardToDelete = user.Boards.Find(x => x.Id == board.Id);
 
 			if (boardToDelete == null)
@@ -43,93 +69,137 @@ namespace WeSketch.App.Data.API
 
         public void EnterQueue(User user, Board board)
         {
-			return;
+			if(!HasInternetConnection)
+				return;
+
+			onlineService.EnterQueue(user, board);
         }
 
         public Board GetBoardById(int id)
         {
+			if (HasInternetConnection)
+				return onlineService.GetBoardById(id);
+
 			Board board = Global.CurrentUser.Boards.Find(x => x.Id == id);
 			return board != null ? board : new Board();
         }
 
         public List<User> GetBoardCollaborators(Board board)
         {
+			if (HasInternetConnection)
+				return onlineService.GetBoardCollaborators(board);
+
 			return board?.Collaborators.Collaborators;
         }
 
         public List<Board> GetMyBoards(User user)
         {
-            var boards = user.Boards;
+			if (HasInternetConnection)
+				return onlineService.GetMyBoards(user);
+
+			var boards = user.Boards;
             return boards;
         }
 
         public BoardQueue GetQueue(Board board)
         {
-            throw new NotImplementedException();
+			if (HasInternetConnection)
+				onlineService.GetQueue(board);
+
+			return new BoardQueue();
         }
 
         public List<Board> GetSharedBoardsWithUser(User user)
         {
-			return new List<Board>();
+			return HasInternetConnection ? onlineService.GetSharedBoardsWithUser(user) : new List<Board>();
         }
 
         public List<Board> GetSharedBoardsWithWithUser(User user)
         {
-			return new List<Board>();
+			 return new List<Board>();
 		}
 
         public User GetUserById(int userId)
         {
-            throw new NotImplementedException();
+			return HasInternetConnection ? onlineService.GetUserById(userId) : new User();
         }
 
         public User GetUserByUsername(string username)
         {
-			return new User();
+			return HasInternetConnection ? onlineService.GetUserByUsername(username) : new User();
+		}
+
+		public void LeaveQueue(User user, Board board)
+        {
+			if (!HasInternetConnection)
+				return;
+
+			onlineService.LeaveQueue(user, board);
         }
 
-        public void LeaveQueue(User user, Board board)
+        public User Login(string email, string password)
         {
-            throw new NotImplementedException();
-        }
-
-        public User Login(string username, string password)
-        {
-			return new User();
+			return HasInternetConnection ? onlineService.Login(email, password) : new User();
 		}
 
 		public bool Register(UserRegistrationOptions options)
         {
-			return false;
+			if (!HasInternetConnection)
+				return false;
+
+			onlineService.Register(options);
+			return true;
         }
 
         public bool RemoveCollaborator(User user, Board board)
         {
-			return false;
-        }
+			if (!HasInternetConnection)
+				return false;
+
+			onlineService.RemoveCollaborator(user, board);
+			return true;
+		}
 
         public void SendMessage(Message message)
         {
-			return;
-        }
+			if (!HasInternetConnection)
+				return;
+
+			onlineService.SendMessage(message);
+		}
 
         public void SetWorkspace(IWorkspace workspace)
         {
-            throw new NotImplementedException();
-        }
+			if (!HasInternetConnection)
+				return;
+
+			onlineService.SetWorkspace(workspace);
+		}
 
         public void SubscribeToBoard(Board board)
         {
-			return;
-        }
+			if (!HasInternetConnection)
+				return;
+
+			onlineService.SubscribeToBoard(board);
+		}
 
         public void UnsubscribeFromBoard(Board board)
         {
-			return;
-        }
+			if (!HasInternetConnection)
+				return;
+
+			onlineService.UnsubscribeFromBoard(board);
+		}
 
         public void UpdateBoardContent(Board board)
         {
+			if(HasInternetConnection)
+			{
+				onlineService.UpdateBoardContent(board);
+				return;
+			}
+
 			CommonBoard boardToUpdate = new CommonBoard()
 			{
 				Content = board.Content,

@@ -241,7 +241,7 @@ namespace WeSketch.App.Data.API
 
             Application.Current.Dispatcher.Invoke(DispatcherPriority.Normal, new Action(() =>
             {
-                boards = boardHub.Invoke<List<Board>>("GetAllBoards").Result;
+                boards = boardHub.Invoke<List<Board>>("GetAllBoards", user.Id).Result;
             }));
 
             return boards;
