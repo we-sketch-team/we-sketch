@@ -121,10 +121,6 @@ namespace ConsoleApp1
 
         static void Main(string[] args)
         {
-			CreateBoard();
-			List<BoardDetailsDTO> board = dataService.GetAllBoards(17);
-			List<BoardDetailsDTO> list = dataService.GetAllUserBoards(17);
-			Console.WriteLine("Check it out now..");
 		}
 	}
 }

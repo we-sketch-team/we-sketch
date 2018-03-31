@@ -12,18 +12,13 @@ namespace WeSketch.App.Data.API
 {
     public class SketchService
     {
-        private IAPI api;
         private IAPI proxy;
-
-        public static bool HasInternetConnection { get; set; }
 
         private static SketchService instance;
 
         private SketchService()
         {
-            api = new ApiService();
             proxy = new ProxyService();
-            HasInternetConnection = true;
         }
 
 
@@ -40,12 +35,7 @@ namespace WeSketch.App.Data.API
         public static IAPI GetService()
         {
             var instance = GetInstance();
-            IAPI service;
-
-            if (HasInternetConnection)
-                service = instance.api;
-            else
-                service = instance.proxy;
+            IAPI service = instance.proxy;  
 
             return service;            
         }

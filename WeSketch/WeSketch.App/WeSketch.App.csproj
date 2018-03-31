@@ -134,6 +134,7 @@
     <Compile Include="Controller\ILoginController.cs" />
     <Compile Include="Controller\IWorkspaceController.cs" />
     <Compile Include="Controller\LoginController.cs" />
+    <Compile Include="Controller\OfflineController.cs" />
     <Compile Include="Controller\WorkspaceController.cs" />
     <Compile Include="Data\API\ApiService.cs" />
     <Compile Include="Data\BoardQueue.cs" />
@@ -177,6 +178,9 @@
     <Compile Include="Forms\FormDashboard.xaml.cs">
       <DependentUpon>FormDashboard.xaml</DependentUpon>
     </Compile>
+    <Compile Include="Forms\FormOfflineWorkspace.xaml.cs">
+      <DependentUpon>FormOfflineWorkspace.xaml</DependentUpon>
+    </Compile>
     <Compile Include="Forms\FormWorkspace.xaml.cs">
       <DependentUpon>FormWorkspace.xaml</DependentUpon>
     </Compile>
@@ -212,6 +216,10 @@
     <Page Include="Forms\FormRegister.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Forms\FormOfflineWorkspace.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
     </Page>
     <Page Include="Forms\FormWorkspace.xaml">
       <SubType>Designer</SubType>

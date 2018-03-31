@@ -57,6 +57,10 @@
     <None Include="packages.config" />
   </ItemGroup>
   <ItemGroup>
+    <ProjectReference Include="..\WeSketch.App\WeSketch.App.csproj">
+      <Project>{98b48b10-283d-49d9-b50d-c707e6f7d781}</Project>
+      <Name>WeSketch.App</Name>
+    </ProjectReference>
     <ProjectReference Include="..\WeSketch.BusinessLogic\WeSketch.BusinessLogic.csproj">
       <Project>{098ccd22-4aeb-4214-b359-e244df33b8fc}</Project>
       <Name>WeSketch.BusinessLogic</Name>
