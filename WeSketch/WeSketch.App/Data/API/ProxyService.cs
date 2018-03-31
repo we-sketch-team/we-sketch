@@ -18,12 +18,19 @@ namespace WeSketch.App.Data.API
 		public ProxyService()
         {
 			onlineService = new ApiService();
+			HasInternetConnection = new Ping().Send("8.8.8.8").Status == IPStatus.Success;
 			NetworkChange.NetworkAvailabilityChanged += NetworkChange_NetworkAvailabilityChanged;
         }
 
 		private void NetworkChange_NetworkAvailabilityChanged(object sender, NetworkAvailabilityEventArgs e)
 		{
 			HasInternetConnection = e.IsAvailable;
+
+			if (HasInternetConnection)
+			{
+				Syncronizer syncronizer = new DatabaseSyncronizer();
+				syncronizer.Sync();
+			}
 		}
 
 		public bool AddCollaborator(User user, Board board, string password)
@@ -103,7 +110,7 @@ namespace WeSketch.App.Data.API
         public BoardQueue GetQueue(Board board)
         {
 			if (HasInternetConnection)
-				onlineService.GetQueue(board);
+				return onlineService.GetQueue(board);
 
 			return new BoardQueue();
         }

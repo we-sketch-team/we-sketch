@@ -11,49 +11,9 @@ using WeSketch.App.View;
 
 namespace WeSketch.App.Controller
 {
-	public class OfflineWorkspaceController : IWorkspaceController
+	public class OfflineWorkspaceController : WorkspaceController
 	{
-		private IWorkspace workspace;
-		private IWorkspaceView view;
-
-		public void AddShape(IShape shape)
-		{
-			workspace.AddShape(shape);
-		}
-
-		public void DeleteShape(IShape selectedShape)
-		{
-			workspace.DeleteShape(selectedShape);
-		}
-
-        public void Drag(Control control, double verticalOffset, double horizontalOffset)
-        {
-            throw new NotImplementedException();
-        }
-
-        public void DragCompleted()
-        {
-            throw new NotImplementedException();
-        }
-
-        public void Init(IWorkspace model, IWorkspaceView view)
-		{
-			this.workspace = model;
-			this.view = view;
-			view.SetController(this);
-		}
-
-        public void Resize(Control control, double verticalOfset, double horizontalOffset, VerticalAlignment verticalAlignment, HorizontalAlignment horizontalAlignment)
-        {
-            throw new NotImplementedException();
-        }
-
-        public void ResizeCompleted()
-        {
-            throw new NotImplementedException();
-        }
-
-        public void SendMessage(string sender, string text)
+		public override void SendMessage(string sender, string text)
 		{
 			return;
 		}

@@ -16,7 +16,8 @@ namespace WeSketch.BusinessLogic.Utilities
 
         public static string GetRole(User user, Board board)
         {
-            return board.UserBoards.ToList().Find(x => x.User == user).Role;
+			string role = board.UserBoards.ToList().Find(x => x.User == user).Role;
+			return role == null || role == string.Empty? "Visitor" : role;
         }
 
         public static string CreatorRole()

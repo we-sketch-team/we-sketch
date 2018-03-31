@@ -74,7 +74,7 @@ namespace WeSketch.Server.Communications.Hubs
 			return dataService.GetAllBoardCollaboratros(boardId);
         }
 
-        public bool AddCollaborator(CollaboratorDTO collaboratorDTO)
+        public bool JoinBoard(CollaboratorDTO collaboratorDTO)
         {
             if (!dataService.AddCollaborator(collaboratorDTO))
                 return false;
