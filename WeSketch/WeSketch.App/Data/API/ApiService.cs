@@ -93,7 +93,7 @@ namespace WeSketch.App.Data.API
             Application.Current.Dispatcher.Invoke(DispatcherPriority.Normal, new Action(() =>
             {
                 boards = boardHub.Invoke<List<Board>>("GetMyBoards", id).Result;
-                boards.ForEach(b => b.Collaborators.Collaborators = GetBoardCollaborators(b));
+                //boards.ForEach(b => b.Collaborators.Collaborators = GetBoardCollaborators(b));
             }));
 
             return boards;

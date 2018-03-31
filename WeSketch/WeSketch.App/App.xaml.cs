@@ -13,5 +13,6 @@ namespace WeSketch.App
     /// </summary>
     public partial class App : Application
     {
+        
     }
 }

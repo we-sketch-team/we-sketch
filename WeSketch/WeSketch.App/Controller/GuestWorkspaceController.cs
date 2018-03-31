@@ -3,6 +3,8 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using System.Windows;
+using System.Windows.Controls;
 using WeSketch.App.Data;
 using WeSketch.App.Data.Shapes;
 using WeSketch.App.Model;
@@ -26,6 +28,11 @@ namespace WeSketch.App.Controller
             
         }
 
+        public void Drag(Control control, double verticalOffset, double horizontalOffset)
+        {
+
+        }
+
         public void Init(IWorkspace model, IWorkspaceView view)
         {
             this.workspace = model;
@@ -33,18 +40,13 @@ namespace WeSketch.App.Controller
             view.SetController(this);
         }
 
+        public void Resize(Control control, double verticalOfset, double horizontalOffset, VerticalAlignment verticalAlignment, HorizontalAlignment horizontalAlignment)
+        {
+        }
+
         public void SendMessage(string sender, string text)
         {
-            if (String.IsNullOrEmpty(text)) return;
-
-            Message message = new Message()
-            {
-                Sender = sender,
-                Text = text,
-                BoardId = workspace.GetBoard().Id
-            };
-
-            workspace.SendMessage(message);
+            
         }
     }
 }

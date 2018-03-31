@@ -27,7 +27,7 @@ namespace WeSketch.App.Data.Shapes
                 Width = width,
                 Height = height,
                 Content = MyElement,
-                Template = Application.Current.FindResource("DesignerItemTemplate") as ControlTemplate
+                Template = Global.ResizeAndDragStyle
             };
         }
 

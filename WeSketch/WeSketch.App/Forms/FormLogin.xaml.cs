@@ -42,7 +42,9 @@ namespace WeSketch.App.Forms
             cbxServer.Items.Add("http://10.10.0.5:15000/");
             cbxServer.Items.Add("http://160.99.38.140:15000/");
 
-            cbxServer.SelectedIndex = 0;
+            cbxServer.SelectedIndex = 1;
+
+            Global.ServerURI = cbxServer.SelectedItem as string;
         }
 
         private void btnRegister_Click(object sender, RoutedEventArgs e)
