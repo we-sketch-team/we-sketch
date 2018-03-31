@@ -111,7 +111,7 @@ namespace WeSketch.App.Data.API
         public BoardQueue GetQueue(Board board)
         {
 			if (HasInternetConnection)
-				onlineService.GetQueue(board);
+				return onlineService.GetQueue(board);
 
 			return new BoardQueue();
         }
