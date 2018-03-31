@@ -25,6 +25,12 @@ namespace WeSketch.App.Data.API
 		private void NetworkChange_NetworkAvailabilityChanged(object sender, NetworkAvailabilityEventArgs e)
 		{
 			HasInternetConnection = e.IsAvailable;
+
+			if (HasInternetConnection)
+			{
+				Syncronizer syncronizer = new DatabaseSyncronizer();
+				syncronizer.Sync();
+			}
 		}
 
 		public bool AddCollaborator(User user, Board board, string password)
