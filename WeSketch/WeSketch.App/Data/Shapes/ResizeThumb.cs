@@ -9,12 +9,12 @@ namespace WeSketch.App.Data.Shapes
     {
         public ResizeThumb()
         {
-            DragDelta += new DragDeltaEventHandler(this.ResizeThumb_DragDelta);
+            //DragDelta += new DragDeltaEventHandler(this.ResizeThumb_DragDelta);
         }
 
         private void ResizeThumb_DragDelta(object sender, DragDeltaEventArgs e)
         {
-            Control designerItem = this.DataContext as Control;
+            Control designerItem = (sender as Thumb).DataContext as Control;
 
             if (designerItem != null)
             {

@@ -31,8 +31,8 @@ namespace WeSketch.App.Data.Shapes
                 Width = width,
                 Height = height,
                 Content = MyElement,
-                Template = Application.Current.FindResource("DesignerItemTemplate") as ControlTemplate
-            };            
+                Template = Global.ResizeAndDragStyle
+            };
         }
 
         public ShapeRectangle():this(0, 0, System.Windows.Media.Color.FromRgb(0,0,0))

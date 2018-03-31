@@ -115,6 +115,7 @@ namespace WeSketch.App.Forms
 
         private void MetroWindow_Loaded(object sender, RoutedEventArgs e)
         {
+            Global.ResizeAndDragStyle = this.FindResource("DesignerItemTemplate") as ControlTemplate;
             RefreshCollaborators();
             RefreshUserQueue();
             canvas.MouseUp += canvas_MouseUp;
@@ -228,6 +229,22 @@ namespace WeSketch.App.Forms
         {
             workspace.LeaveQueue();
             RefreshUserQueue();
+        }
+
+        private void MoveThumb_DragDelta(object sender, System.Windows.Controls.Primitives.DragDeltaEventArgs e)
+        {
+            var thumb = sender as MoveThumb;
+            if (thumb == null) return;
+            var control = thumb.DataContext as Control;
+            controller.Drag(control, e.VerticalChange, e.HorizontalChange);
+        }
+
+        private void ResizeThumb_DragDelta(object sender, System.Windows.Controls.Primitives.DragDeltaEventArgs e)
+        {
+            var thumb = sender as ResizeThumb;
+            if (thumb == null) return;
+            var control = thumb.DataContext as Control;
+            controller.Resize(control, e.VerticalChange, e.HorizontalChange, thumb.VerticalAlignment, thumb.HorizontalAlignment);
         }
     }
 }

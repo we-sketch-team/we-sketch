@@ -7,12 +7,13 @@ namespace WeSketch.App.Data.Shapes
     {
         public MoveThumb()
         {
-            DragDelta += new DragDeltaEventHandler(this.MoveThumb_DragDelta);
+            //DragDelta += new DragDeltaEventHandler(this.MoveThumb_DragDelta);
         }
 
         private void MoveThumb_DragDelta(object sender, DragDeltaEventArgs e)
         {
-            Control designerItem = this.DataContext as Control;
+            var thumb = sender as MoveThumb;
+            Control designerItem = thumb.DataContext as Control;
 
             if (designerItem != null)
             {
