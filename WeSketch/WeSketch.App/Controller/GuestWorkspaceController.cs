@@ -33,6 +33,10 @@ namespace WeSketch.App.Controller
 
         }
 
+        public void DragCompleted()
+        {
+        }
+
         public void Init(IWorkspace model, IWorkspaceView view)
         {
             this.workspace = model;
@@ -44,9 +48,22 @@ namespace WeSketch.App.Controller
         {
         }
 
+        public void ResizeCompleted()
+        {
+        }
+
         public void SendMessage(string sender, string text)
         {
-            
+            if (String.IsNullOrEmpty(text)) return;
+
+            Message message = new Message()
+            {
+                Sender = sender,
+                Text = text,
+                BoardId = workspace.GetBoard().Id
+            };
+
+            workspace.SendMessage(message);
         }
     }
 }

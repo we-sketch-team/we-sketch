@@ -19,6 +19,8 @@ namespace WeSketch.App.Controller
         void SendMessage(string sender, string text);
         void DeleteShape(IShape selectedShape);
         void Drag(Control control, double verticalOffset, double horizontalOffset);
+        void DragCompleted();
         void Resize(Control control, double verticalOfset, double horizontalOffset, VerticalAlignment verticalAlignment, HorizontalAlignment horizontalAlignment);
+        void ResizeCompleted();
     }
 }
