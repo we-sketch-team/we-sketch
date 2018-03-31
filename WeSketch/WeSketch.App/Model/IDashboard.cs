@@ -12,6 +12,7 @@ namespace WeSketch.App.Model
     {
         bool CreateBoard(string title, string password);
         bool DeleteBoard(Board board);
+        bool JoinBoard(Board board, string password);
         List<Board> GetCurrentUserBoardList();
         List<Board> GetOtherBoards();
     }

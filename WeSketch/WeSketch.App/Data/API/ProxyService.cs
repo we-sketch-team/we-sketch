@@ -13,7 +13,7 @@ namespace WeSketch.App.Data.API
     public class ProxyService : IAPI
     {
 		private ApiService onlineService;
-		public bool HasInternetConnection { get; set; }
+        public bool HasInternetConnection { get; set; } = true;
 
 		public ProxyService()
         {
@@ -31,8 +31,7 @@ namespace WeSketch.App.Data.API
 			if (!HasInternetConnection)
 				return false;
 
-			onlineService.AddCollaborator(user, board, password);
-			return true;
+			return onlineService.AddCollaborator(user, board, password);
         }
 
         public bool CreateBoard(string title, string password, User user)

@@ -22,6 +22,7 @@ namespace WeSketch.App.Data
         public string Role { get; set; }
 		public bool IsPublic { get; set; }
         public BoardQueue UserQueue { get; set; }
+        public bool IsPasswordProtected { get; set; }
 
         public bool CanEdit
         {
@@ -32,7 +33,6 @@ namespace WeSketch.App.Data
             }
         }
 
-        public bool IsPasswordProtected { get; internal set; }
 
         public Board()
         {

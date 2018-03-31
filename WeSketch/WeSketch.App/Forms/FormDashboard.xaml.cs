@@ -21,7 +21,8 @@ namespace WeSketch.App.Forms
         private IDashboardController controller;
 
         private CreateBoardDialog createBoardDialog;
-        private CustomDialog customDialog;
+        private EnterPasswordToJoinBoard joinBoard;
+        private CustomDialog customDialog = new CustomDialog();
 
         public FormDashboard(IDashboard model)
         {
@@ -31,7 +32,6 @@ namespace WeSketch.App.Forms
 
         private async void CreateBoard()
         {
-            customDialog = new CustomDialog();
             createBoardDialog = new CreateBoardDialog();
             createBoardDialog.btnCancel.Click += ButtonCancel_Click; ;
             createBoardDialog.btnCreate.Click += ButtonCreate_Click; ;
@@ -138,6 +138,51 @@ namespace WeSketch.App.Forms
         private void btnRefresh_Click(object sender, RoutedEventArgs e)
         {
             LoadMyBoards();
+        }
+
+        private void dataSharedWithMe_MouseDoubleClickAsync(object sender, System.Windows.Input.MouseButtonEventArgs e)
+        {
+            var table = sender as DataGrid;
+            if (table == null) return;
+            if (table.SelectedItem == null) return;
+
+            // TODO: Password check!
+            var board = table.SelectedItem as Board;
+            Join(board);
+        }
+
+        private async void Join(Board board)
+        {
+            string password = "";
+            bool success = false;
+            if (board.IsPasswordProtected)
+            {
+                joinBoard = new EnterPasswordToJoinBoard();
+                joinBoard.btnCancel.Click += (s, args) =>
+                {
+                    this.HideMetroDialogAsync(customDialog);
+                };
+                joinBoard.btnJoin.Click += (s, args) =>
+                {
+                    password = joinBoard.PasswordBox.Password;
+                    success = true;
+                    this.HideMetroDialogAsync(customDialog);
+                };
+                customDialog.Content = joinBoard;
+                await this.ShowMetroDialogAsync(customDialog);
+                await customDialog.WaitUntilUnloadedAsync();
+                if (!success) return;
+            }
+            
+            if (!dashboard.JoinBoard(board, password))
+            {
+                Utilities.DisplayMessage(this, "Error", "Can't join");
+                return;
+            }
+            IWorkspace workspace = new Workspace();
+            workspace.SetBoard(board);
+            FormWorkspace form = new FormWorkspace(workspace);
+            form.Show();
         }
     }
 }

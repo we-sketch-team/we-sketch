@@ -104,8 +104,7 @@ namespace WeSketch.App.Data.API
 
             Application.Current.Dispatcher.Invoke(DispatcherPriority.Normal, new Action(() =>
             {
-                board = boardHub.Invoke<Board>("GetBoardWithRole", Global.CurrentUser.Id, id).Result;
-                board.Collaborators.Collaborators = GetBoardCollaborators(board);
+                board = boardHub.Invoke<Board>("GetBoardById", id).Result;
             }));
 
             return board;
@@ -183,7 +182,7 @@ namespace WeSketch.App.Data.API
             bool success = false;
             Application.Current.Dispatcher.Invoke(DispatcherPriority.Normal, new Action(() =>
             {
-                success = boardHub.Invoke<bool>("AddCollaborator", new { UserId = user.Id, BoardId = board.Id, Password = password }).Result;
+                success = boardHub.Invoke<bool>("JoinBoard", new { UserId = user.Id, BoardId = board.Id, Password = password }).Result;
             }));
 
             return success;

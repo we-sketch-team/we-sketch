@@ -18,6 +18,12 @@ namespace WeSketch.Server.Communications.Hubs
         {
             return dataService.GetAllBoards(userId);
         }
+
+        public BoardDetailsDTO GetBoardById(int id)
+        {
+            return dataService.GetBoard(id);
+        }
+
         public List<BoardDetailsDTO> GetMyBoards(int userId)
         {
             var message = $"Board list requested from user with id: {userId}";
@@ -134,5 +140,11 @@ namespace WeSketch.Server.Communications.Hubs
 			dataService.SyncOfllineMode(data);
 			Logger.Log($"User with ConnectionId {Context.ConnectionId} synced");
 		}
-	}
+
+        public void RemoveCollaborator(CollaboratorDTO collab)
+        {
+            dataService.RemoveCollaboratro(collab);
+            Logger.Log($"Removed collaborator {collab.UserId} from board {collab.BoardId}");
+        }
+    }
 }

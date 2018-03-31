@@ -35,7 +35,7 @@
                     </DataGrid>
                 </TabItem>
                 <TabItem x:Name="tabItemSharedWithMe" Header="Worldwide" Padding="0,2,20,2" FontSize="8">
-                    <DataGrid x:Name="dataSharedWithMe" Height="391" Margin="10,10,10,0" VerticalAlignment="Top" FontSize="16" BorderThickness="2" AutoGenerateColumns="False" IsReadOnly="True" MouseDoubleClick="dataMyBoards_MouseDoubleClick">
+                    <DataGrid x:Name="dataSharedWithMe" Height="391" Margin="10,10,10,0" VerticalAlignment="Top" FontSize="16" BorderThickness="2" AutoGenerateColumns="False" IsReadOnly="True" MouseDoubleClick="dataSharedWithMe_MouseDoubleClickAsync">
                         <DataGrid.Columns>
                             <DataGridTextColumn Header="Id" Binding="{Binding Id}"/>
                             <DataGridTextColumn Header="Title" Binding="{Binding Title}"/>

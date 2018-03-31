@@ -53,6 +53,7 @@ namespace WeSketch.App.Model
 
             var service = SketchService.GetService();
             service.UnsubscribeFromBoard(board);
+            service.RemoveCollaborator(Global.CurrentUser, board);
             service.SetWorkspace(null);
             board = null; // ?
         }
