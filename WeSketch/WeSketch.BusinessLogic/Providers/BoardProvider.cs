@@ -34,9 +34,25 @@ namespace WeSketch.BusinessLogic.Providers
             this.mediator.Board = board;
         }
 
-        internal List<BoardDetailsDTO> GetAllBoards()
+        public List<BoardDetailsDTO> GetAllBoards(int userId)
         {
-            return ConverterToDTO.ListOfBoardsToDetails(unitOfWork.BoardRepository.GetAll());
+			List<Board> boards = unitOfWork.BoardRepository.GetAll();
+			List<Board> toRemoveList = new List<Board>();
+			foreach (var board in boards)
+			{
+				UserBoards match = board.UserBoards.ToList().Find(x => x.UserId == userId && x.Role == Utility.CreatorRole());
+
+				if (match == null)
+					continue;
+
+				toRemoveList.Add(board);
+			}
+			foreach (var board in toRemoveList)
+			{
+				var toToRemove = boards.Find(x => x.Id == board.Id);
+				boards.Remove(toToRemove);
+			}
+			return ConverterToDTO.ListOfBoardsToDetails(boards);
         }
 
         public List<UserDetailsDTO> GetAllBoardCollaboratros(int id)

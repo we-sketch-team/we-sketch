@@ -71,6 +71,7 @@ namespace WeSketch.BusinessLogic.Utilities
             foreach (var board in boards)
             {
                 BoardDetailsDTO boardDetails = ConverterToDTO.BoardToBoardDetails(board);
+				boardDetails.IsPasswordProtected = Utility.IsPasswordProtected(boardDetails.Password);
                 result.Add(boardDetails);
             }
 
