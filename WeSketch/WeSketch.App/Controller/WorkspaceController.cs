@@ -86,7 +86,7 @@ namespace WeSketch.App.Controller
             
         }
 
-        public void SendMessage(string sender, string text)
+        public virtual void SendMessage(string sender, string text)
         {
             if (String.IsNullOrEmpty(text)) return;
 
