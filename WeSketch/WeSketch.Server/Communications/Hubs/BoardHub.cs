@@ -68,7 +68,7 @@ namespace WeSketch.Server.Communications.Hubs
 			return dataService.GetAllBoardCollaboratros(boardId);
         }
 
-        public bool AddCollaborator(CollaboratorDTO collaboratorDTO)
+        public bool JoinBoard(CollaboratorDTO collaboratorDTO)
         {
             if (!dataService.AddCollaborator(collaboratorDTO))
                 return false;
@@ -134,5 +134,10 @@ namespace WeSketch.Server.Communications.Hubs
 			dataService.SyncOfllineMode(data);
 			Logger.Log($"User with ConnectionId {Context.ConnectionId} synced");
 		}
+
+		public void RemoveCollaborator(CollaboratorDTO collaborator)
+		{
+			dataService.RemoveCollaborator(collaborator);
+		}			
 	}
 }

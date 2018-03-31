@@ -30,10 +30,10 @@ namespace ConsoleApp1
         {
             CreateBoardDto createBoardDto = new CreateBoardDto()
             {
-                UserId = 2,
+                UserId = 18,
                 Desription = "again...",
                 Title = "Title",
-                Password = ""
+                Password = "sifrica"
             };
             dataService.CreateBoard(createBoardDto);
         }
@@ -68,7 +68,7 @@ namespace ConsoleApp1
                 BoardId = 54
             };
 
-            dataService.RemoveCollaboratro(collaboratorDTO);
+            dataService.RemoveCollaborator(collaboratorDTO);
         }
 
         static void UpdateBoardContent()
@@ -121,6 +121,13 @@ namespace ConsoleApp1
 
         static void Main(string[] args)
         {
+			CollaboratorDTO collaborator = new CollaboratorDTO
+			{
+				UserId = 18,
+				BoardId = 121
+			};
+
+			dataService.GetBoardWithRole(18, 122);
 		}
 	}
 }

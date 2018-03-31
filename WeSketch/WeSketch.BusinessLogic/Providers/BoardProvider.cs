@@ -276,10 +276,17 @@ namespace WeSketch.BusinessLogic.Providers
             if (board == null)
                 return false;
 
-			if (board.Password != collaboratorDTO.Password)
+			string pass = collaboratorDTO.Password == null ? string.Empty : collaboratorDTO.Password;
+
+			if (board.Password != pass)
 				return false;
 
             User user = mediator.User;
+
+			UserBoards isCreater = user.UserBoards.ToList().Find(x => x.BoardId == boardId && x.Role == Utility.CreatorRole());
+
+			if (isCreater != null)
+				return false;
 
             if (user == null)
                 return false;
@@ -298,7 +305,7 @@ namespace WeSketch.BusinessLogic.Providers
             return true;
         }
 
-        public void RemoveCollaboratro(CollaboratorDTO collaboratorDTO)
+        public void RemoveCollaborator(CollaboratorDTO collaboratorDTO)
         {
             int boardId = collaboratorDTO.BoardId;
             int userId = collaboratorDTO.UserId;
@@ -314,6 +321,12 @@ namespace WeSketch.BusinessLogic.Providers
                 return;
 
             UserBoards userBoards = board.UserBoards.ToList().First(x => x.UserId == userId);
+
+			if (userBoards == null)
+				return;
+
+			if (userBoards.Role != Utility.CollaboratorRole())
+				return;
 
             board.UserBoards.Remove(userBoards);
 
