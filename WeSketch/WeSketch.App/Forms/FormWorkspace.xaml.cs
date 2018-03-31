@@ -42,9 +42,12 @@ namespace WeSketch.App.Forms
         private IShape selectedShape;
 
 
-        public FormWorkspace(IWorkspace model)
+        public FormWorkspace(IWorkspace model=null)
         {
             InitializeComponent();
+            if (model == null)
+                return;
+            Global.ResizeAndDragStyle = this.FindResource("DesignerItemTemplate") as ControlTemplate;
             Init(model);    
             PopulateFormToolbar();
             //_propertyGrid.PropertyValueChanged += _propertyGrid_PropertyValueChanged;
@@ -115,7 +118,6 @@ namespace WeSketch.App.Forms
 
         private void MetroWindow_Loaded(object sender, RoutedEventArgs e)
         {
-            Global.ResizeAndDragStyle = this.FindResource("DesignerItemTemplate") as ControlTemplate;
             RefreshCollaborators();
             RefreshUserQueue();
             canvas.MouseUp += canvas_MouseUp;
@@ -130,9 +132,12 @@ namespace WeSketch.App.Forms
         public void RefreshCanvas()
         {
             var board = workspace.GetBoard();
-            board.Shapes = Utilities.ImportShapes(board.Content);
             board.MyCanvas = canvas;
             board.Draw(canvas);
+            foreach(Control child in canvas.Children)
+            {
+                child.Template = Global.ResizeAndDragStyle;
+            }
         }
 
         public void UpdateSelectedTool()
@@ -245,6 +250,16 @@ namespace WeSketch.App.Forms
             if (thumb == null) return;
             var control = thumb.DataContext as Control;
             controller.Resize(control, e.VerticalChange, e.HorizontalChange, thumb.VerticalAlignment, thumb.HorizontalAlignment);
+        }
+
+        private void MoveThumb_DragCompleted(object sender, System.Windows.Controls.Primitives.DragCompletedEventArgs e)
+        {
+            controller.DragCompleted();
+        }
+
+        private void ResizeThumb_DragCompleted(object sender, System.Windows.Controls.Primitives.DragCompletedEventArgs e)
+        {
+            controller.ResizeCompleted();
         }
     }
 }

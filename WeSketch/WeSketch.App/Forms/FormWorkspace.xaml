@@ -23,27 +23,27 @@
             <ControlTemplate x:Key="ResizeDecoratorTemplate" TargetType="{x:Type Control}">
                 <Grid>
                     <s:ResizeThumb Height="3" Cursor="SizeNS" Margin="0 -4 0 0"
-                       VerticalAlignment="Top" HorizontalAlignment="Stretch" DragDelta="ResizeThumb_DragDelta"/>
+                       VerticalAlignment="Top" HorizontalAlignment="Stretch" DragDelta="ResizeThumb_DragDelta" DragCompleted="ResizeThumb_DragCompleted"/>
                     <s:ResizeThumb Width="3" Cursor="SizeWE" Margin="-4 0 0 0"
-                       VerticalAlignment="Stretch" HorizontalAlignment="Left" DragDelta="ResizeThumb_DragDelta"/>
+                       VerticalAlignment="Stretch" HorizontalAlignment="Left" DragDelta="ResizeThumb_DragDelta" DragCompleted="ResizeThumb_DragCompleted"/>
                     <s:ResizeThumb Width="3" Cursor="SizeWE" Margin="0 0 -4 0"
-                       VerticalAlignment="Stretch" HorizontalAlignment="Right"  DragDelta="ResizeThumb_DragDelta"/>
+                       VerticalAlignment="Stretch" HorizontalAlignment="Right"  DragDelta="ResizeThumb_DragDelta" DragCompleted="ResizeThumb_DragCompleted"/>
                     <s:ResizeThumb Height="3" Cursor="SizeNS" Margin="0 0 0 -4"
-                       VerticalAlignment="Bottom" HorizontalAlignment="Stretch" DragDelta="ResizeThumb_DragDelta"/>
+                       VerticalAlignment="Bottom" HorizontalAlignment="Stretch" DragDelta="ResizeThumb_DragDelta" DragCompleted="ResizeThumb_DragCompleted"/>
                     <s:ResizeThumb Width="7" Height="7" Cursor="SizeNWSE" Margin="-6 -6 0 0"
-                       VerticalAlignment="Top" HorizontalAlignment="Left" DragDelta="ResizeThumb_DragDelta"/>
+                       VerticalAlignment="Top" HorizontalAlignment="Left" DragDelta="ResizeThumb_DragDelta" DragCompleted="ResizeThumb_DragCompleted"/>
                     <s:ResizeThumb Width="7" Height="7" Cursor="SizeNESW" Margin="0 -6 -6 0"
-                       VerticalAlignment="Top" HorizontalAlignment="Right" DragDelta="ResizeThumb_DragDelta"/>
+                       VerticalAlignment="Top" HorizontalAlignment="Right" DragDelta="ResizeThumb_DragDelta" DragCompleted="ResizeThumb_DragCompleted"/>
                     <s:ResizeThumb Width="7" Height="7" Cursor="SizeNESW" Margin="-6 0 0 -6"
-                       VerticalAlignment="Bottom" HorizontalAlignment="Left" DragDelta="ResizeThumb_DragDelta"/>
+                       VerticalAlignment="Bottom" HorizontalAlignment="Left" DragDelta="ResizeThumb_DragDelta" DragCompleted="ResizeThumb_DragCompleted"/>
                     <s:ResizeThumb Width="7" Height="7" Cursor="SizeNWSE" Margin="0 0 -6 -6"
-                       VerticalAlignment="Bottom" HorizontalAlignment="Right" DragDelta="ResizeThumb_DragDelta"/>
+                       VerticalAlignment="Bottom" HorizontalAlignment="Right" DragDelta="ResizeThumb_DragDelta" DragCompleted="ResizeThumb_DragCompleted"/>
                 </Grid>
             </ControlTemplate>
             <!-- Designer Item Template-->
             <ControlTemplate x:Key="DesignerItemTemplate" TargetType="ContentControl">
                 <Grid DataContext="{Binding RelativeSource={RelativeSource TemplatedParent}}">
-                    <s:MoveThumb Template="{StaticResource MoveThumbTemplate}" Cursor="SizeAll" DragDelta="MoveThumb_DragDelta"/>
+                    <s:MoveThumb Template="{StaticResource MoveThumbTemplate}" Cursor="SizeAll" DragDelta="MoveThumb_DragDelta" DragCompleted="MoveThumb_DragCompleted"/>
                     <Control Template="{StaticResource ResizeDecoratorTemplate}"/>
                     <ContentPresenter Content="{TemplateBinding ContentControl.Content}"/>
                 </Grid>

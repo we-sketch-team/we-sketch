@@ -93,7 +93,6 @@ namespace WeSketch.App.Data.API
             Application.Current.Dispatcher.Invoke(DispatcherPriority.Normal, new Action(() =>
             {
                 boards = boardHub.Invoke<List<Board>>("GetMyBoards", id).Result;
-                //boards.ForEach(b => b.Collaborators.Collaborators = GetBoardCollaborators(b));
             }));
 
             return boards;
@@ -168,6 +167,8 @@ namespace WeSketch.App.Data.API
 
         public void UpdateBoardContent(Board board)
         {
+            if (board == null)
+                return;
             board.Content = Utilities.ExportShapes(board.Shapes);
             var boardObj = new { Id = board.Id, Content = board.Content };
 
@@ -241,7 +242,7 @@ namespace WeSketch.App.Data.API
 
             Application.Current.Dispatcher.Invoke(DispatcherPriority.Normal, new Action(() =>
             {
-                boards = boardHub.Invoke<List<Board>>("GetAllBoards").Result;
+                boards = boardHub.Invoke<List<Board>>("GetAllBoards", user.Id).Result;
             }));
 
             return boards;

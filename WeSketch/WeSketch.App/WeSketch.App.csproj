@@ -155,6 +155,9 @@
     <Compile Include="Data\Tools\LineCreationalTool.cs" />
     <Compile Include="Data\Tools\Toolbar\ToolbarItemRepresent.cs" />
     <Compile Include="Data\Tools\TwoPointCreationalTool.cs" />
+    <Compile Include="Dialogs\EnterPasswordToJoinBoard.xaml.cs">
+      <DependentUpon>EnterPasswordToJoinBoard.xaml</DependentUpon>
+    </Compile>
     <Compile Include="Dialogs\CreateBoardDialog.xaml.cs">
       <DependentUpon>CreateBoardDialog.xaml</DependentUpon>
     </Compile>
@@ -190,6 +193,10 @@
     <Compile Include="View\IDashboardView.cs" />
     <Compile Include="View\ILoginView.cs" />
     <Compile Include="View\IWorkspaceView.cs" />
+    <Page Include="Dialogs\EnterPasswordToJoinBoard.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
     <Page Include="Dialogs\CreateBoardDialog.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>

@@ -21,11 +21,13 @@ namespace WeSketch.App.Controller
         public void AddShape(IShape shape)
         {
             workspace.AddShape(shape);
+            workspace.SaveBoard();
         }
 
         public void DeleteShape(IShape selectedShape)
         {
             workspace.DeleteShape(selectedShape);
+            workspace.SaveBoard();
         }
 
         public void Drag(Control control, double verticalOffset, double horizontalOffset)
@@ -38,6 +40,11 @@ namespace WeSketch.App.Controller
 
             Canvas.SetLeft(control, left + horizontalOffset);
             Canvas.SetTop(control, top + verticalOffset);
+        }
+
+        public void DragCompleted()
+        {
+            workspace.SaveBoard();
         }
 
         public void Init(IWorkspace model, IWorkspaceView view)
@@ -82,8 +89,12 @@ namespace WeSketch.App.Controller
                     break;
                 default:
                     break;
-            }
-            
+            }            
+        }
+
+        public void ResizeCompleted()
+        {
+            workspace.SaveBoard();
         }
 
         public void SendMessage(string sender, string text)
