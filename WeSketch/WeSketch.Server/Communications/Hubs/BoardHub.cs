@@ -143,7 +143,7 @@ namespace WeSketch.Server.Communications.Hubs
 
         public void RemoveCollaborator(CollaboratorDTO collab)
         {
-            dataService.RemoveCollaboratro(collab);
+            dataService.RemoveCollaborator(collab);
             Logger.Log($"Removed collaborator {collab.UserId} from board {collab.BoardId}");
         }
     }

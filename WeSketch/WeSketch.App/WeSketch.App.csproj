@@ -172,6 +172,9 @@
     <Compile Include="Data\Tools\ICreationalTool.cs" />
     <Compile Include="Data\Tools\RectangleCreationalTool.cs" />
     <Compile Include="Data\User.cs" />
+    <Compile Include="Dialogs\JoinPasswordProtectedBoardDialog.xaml.cs">
+      <DependentUpon>JoinPasswordProtectedBoardDialog.xaml</DependentUpon>
+    </Compile>
     <Compile Include="Forms\FormDashboard.xaml.cs">
       <DependentUpon>FormDashboard.xaml</DependentUpon>
     </Compile>
@@ -195,6 +198,10 @@
     <Compile Include="View\ILoginView.cs" />
     <Compile Include="View\IWorkspaceView.cs" />
     <Page Include="Dialogs\CreateBoardDialog.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Dialogs\JoinPasswordProtectedBoardDialog.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>

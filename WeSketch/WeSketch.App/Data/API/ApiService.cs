@@ -223,6 +223,7 @@ namespace WeSketch.App.Data.API
             Application.Current.Dispatcher.Invoke(DispatcherPriority.Normal, new Action(() =>
             {
                 groupsHub.Invoke("UnsubscribeFromBoardGroup", board.Id);
+                //boardHub.Invoke("RemoveCollaborator", new { BoardId = board.Id, UserId = Global.CurrentUser.Id });
             }));
         }
 

@@ -21,7 +21,7 @@ namespace WeSketch.App.Forms
         private IDashboardController controller;
 
         private CreateBoardDialog createBoardDialog;
-        private EnterPasswordToJoinBoard joinBoard;
+        private JoinPasswordProtectedBoardDialog joinBoard;
         private CustomDialog customDialog = new CustomDialog();
 
         public FormDashboard(IDashboard model)
@@ -157,7 +157,7 @@ namespace WeSketch.App.Forms
             bool success = false;
             if (board.IsPasswordProtected)
             {
-                joinBoard = new EnterPasswordToJoinBoard();
+                joinBoard = new JoinPasswordProtectedBoardDialog();
                 joinBoard.btnCancel.Click += (s, args) =>
                 {
                     this.HideMetroDialogAsync(customDialog);

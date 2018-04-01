@@ -50,7 +50,7 @@ namespace WeSketch.App.Model
         public bool JoinBoard(Board board, string password)
         {
             var service = SketchService.GetService();
-            return (service.AddCollaborator(Global.CurrentUser, board, password));
+            return service.AddCollaborator(Global.CurrentUser, board, password);
             
         }
     }
