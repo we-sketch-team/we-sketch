@@ -225,8 +225,6 @@ namespace WeSketch.App.Forms
         {
             Application.Current.Dispatcher.Invoke((Action)delegate {
                 MessageBox.Show("Connection regained. You entered online mode!");
-                Syncronizer sync = new DatabaseSyncronizer();
-                sync.Sync();
                 this.Close();
             });
         }

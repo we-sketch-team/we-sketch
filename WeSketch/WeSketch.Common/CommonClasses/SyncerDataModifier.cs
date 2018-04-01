@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace WeSketch.Common.CommonClasses
 {
-	public class SyncerDataModifier
+	public class SyncerDataModifier 
 	{
 		protected SyncerData data;
 

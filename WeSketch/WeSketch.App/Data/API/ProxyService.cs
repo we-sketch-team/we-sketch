@@ -215,7 +215,7 @@ namespace WeSketch.App.Data.API
 
 			SyncerData data = Global.Syncer;
 			SyncerDataModifier modifier = SynhronizerModifierFactory.GetUpdateActionModifier(data);
-			modifier.Modify(new CommonBoard() { Title = board.Title, Content = board.Content, UserId = Global.CurrentUser.Id });
+			modifier.Modify(boardToUpdate);
 			Global.Syncer = modifier.GetModifiedData();
 			return;
         }
@@ -223,6 +223,9 @@ namespace WeSketch.App.Data.API
         public void UpdateConnectionStatus(bool hasConnection)
         {
             this.hasInternetConnection = hasConnection;
+            if (hasConnection)
+                new DatabaseSyncronizer().Sync();
+
         }
     }
 }

@@ -17,7 +17,6 @@ namespace WeSketch.Common.CommonClasses
 
 		public CommonBoard()
 		{
-			BoardId = -1;
 		}
 	}
 }
