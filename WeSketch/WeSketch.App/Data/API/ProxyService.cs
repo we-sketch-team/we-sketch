@@ -39,12 +39,13 @@ namespace WeSketch.App.Data.API
 				return true;
 			}
 
-			Board board = new Board() { Title = title, IsPasswordProtected = string.IsNullOrEmpty(password) };
+            int id = user.Boards.Last().Id + 1;
+			Board board = new Board() { Id = id, Title = title, IsPasswordProtected = string.IsNullOrEmpty(password) };
 			user.Boards.Add(board);
 
 			SyncerData data = Global.Syncer;
 			SyncerDataModifier modifier = SynhronizerModifierFactory.GetCreateActionModifier(data);
-			modifier.Modify(new CommonBoard() { Title = title, Password = password, UserId = user.Id });
+			modifier.Modify(new CommonBoard() {BoardId = id, Title = title, Password = password, UserId = user.Id });
 			Global.Syncer = modifier.GetModifiedData();
 
 			return true;

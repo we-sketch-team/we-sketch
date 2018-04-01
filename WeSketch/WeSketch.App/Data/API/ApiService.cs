@@ -16,7 +16,7 @@ using WeSketch.Common;
 
 namespace WeSketch.App.Data.API
 {
-    public class ApiService : IAPI
+    public class ApiService : IAPI, IConnectionObserver
     {
         private string ServerURI = Global.ServerURI;
         private HubConnection connection;
@@ -28,6 +28,7 @@ namespace WeSketch.App.Data.API
             connection = new HubConnection(ServerURI);
             connection.TraceLevel = TraceLevels.All;
             ServicePointManager.DefaultConnectionLimit = 10;
+            ConnectionNotifier.Instance.Attach(this);
 			HubsSetup();
 
 			try
@@ -302,6 +303,18 @@ namespace WeSketch.App.Data.API
             }));
 
             return boardQueue;
+        }
+
+        public void UpdateConnectionStatus(bool hasConnection)
+        {
+            if (hasConnection)
+            {
+                Task.Factory.StartNew(() => {
+                    connection.Start().Wait();
+                    HubsSetup();
+                    });
+            }
+
         }
     }
 }
