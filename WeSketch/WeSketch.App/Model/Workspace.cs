@@ -95,7 +95,6 @@ namespace WeSketch.App.Model
         {
             var service = SketchService.GetService();
             board.Content = Utilities.ExportShapes(board.Shapes);
-            Global.CurrentUser.Boards.First(b => b.Title == board.Title).Content = board.Content;
             service.UpdateBoardContent(board);
         }
 

@@ -29,11 +29,11 @@ namespace WeSketch.App.Data.API
             connection.TraceLevel = TraceLevels.All;
             ServicePointManager.DefaultConnectionLimit = 10;
             ConnectionNotifier.Instance.Attach(this);
-			HubsSetup();
 
 			try
 			{
-				connection.Start().Wait();
+                HubsSetup();
+                connection.Start().Wait();
 			}
 			catch (Exception)
 			{

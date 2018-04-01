@@ -21,11 +21,9 @@ namespace WeSketch.App.Data
 
 		public void Sync()
 		{
-            MessageBox.Show("Sync is on");
-            //return;
 			SyncerData data = Global.Syncer;
 			SendUpdate(data);
 			RefreshGlobalSyncData();
-		}
-	}
+        }
+    }
 }

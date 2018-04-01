@@ -68,7 +68,7 @@ namespace WeSketch.App.Data.API
 
 			SyncerData data = Global.Syncer;
 			SyncerDataModifier modifier = SynhronizerModifierFactory.GetDeleteActionModifier(data);
-			modifier.Modify(new CommonBoard() { Title = board.Title, Content = board.Content, UserId = user.Id });
+			modifier.Modify(new CommonBoard() { BoardId = boardToDelete.Id, Title = board.Title, Content = board.Content, UserId = user.Id });
 			Global.Syncer = modifier.GetModifiedData();
 			return true;
         }
@@ -225,7 +225,10 @@ namespace WeSketch.App.Data.API
         {
             this.hasInternetConnection = hasConnection;
             if (hasConnection)
-                new DatabaseSyncronizer().Sync();
+            {
+                Syncronizer sync = new DatabaseSyncronizer();
+                sync.Sync();
+            }
 
         }
     }
