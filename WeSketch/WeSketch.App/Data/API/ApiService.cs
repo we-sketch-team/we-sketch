@@ -28,9 +28,17 @@ namespace WeSketch.App.Data.API
             connection = new HubConnection(ServerURI);
             connection.TraceLevel = TraceLevels.All;
             ServicePointManager.DefaultConnectionLimit = 10;
-            HubsSetup();
-            connection.Start().Wait();
-        }
+			HubsSetup();
+
+			try
+			{
+				connection.Start().Wait();
+			}
+			catch (Exception)
+			{
+				System.Windows.Application.Current.Shutdown();
+			}
+		}
 
         private void HubsSetup()
         {

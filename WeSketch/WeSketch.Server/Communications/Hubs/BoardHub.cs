@@ -122,18 +122,20 @@ namespace WeSketch.Server.Communications.Hubs
 
 		public override Task OnDisconnected(bool stopCalled)
 		{
-			List<int> boardsLeft = BoardsUpdateQueue.RemoveDisconnected(Context.ConnectionId);
+			List<BoardUpdater> boardsLeft = BoardsUpdateQueue.RemoveDisconnected(Context.ConnectionId);			
 
-			foreach (var id in boardsLeft)
+			foreach (var boardInfo in boardsLeft)
 			{
-				var groupName = Config.GroupNames.BoardGroup(id);
+				var groupName = Config.GroupNames.BoardGroup(boardInfo.BoardId);
 				var group = GroupRegistrationHub.BoardGroups[groupName];
-				group.ForEach(u => Clients.Client(u).UserLeftQueueNotify(id));
+				group.ForEach(u => Clients.Client(u).UserLeftQueueNotify(boardInfo));
+
+				dataService.RemoveCollaborator(new CollaboratorDTO() { UserId = boardInfo.UserId, BoardId = boardInfo.BoardId});
 			}
 
 			Logger.Log($"User with ConnectionId {Context.ConnectionId} disconnected");
 			return base.OnDisconnected(stopCalled);
-		}
+		}		
 
 		public void SyncOfflineModeChanges(SyncerData data)
 		{

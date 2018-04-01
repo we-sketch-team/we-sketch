@@ -41,9 +41,9 @@ namespace WeSketch.Server.Queues
 			return boardsUpdateQueues[boardId];
 		}
 
-		public static List<int> RemoveDisconnected(string connectionId)
+		public static List<BoardUpdater> RemoveDisconnected(string connectionId)
 		{
-			List<int> boardsLeft = new List<int>();
+			List<BoardUpdater> boardsLeft = new List<BoardUpdater>();
 
 			foreach (var dictionaryItem in boardsUpdateQueues)
 			{
@@ -53,8 +53,8 @@ namespace WeSketch.Server.Queues
 				if (boardUpdater == null)
 					continue;
 
+				boardsLeft.Add(boardUpdater);
 				queue.Remove(boardUpdater);
-				boardsLeft.Add(boardUpdater.BoardId);
 			}
 
 			return boardsLeft;

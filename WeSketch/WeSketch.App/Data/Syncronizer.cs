@@ -16,7 +16,7 @@ namespace WeSketch.App.Data
 		{
 			Global.Syncer.BoardsToCreate = new List<CommonBoard>();
 			Global.Syncer.BoardsToUpdate = new List<CommonBoard>();
-			Global.Syncer.BoardsToDelete = new List<int>();
+			Global.Syncer.BoardsToDelete = new List<CommonBoard>();
 		}
 
 		public void Sync()

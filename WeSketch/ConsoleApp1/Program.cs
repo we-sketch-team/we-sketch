@@ -88,46 +88,41 @@ namespace ConsoleApp1
 
 		public static void TestSyncOflline()
 		{
-			List<CommonBoard> boardsToCreate = new List<CommonBoard>();
-			boardsToCreate.Add(new CommonBoard()
-			{
-				Content = "this is new",
-				Description = "described",
-				Title = "this is cool title",
-				UserId = 4
-			});
-
-
-			List<CommonBoard> boardsToUpdate = new List<CommonBoard>();
-			boardsToUpdate.Add(new CommonBoard()
-			{
-				BoardId = 100,
-				Content = "hell yeah!",
-				Description = "hell yeah!",
-				Title = "hell yeah title",
-				UserId = 2
-			});
-
 			SyncerData data = new SyncerData()
 			{
-				BoardsToCreate = boardsToCreate,
-				BoardsToUpdate = boardsToUpdate				
+						
 			};
 
-			data.BoardsToDelete.Add(106);
+			SyncerDataModifier modifier = SynhronizerModifierFactory.GetCreateActionModifier(data);
+			CommonBoard board = new CommonBoard()
+			{
+				UserId = 18,
+				Content = "now this works fine twice..",
+				Title = "titled"
+			};
+
+			modifier.Modify(board);
+			data = modifier.GetModifiedData();
+
+			CommonBoard board1 = new CommonBoard()
+			{
+				UserId = 18,
+				Content = "now this works fine hee heee..",
+				Title = "titled",
+				BoardId = 141
+			};
+
+			modifier = SynhronizerModifierFactory.GetUpdateActionModifier(data);
+			modifier.Modify(board1);
+
+			data = modifier.GetModifiedData();
 
 			dataService.SyncOfllineMode(data);
 		}
 
         static void Main(string[] args)
         {
-			CollaboratorDTO collaborator = new CollaboratorDTO
-			{
-				UserId = 18,
-				BoardId = 121
-			};
-
-			dataService.GetBoardWithRole(18, 122);
+			TestSyncOflline();
 		}
 	}
 }

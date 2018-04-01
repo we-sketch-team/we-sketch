@@ -41,8 +41,13 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="CommonClasses\CommonBoard.cs" />
+    <Compile Include="CommonClasses\CreateActionSyncerDataModifier.cs" />
+    <Compile Include="CommonClasses\DeleteActionSyncerDataModifier.cs" />
     <Compile Include="CommonClasses\Message.cs" />
     <Compile Include="CommonClasses\SyncerData.cs" />
+    <Compile Include="CommonClasses\SyncerDataModifier.cs" />
+    <Compile Include="CommonClasses\SynhronizerModifierFactory.cs" />
+    <Compile Include="CommonClasses\UpdateActionSyncerDataModifier.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="RemoteMethods\BoardHubMethods.cs" />
     <Compile Include="RemoteMethods\UserHubMethods.cs" />

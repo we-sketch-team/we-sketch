@@ -373,11 +373,11 @@ namespace WeSketch.BusinessLogic.Providers
             return list;
         }
 
-		public void SyncDeletedBoards(List<int> ids)
+		public void SyncDeletedBoards(List<CommonBoard> ids)
 		{
 			foreach (var id in ids)
 			{
-				unitOfWork.BoardRepository.Delete(id);
+				unitOfWork.BoardRepository.Delete(id.BoardId);
 			}
 			unitOfWork.Save();
 		}

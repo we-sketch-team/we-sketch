@@ -41,7 +41,12 @@ namespace WeSketch.App.Data.API
 
 			Board board = new Board() { Title = title, IsPasswordProtected = string.IsNullOrEmpty(password) };
 			user.Boards.Add(board);
-			Global.Syncer.BoardsToCreate.Add(new CommonBoard() { Title = title, UserId = user.Id, Password = password });
+
+			SyncerData data = Global.Syncer;
+			SyncerDataModifier modifier = SynhronizerModifierFactory.GetCreateActionModifier(data);
+			modifier.Modify(new CommonBoard() { Title = title, Password = password, UserId = user.Id });
+			Global.Syncer = modifier.GetModifiedData();
+
 			return true;
 		}
 
@@ -59,7 +64,11 @@ namespace WeSketch.App.Data.API
 				return false;
 
 			user.Boards.Remove(boardToDelete);
-			Global.Syncer.BoardsToDelete.Add(board.Id);
+
+			SyncerData data = Global.Syncer;
+			SyncerDataModifier modifier = SynhronizerModifierFactory.GetDeleteActionModifier(data);
+			modifier.Modify(new CommonBoard() { Title = board.Title, Content = board.Content, UserId = user.Id });
+			Global.Syncer = modifier.GetModifiedData();
 			return true;
         }
 
@@ -204,7 +213,10 @@ namespace WeSketch.App.Data.API
 				UserId = Global.CurrentUser.Id
 			};
 
-			Global.Syncer.BoardsToUpdate.Add(boardToUpdate);
+			SyncerData data = Global.Syncer;
+			SyncerDataModifier modifier = SynhronizerModifierFactory.GetUpdateActionModifier(data);
+			modifier.Modify(new CommonBoard() { Title = board.Title, Content = board.Content, UserId = Global.CurrentUser.Id });
+			Global.Syncer = modifier.GetModifiedData();
 			return;
         }
 
