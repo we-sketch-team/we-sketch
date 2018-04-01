@@ -95,6 +95,13 @@ namespace WeSketch.App.Model
         {
             var service = SketchService.GetService();
             board.Content = Utilities.ExportShapes(board.Shapes);
+            //
+            var found = Global.CurrentUser.Boards.Find(b => b.Id == board.Id);
+            if (found != null)
+            {
+                found.Content = board.Content;
+            }
+            //
             service.UpdateBoardContent(board);
         }
 

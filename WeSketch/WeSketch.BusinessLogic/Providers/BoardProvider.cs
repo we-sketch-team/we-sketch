@@ -174,6 +174,8 @@ namespace WeSketch.BusinessLogic.Providers
             if (boardCreater == null)
                 return InvalidDTOFactory.InvalidCreateBoard();
 
+            createBoards.Password = createBoards.Password ?? string.Empty;
+
             Board board = StoreBoardToDatabase(createBoards);
             UserBoards userBoards = ConnectBoardAndUser(boardCreater, board);
             userBoards.Role = Utility.CreatorRole();
@@ -277,8 +279,9 @@ namespace WeSketch.BusinessLogic.Providers
                 return false;
 
 			string pass = collaboratorDTO.Password == null ? string.Empty : collaboratorDTO.Password;
+            string databasePass = board.Password == null ? string.Empty : board.Password;
 
-			if (board.Password != pass)
+            if (databasePass != pass)
 				return false;
 
             User user = mediator.User;

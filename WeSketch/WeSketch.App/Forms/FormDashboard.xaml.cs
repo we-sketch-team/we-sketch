@@ -64,6 +64,7 @@ namespace WeSketch.App.Forms
         {
             var boards = dashboard.GetOtherBoards();
             dataSharedWithMe.ItemsSource = boards;
+            dataSharedWithMe.Items.Refresh();
         }
 
         private void tbxSearch_TextChanged(object sender, TextChangedEventArgs e)
