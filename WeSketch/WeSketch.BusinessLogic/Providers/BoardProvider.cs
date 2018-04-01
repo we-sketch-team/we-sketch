@@ -279,9 +279,9 @@ namespace WeSketch.BusinessLogic.Providers
                 return false;
 
 			string pass = collaboratorDTO.Password == null ? string.Empty : collaboratorDTO.Password;
-            string databasePass = board.Password == null ? string.Empty : board.Password;
+			string databasePass = board.Password == null ? string.Empty : board.Password;
 
-            if (databasePass != pass)
+			if (databasePass != pass)
 				return false;
 
             User user = mediator.User;
