@@ -20,5 +20,6 @@ namespace WeSketch.App.View
         void UpdateMessage(Message message);
         void RefreshUserQueue();
         void SetController(IWorkspaceController workspaceController);
+        void Show();
     }
 }

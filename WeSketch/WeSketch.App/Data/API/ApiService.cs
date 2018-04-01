@@ -89,13 +89,14 @@ namespace WeSketch.App.Data.API
         {
             var id = user.Id;
             List<Board> boards = new List<Board>();
-
+            List<Board> full = new List<Board>();
             Application.Current.Dispatcher.Invoke(DispatcherPriority.Normal, new Action(() =>
             {
                 boards = boardHub.Invoke<List<Board>>("GetMyBoards", id).Result;
+                boards.ForEach(b => full.Add(GetBoardById(b.Id)));
             }));
 
-            return boards;
+            return full;
         }
 
         public Board GetBoardById(int id)

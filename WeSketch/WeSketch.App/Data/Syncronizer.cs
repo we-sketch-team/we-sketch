@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using System.Windows;
 using WeSketch.Common.CommonClasses;
 
 namespace WeSketch.App.Data
@@ -20,6 +21,8 @@ namespace WeSketch.App.Data
 
 		public void Sync()
 		{
+            MessageBox.Show("Sync is on");
+            return;
 			SyncerData data = Global.Syncer;
 			SendUpdate(data);
 			RefreshGlobalSyncData();

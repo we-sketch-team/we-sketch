@@ -128,13 +128,14 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </ApplicationDefinition>
+    <Compile Include="ConnectionNotifier.cs" />
     <Compile Include="Controller\DashboardController.cs" />
     <Compile Include="Controller\GuestWorkspaceController.cs" />
     <Compile Include="Controller\IDashboardController.cs" />
     <Compile Include="Controller\ILoginController.cs" />
     <Compile Include="Controller\IWorkspaceController.cs" />
     <Compile Include="Controller\LoginController.cs" />
-    <Compile Include="Controller\OfflineController.cs" />
+    <Compile Include="Controller\OfflineWorkspaceController.cs" />
     <Compile Include="Controller\WorkspaceController.cs" />
     <Compile Include="Data\API\ApiService.cs" />
     <Compile Include="Data\BoardQueue.cs" />
@@ -186,6 +187,7 @@
     </Compile>
     <Compile Include="Forms\IDrawable.cs" />
     <Compile Include="Forms\INotifySelectedToolChanged.cs" />
+    <Compile Include="IConnectionObserver.cs" />
     <Compile Include="Model\Dashboard.cs" />
     <Compile Include="Model\IDashboard.cs" />
     <Compile Include="Model\ILogin.cs" />
@@ -197,6 +199,7 @@
     <Compile Include="View\IDashboardView.cs" />
     <Compile Include="View\ILoginView.cs" />
     <Compile Include="View\IWorkspaceView.cs" />
+    <Compile Include="View\ViewManager.cs" />
     <Page Include="Dialogs\CreateBoardDialog.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>

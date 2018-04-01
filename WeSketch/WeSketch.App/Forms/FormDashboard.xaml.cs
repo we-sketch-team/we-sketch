@@ -57,6 +57,7 @@ namespace WeSketch.App.Forms
         {
             var boards = dashboard.GetCurrentUserBoardList();
             dataMyBoards.ItemsSource = boards;
+            dataMyBoards.Items.Refresh();
         }
 
         private void LoadBoardsSharedWithMe()
@@ -81,12 +82,12 @@ namespace WeSketch.App.Forms
             if (table == null) return;
             if (table.SelectedItem == null) return;
 
-            // TODO: Password check!
             var board = table.SelectedItem as Board;
+            if (board == null) return;
             IWorkspace workspace = new Workspace();
             workspace.SetBoard(board);
-            FormWorkspace form = new FormWorkspace(workspace);
-            form.Show();
+            var view = ViewManager.Instance.GetView(workspace);
+            view.Show();            
         }
 
         private void btnCreateBoard_Click(object sender, RoutedEventArgs e)
@@ -183,6 +184,10 @@ namespace WeSketch.App.Forms
             workspace.SetBoard(board);
             FormWorkspace form = new FormWorkspace(workspace);
             form.Show();
+        }
+
+        private void btnProfile_Click(object sender, RoutedEventArgs e)
+        {
         }
     }
 }

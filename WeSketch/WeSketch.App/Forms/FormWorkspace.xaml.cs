@@ -23,13 +23,14 @@ using WeSketch.App.Dialogs;
 using WeSketch.App.Data.Tools.Toolbar;
 using WeSketch.App.Data.Shapes;
 using WeSketch.Common;
+using System.Threading;
 
 namespace WeSketch.App.Forms
 {
     /// <summary>
     /// Interaction logic for FormWorkspace.xaml
     /// </summary>
-    public partial class FormWorkspace : MetroWindow, IWorkspaceView, INotifySelectedToolChanged, IDrawable
+    public partial class FormWorkspace : MetroWindow, IWorkspaceView, INotifySelectedToolChanged, IDrawable, IConnectionObserver
     {
         private IWorkspace workspace;
         private IWorkspaceController controller;
@@ -41,12 +42,12 @@ namespace WeSketch.App.Forms
 
         private IShape selectedShape;
 
-
         public FormWorkspace(IWorkspace model=null)
         {
             InitializeComponent();
             if (model == null)
                 return;
+            ConnectionNotifier.Instance.Attach(this);
             Global.ResizeAndDragStyle = this.FindResource("DesignerItemTemplate") as ControlTemplate;
             Init(model);    
             PopulateFormToolbar();
@@ -172,6 +173,7 @@ namespace WeSketch.App.Forms
 
         private void MetroWindow_Closing(object sender, System.ComponentModel.CancelEventArgs e)
         {
+            ConnectionNotifier.Instance.Detach(this);
             workspace?.Detach(this);
             workspace?.Dispose();
         }
@@ -258,6 +260,14 @@ namespace WeSketch.App.Forms
         private void ResizeThumb_DragCompleted(object sender, System.Windows.Controls.Primitives.DragCompletedEventArgs e)
         {
             controller.ResizeCompleted();
+        }
+
+        public void UpdateConnectionStatus(bool hasConnection)
+        {
+            Application.Current.Dispatcher.Invoke((Action)delegate {
+                MessageBox.Show("Connection lost. You entered offline mode!");
+                this.Close();
+            });
         }
     }
 }

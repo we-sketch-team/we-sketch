@@ -16,7 +16,7 @@
             <Button x:Name="btnCreateBoard" Content="{iconPacks:PackIconMaterial ShapeSquarePlus}" Style="{StaticResource AccentedSquareButtonStyle}" HorizontalAlignment="Left" Height="32" Margin="10,10,0,0" VerticalAlignment="Top" Width="100" Click="btnCreateBoard_Click"/>
             <TextBox x:Name="tbxSearch" Height="32" Margin="325,10,325,0" TextWrapping="NoWrap" VerticalAlignment="Top" Controls:TextBoxHelper.Watermark="Search..." TextChanged="tbxSearch_TextChanged" FontSize="16" FontFamily="Segoe UI"/>
             <Button Content="{iconPacks:PackIconMaterial Logout}" Height="32" Margin="0,10,10,0" VerticalAlignment="Top" HorizontalAlignment="Right" Width="100"/>
-            <Button Content="{iconPacks:PackIconMaterial Account}" Height="32" Margin="0,10,115,0" VerticalAlignment="Top" HorizontalAlignment="Right" Width="100"/>
+            <Button x:Name="btnProfile" Content="{iconPacks:PackIconMaterial Account}" Height="32" Margin="0,10,115,0" VerticalAlignment="Top" HorizontalAlignment="Right" Width="100" Click="btnProfile_Click"/>
             <Button Content="{iconPacks:PackIconMaterial Bell}" Height="32" Margin="0,10,220,0" VerticalAlignment="Top" HorizontalAlignment="Right" Width="100"/>
             <Button x:Name="btnDeleteSelected" Content="{iconPacks:PackIconMaterial Delete}" HorizontalAlignment="Left" Height="32" Margin="115,10,0,0" VerticalAlignment="Top" Width="100" Click="btnDeleteSelected_Click"/>
             <Button x:Name="btnRefresh" Content="{iconPacks:PackIconMaterial Refresh}" HorizontalAlignment="Left" Height="32" Margin="220,10,0,0" VerticalAlignment="Top" Width="100" Click="btnRefresh_Click"/>
@@ -28,7 +28,6 @@
                         <DataGrid.Columns>
                             <DataGridTextColumn Header="Id" Binding="{Binding Id}"/>
                             <DataGridTextColumn Header="Title" Binding="{Binding Title}"/>
-                            <!--<DataGridTextColumn Header="Description" >Binding="{Binding Description}">/>-->
                             <DataGridTextColumn Header="Description"/>
                             <DataGridTextColumn Header="Collaborators" Binding="{Binding Collaborators}"/>
                         </DataGrid.Columns>
@@ -42,6 +41,8 @@
                             <!--<DataGridTextColumn Header="Description" >Binding="{Binding Description}">/>-->
                             <DataGridTextColumn Header="Description"/>
                             <DataGridTextColumn Header="Collaborators" Binding="{Binding Collaborators}"/>
+                            <DataGridTextColumn Header="Password" Binding="{Binding IsPasswordProtected}"></DataGridTextColumn>
+
                         </DataGrid.Columns>
                     </DataGrid>
                 </TabItem>

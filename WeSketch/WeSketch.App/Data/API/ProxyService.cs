@@ -5,37 +5,27 @@ using System.Net.NetworkInformation;
 using System.Text;
 using System.Threading.Tasks;
 using WeSketch.App.Model;
+using WeSketch.App.View;
 using WeSketch.Common;
 using WeSketch.Common.CommonClasses;
 
 namespace WeSketch.App.Data.API
 {
-    public class ProxyService : IAPI
+    public class ProxyService : IAPI, IConnectionObserver
     {
 		private ApiService onlineService;
-        public bool HasInternetConnection { get; set; } = true;
-
+        private bool hasInternetConnection;
+        
 		public ProxyService()
         {
 			onlineService = new ApiService();
-			HasInternetConnection = new Ping().Send("8.8.8.8").Status == IPStatus.Success;
-			NetworkChange.NetworkAvailabilityChanged += NetworkChange_NetworkAvailabilityChanged;
+            hasInternetConnection = ConnectionNotifier.Instance.HasConnection;
+            ConnectionNotifier.Instance.Attach(this);
         }
-
-		private void NetworkChange_NetworkAvailabilityChanged(object sender, NetworkAvailabilityEventArgs e)
-		{
-			HasInternetConnection = e.IsAvailable;
-
-			if (HasInternetConnection)
-			{
-				Syncronizer syncronizer = new DatabaseSyncronizer();
-				syncronizer.Sync();
-			}
-		}
 
 		public bool AddCollaborator(User user, Board board, string password)
         {
-			if (!HasInternetConnection)
+			if (!hasInternetConnection)
 				return false;
 
 			return onlineService.AddCollaborator(user, board, password);
@@ -43,7 +33,7 @@ namespace WeSketch.App.Data.API
 
         public bool CreateBoard(string title, string password, User user)
         {
-			if (HasInternetConnection)
+			if (hasInternetConnection)
 			{
 				onlineService.CreateBoard(title,password, user);
 				return true;
@@ -57,7 +47,7 @@ namespace WeSketch.App.Data.API
 
 		public bool DeleteBoard(Board board, User user)
         {
-			if (HasInternetConnection)
+			if (hasInternetConnection)
 			{
 				onlineService.DeleteBoard(board, user);
 				return true;
@@ -75,7 +65,7 @@ namespace WeSketch.App.Data.API
 
         public void EnterQueue(User user, Board board)
         {
-			if(!HasInternetConnection)
+			if(!hasInternetConnection)
 				return;
 
 			onlineService.EnterQueue(user, board);
@@ -83,7 +73,7 @@ namespace WeSketch.App.Data.API
 
         public Board GetBoardById(int id)
         {
-			if (HasInternetConnection)
+			if (hasInternetConnection)
 				return onlineService.GetBoardById(id);
 
 			Board board = Global.CurrentUser.Boards.Find(x => x.Id == id);
@@ -92,7 +82,7 @@ namespace WeSketch.App.Data.API
 
         public List<User> GetBoardCollaborators(Board board)
         {
-			if (HasInternetConnection)
+			if (hasInternetConnection)
 				return onlineService.GetBoardCollaborators(board);
 
 			return board?.Collaborators.Collaborators;
@@ -100,7 +90,7 @@ namespace WeSketch.App.Data.API
 
         public List<Board> GetMyBoards(User user)
         {
-			if (HasInternetConnection)
+			if (hasInternetConnection)
 				return onlineService.GetMyBoards(user);
 
 			var boards = user.Boards;
@@ -109,7 +99,7 @@ namespace WeSketch.App.Data.API
 
         public BoardQueue GetQueue(Board board)
         {
-			if (HasInternetConnection)
+			if (hasInternetConnection)
 				return onlineService.GetQueue(board);
 
 			return new BoardQueue();
@@ -117,7 +107,7 @@ namespace WeSketch.App.Data.API
 
         public List<Board> GetSharedBoardsWithUser(User user)
         {
-			return HasInternetConnection ? onlineService.GetSharedBoardsWithUser(user) : new List<Board>();
+			return hasInternetConnection ? onlineService.GetSharedBoardsWithUser(user) : new List<Board>();
         }
 
         public List<Board> GetSharedBoardsWithWithUser(User user)
@@ -127,17 +117,17 @@ namespace WeSketch.App.Data.API
 
         public User GetUserById(int userId)
         {
-			return HasInternetConnection ? onlineService.GetUserById(userId) : new User();
+			return hasInternetConnection ? onlineService.GetUserById(userId) : new User();
         }
 
         public User GetUserByUsername(string username)
         {
-			return HasInternetConnection ? onlineService.GetUserByUsername(username) : new User();
+			return hasInternetConnection ? onlineService.GetUserByUsername(username) : new User();
 		}
 
 		public void LeaveQueue(User user, Board board)
         {
-			if (!HasInternetConnection)
+			if (!hasInternetConnection)
 				return;
 
 			onlineService.LeaveQueue(user, board);
@@ -145,12 +135,12 @@ namespace WeSketch.App.Data.API
 
         public User Login(string email, string password)
         {
-			return HasInternetConnection ? onlineService.Login(email, password) : new User();
+			return hasInternetConnection ? onlineService.Login(email, password) : new User();
 		}
 
 		public bool Register(UserRegistrationOptions options)
         {
-			if (!HasInternetConnection)
+			if (!hasInternetConnection)
 				return false;
 
 			onlineService.Register(options);
@@ -159,7 +149,7 @@ namespace WeSketch.App.Data.API
 
         public bool RemoveCollaborator(User user, Board board)
         {
-			if (!HasInternetConnection)
+			if (!hasInternetConnection)
 				return false;
 
 			onlineService.RemoveCollaborator(user, board);
@@ -168,7 +158,7 @@ namespace WeSketch.App.Data.API
 
         public void SendMessage(Message message)
         {
-			if (!HasInternetConnection)
+			if (!hasInternetConnection)
 				return;
 
 			onlineService.SendMessage(message);
@@ -176,7 +166,7 @@ namespace WeSketch.App.Data.API
 
         public void SetWorkspace(IWorkspace workspace)
         {
-			if (!HasInternetConnection)
+			if (!hasInternetConnection)
 				return;
 
 			onlineService.SetWorkspace(workspace);
@@ -184,7 +174,7 @@ namespace WeSketch.App.Data.API
 
         public void SubscribeToBoard(Board board)
         {
-			if (!HasInternetConnection)
+			if (!hasInternetConnection)
 				return;
 
 			onlineService.SubscribeToBoard(board);
@@ -192,7 +182,7 @@ namespace WeSketch.App.Data.API
 
         public void UnsubscribeFromBoard(Board board)
         {
-			if (!HasInternetConnection)
+			if (!hasInternetConnection)
 				return;
 
 			onlineService.UnsubscribeFromBoard(board);
@@ -200,21 +190,27 @@ namespace WeSketch.App.Data.API
 
         public void UpdateBoardContent(Board board)
         {
-			if(HasInternetConnection)
+			if(hasInternetConnection)
 			{
 				onlineService.UpdateBoardContent(board);
 				return;
 			}
 
-			CommonBoard boardToUpdate = new CommonBoard()
-			{
-				Content = board.Content,
+            CommonBoard boardToUpdate = new CommonBoard()
+            {
+                BoardId = board.Id,
+				Content = Utilities.ExportShapes(board.Shapes),
 				Title = board.Title,
 				UserId = Global.CurrentUser.Id
 			};
 
 			Global.Syncer.BoardsToUpdate.Add(boardToUpdate);
 			return;
+        }
+
+        public void UpdateConnectionStatus(bool hasConnection)
+        {
+            this.hasInternetConnection = hasConnection;
         }
     }
 }

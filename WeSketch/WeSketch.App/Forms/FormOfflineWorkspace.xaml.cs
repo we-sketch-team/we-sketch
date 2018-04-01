@@ -29,7 +29,7 @@ namespace WeSketch.App.Forms
     /// <summary>
     /// Interaction logic for FormWorkspace.xaml
     /// </summary>
-    public partial class FormOfflineWorkspace : MetroWindow, IWorkspaceView, INotifySelectedToolChanged, IDrawable
+    public partial class FormOfflineWorkspace : MetroWindow, IWorkspaceView, INotifySelectedToolChanged, IDrawable, IConnectionObserver
     {
         private IWorkspace workspace;
         private IWorkspaceController controller;
@@ -45,8 +45,10 @@ namespace WeSketch.App.Forms
         public FormOfflineWorkspace(IWorkspace model)
         {
             InitializeComponent();
-            Init(model);    
+            Global.ResizeAndDragStyle = this.FindResource("DesignerItemTemplate") as ControlTemplate;
             PopulateFormToolbar();
+            Init(model);
+            ConnectionNotifier.Instance.Attach(this);
             //_propertyGrid.PropertyValueChanged += _propertyGrid_PropertyValueChanged;
             canvas.ClipToBounds = true;
         }
@@ -78,6 +80,7 @@ namespace WeSketch.App.Forms
         public void Init(IWorkspace model)
         {
             this.workspace = model;
+            workspace.GetBoard().MyCanvas = canvas;
             workspace.Attach(this);
             MakeController();
             RefreshCanvas();
@@ -99,8 +102,6 @@ namespace WeSketch.App.Forms
         {
             var point = e.GetPosition(canvas);
             selectedTool.MouseUp((int)point.X, (int)point.Y);
-            //
-            //workspace.SaveBoard();
         }
 
         private void canvas_MouseMove(object sender, MouseEventArgs e)
@@ -115,8 +116,6 @@ namespace WeSketch.App.Forms
 
         private void MetroWindow_Loaded(object sender, RoutedEventArgs e)
         {
-            RefreshCollaborators();
-            RefreshUserQueue();
             canvas.MouseUp += canvas_MouseUp;
             canvas.MouseDown += canvas_MouseDown;
         }
@@ -132,6 +131,10 @@ namespace WeSketch.App.Forms
             board.Shapes = Utilities.ImportShapes(board.Content);
             board.MyCanvas = canvas;
             board.Draw(canvas);
+            foreach (Control child in canvas.Children)
+            {
+                child.Template = Global.ResizeAndDragStyle;
+            }
         }
 
         public void UpdateSelectedTool()
@@ -168,6 +171,7 @@ namespace WeSketch.App.Forms
 
         private void MetroWindow_Closing(object sender, System.ComponentModel.CancelEventArgs e)
         {
+            ConnectionNotifier.Instance.Detach(this);
             workspace?.Detach(this);
             workspace?.Dispose();
         }
@@ -177,30 +181,6 @@ namespace WeSketch.App.Forms
 			return;          
         }
 
-        private void btnSendMessage_Click(object sender, RoutedEventArgs e)
-        {
-            SendMessage();
-        }
-
-        private void SendMessage()
-        {
-			return;
-        }
-
-        private void tbxMessage_KeyDown(object sender, KeyEventArgs e)
-        {
-            if (e.Key == Key.Enter)
-            {
-                SendMessage();
-                e.Handled = true;
-            }
-        }
-
-        public void RefreshUserQueue()
-        {
-			return;
-        }
-
         public void SetController(IWorkspaceController workspaceController)
         {
             this.controller = workspaceController;
@@ -208,6 +188,47 @@ namespace WeSketch.App.Forms
 
             toolbar.SelectedTool.SetController(this.controller);
             toolbar.Controller = this.controller;
-        }        
+        }
+
+        public void RefreshUserQueue()
+        {
+            return;
+        }
+
+        private void MoveThumb_DragDelta(object sender, System.Windows.Controls.Primitives.DragDeltaEventArgs e)
+        {
+            var thumb = sender as MoveThumb;
+            if (thumb == null) return;
+            var control = thumb.DataContext as Control;
+            controller.Drag(control, e.VerticalChange, e.HorizontalChange);
+        }
+
+        private void ResizeThumb_DragDelta(object sender, System.Windows.Controls.Primitives.DragDeltaEventArgs e)
+        {
+            var thumb = sender as ResizeThumb;
+            if (thumb == null) return;
+            var control = thumb.DataContext as Control;
+            controller.Resize(control, e.VerticalChange, e.HorizontalChange, thumb.VerticalAlignment, thumb.HorizontalAlignment);
+        }
+
+        private void MoveThumb_DragCompleted(object sender, System.Windows.Controls.Primitives.DragCompletedEventArgs e)
+        {
+            controller.DragCompleted();
+        }
+
+        private void ResizeThumb_DragCompleted(object sender, System.Windows.Controls.Primitives.DragCompletedEventArgs e)
+        {
+            controller.ResizeCompleted();
+        }
+
+        public void UpdateConnectionStatus(bool hasConnection)
+        {
+            Application.Current.Dispatcher.Invoke((Action)delegate {
+                MessageBox.Show("Connection regained. You entered online mode!");
+                Syncronizer sync = new DatabaseSyncronizer();
+                sync.Sync();
+                this.Close();
+            });
+        }
     }
 }

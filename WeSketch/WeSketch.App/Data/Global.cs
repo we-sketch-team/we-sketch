@@ -12,7 +12,7 @@ namespace WeSketch.App.Data
 	{
 		public static User CurrentUser { get; set; }
 		public static string ServerURI { get; set; } = "http://localhost:15000/"; // Initial is local server
-		public static SyncerData Syncer { get; set; }
+        public static SyncerData Syncer { get; set; } = new SyncerData();
         public static ControlTemplate ResizeAndDragStyle { get; set; }
 }
 }

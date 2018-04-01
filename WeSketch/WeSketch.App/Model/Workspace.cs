@@ -55,7 +55,6 @@ namespace WeSketch.App.Model
             service.UnsubscribeFromBoard(board);
             service.RemoveCollaborator(Global.CurrentUser, board);
             service.SetWorkspace(null);
-            board = null; // ?
         }
 
         public void DeleteShape(IShape shape)
@@ -95,6 +94,8 @@ namespace WeSketch.App.Model
         public void SaveBoard()
         {
             var service = SketchService.GetService();
+            board.Content = Utilities.ExportShapes(board.Shapes);
+            Global.CurrentUser.Boards.First(b => b.Title == board.Title).Content = board.Content;
             service.UpdateBoardContent(board);
         }
 
