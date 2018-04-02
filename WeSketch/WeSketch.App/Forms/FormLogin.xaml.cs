@@ -62,7 +62,7 @@ namespace WeSketch.App.Forms
             string username = tbxEmail.Text;
             string password = tbxPassword.Password;
 
-            controller.Login(username, password);         
+            controller.Login(username, password);
         }
 
         public void Init(ILogin model)
@@ -80,8 +80,7 @@ namespace WeSketch.App.Forms
         public void LoginSuccess()
         {
             FormDashboard dash = new FormDashboard(new Dashboard());
-            dash.Show();
-            //Utilities.DisplayMessage(this, "OK", "Login successful!");
+            dash.ShowDialog();
         }
 
         public void LoginError()
