@@ -21,5 +21,6 @@ namespace WeSketch.App.View
         void RefreshUserQueue();
         void SetController(IWorkspaceController workspaceController);
         void Show();
+        bool? ShowDialog();
     }
 }

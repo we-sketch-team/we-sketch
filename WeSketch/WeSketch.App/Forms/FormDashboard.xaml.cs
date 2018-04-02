@@ -88,7 +88,7 @@ namespace WeSketch.App.Forms
             IWorkspace workspace = new Workspace();
             workspace.SetBoard(board);
             var view = ViewManager.Instance.GetView(workspace);
-            view.Show();            
+            view.ShowDialog();
         }
 
         private void btnCreateBoard_Click(object sender, RoutedEventArgs e)
@@ -184,7 +184,7 @@ namespace WeSketch.App.Forms
             IWorkspace workspace = new Workspace();
             workspace.SetBoard(board);
             FormWorkspace form = new FormWorkspace(workspace);
-            form.Show();
+            form.ShowDialog();
         }
 
         private void btnProfile_Click(object sender, RoutedEventArgs e)
