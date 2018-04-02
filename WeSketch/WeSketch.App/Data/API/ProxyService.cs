@@ -231,5 +231,13 @@ namespace WeSketch.App.Data.API
             }
 
         }
-    }
+
+		public bool UpdateUserProfile(User user, string password)
+		{
+			if (!hasInternetConnection)
+				return false;
+
+			return onlineService.UpdateUserProfile(user, password);
+		}
+	}
 }

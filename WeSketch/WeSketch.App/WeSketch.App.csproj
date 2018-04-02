@@ -179,6 +179,9 @@
     <Compile Include="Forms\FormDashboard.xaml.cs">
       <DependentUpon>FormDashboard.xaml</DependentUpon>
     </Compile>
+    <Compile Include="Forms\FormEditUser.xaml.cs">
+      <DependentUpon>FormEditUser.xaml</DependentUpon>
+    </Compile>
     <Compile Include="Forms\FormOfflineWorkspace.xaml.cs">
       <DependentUpon>FormOfflineWorkspace.xaml</DependentUpon>
     </Compile>
@@ -209,6 +212,10 @@
       <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="Forms\FormDashboard.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Forms\FormEditUser.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
