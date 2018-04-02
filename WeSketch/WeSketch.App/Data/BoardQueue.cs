@@ -31,6 +31,12 @@ namespace WeSketch.App.Data
             usersInQueue.Remove(user);
         }
 
+
+        public bool Contains(User user)
+        {
+            return usersInQueue.Exists(u=>u.Id == user.Id);                
+        }
+
         public override string ToString()
         {
             if (IsEmpty()) return "Queue";

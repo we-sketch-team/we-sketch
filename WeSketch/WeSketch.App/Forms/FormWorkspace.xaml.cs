@@ -34,6 +34,7 @@ namespace WeSketch.App.Forms
     {
         private IWorkspace workspace;
         private IWorkspaceController controller;
+        private bool isInQueue = false;
 
         private CustomDialog customDialog;
 
@@ -67,7 +68,7 @@ namespace WeSketch.App.Forms
             toolbar.Register(new SelectToolRepresent(this));
             toolbar.Register(new RectangleToolRepresent(toolbar));
             toolbar.Register(new EllipseToolRepresent(toolbar));
-            
+
             foreach (var tool in toolbar.Tools)
             {
                 formToolbar.Items.Add(tool);
@@ -228,12 +229,16 @@ namespace WeSketch.App.Forms
         {
             workspace.EnterQueue();
             RefreshUserQueue();
+            QueueButton_Copy.IsEnabled = true;
+            QueueButton.IsEnabled = false;
         }
 
         private void QueueButton_Copy_Click(object sender, RoutedEventArgs e)
         {
             workspace.LeaveQueue();
             RefreshUserQueue();
+            QueueButton_Copy.IsEnabled = false;
+            QueueButton.IsEnabled = true;
         }
 
         private void MoveThumb_DragDelta(object sender, System.Windows.Controls.Primitives.DragDeltaEventArgs e)
