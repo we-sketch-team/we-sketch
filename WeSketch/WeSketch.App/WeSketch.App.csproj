@@ -145,14 +145,11 @@
     <Compile Include="Data\Shapes\ResizeThumb.cs" />
     <Compile Include="Data\Shapes\ShapeEllipse.cs" />
     <Compile Include="Data\Shapes\ShapeList.cs" />
-    <Compile Include="Data\Shapes\ShapePolygon.cs" />
     <Compile Include="Data\Shapes\ShapesFactory.cs" />
     <Compile Include="Data\Syncronizer.cs" />
     <Compile Include="Data\Tools\ITool.cs" />
-    <Compile Include="Data\Tools\PolygonCreationalTool.cs" />
     <Compile Include="Data\Tools\SelectTool.cs" />
     <Compile Include="Data\Tools\Toolbar\EllipseToolRepresent.cs" />
-    <Compile Include="Data\Tools\Toolbar\PolygonToolRepresent.cs" />
     <Compile Include="Data\Tools\Toolbar\RectangleToolRepresent.cs" />
     <Compile Include="Data\Tools\Toolbar\SelectToolRepresent.cs" />
     <Compile Include="Data\Tools\Toolbar\Toolbar.cs" />

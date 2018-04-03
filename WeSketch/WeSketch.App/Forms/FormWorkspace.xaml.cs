@@ -54,6 +54,7 @@ namespace WeSketch.App.Forms
             PopulateFormToolbar();
             //_propertyGrid.PropertyValueChanged += _propertyGrid_PropertyValueChanged;
             canvas.ClipToBounds = true;
+            ColorPicker.SelectedColor = Global.SelectedColor;
         }
 
         private void _propertyGrid_PropertyValueChanged(object sender, Xceed.Wpf.Toolkit.PropertyGrid.PropertyValueChangedEventArgs e)
@@ -273,6 +274,12 @@ namespace WeSketch.App.Forms
                 MessageBox.Show("Connection lost. You entered offline mode!");
                 this.Close();
             });
+        }
+
+        private void ColorPicker_SelectedColorChanged(object sender, RoutedPropertyChangedEventArgs<Color?> e)
+        {
+            if(e.NewValue.HasValue)
+                Global.SelectedColor = e.NewValue.Value;
         }
     }
 }

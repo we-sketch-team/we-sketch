@@ -51,10 +51,12 @@
         </ResourceDictionary>
     </Window.Resources>
     <Grid>
+        <Label Content="Color:" Margin="0,44,198,0" HorizontalAlignment="Right" Width="69" Height="29" VerticalAlignment="Top"></Label>
+        <xctk:ColorPicker x:Name="ColorPicker" Margin="0,70,9,0" HorizontalAlignment="Right" Width="257" Height="27" VerticalAlignment="Top" SelectedColorChanged="ColorPicker_SelectedColorChanged"/>
+
         <Canvas x:Name="canvas" Margin="164,44,272,10" Background="#FFF8FFA4" KeyUp="canvas_KeyUp">
 
         </Canvas>
-        <xctk:PropertyGrid x:Name="propertyGrid" SelectedObject="{Binding SelectedElement}" Margin="0,0,0,207" Height="162" VerticalAlignment="Bottom" HorizontalAlignment="Right" Width="266"/>
         <DataGrid x:Name="dataGridCollaborators" Margin="10,0,0,10" HorizontalAlignment="Left" Width="149" Height="101" VerticalAlignment="Bottom"/>
         <ToolBarTray HorizontalAlignment="Left" Margin="10,44,0,111" Width="149" Orientation="Vertical">
             <ToolBar x:Name="formToolbar" HorizontalAlignment="Center" Height="238" VerticalAlignment="Top" Width="129" Margin="10,10,-98,-24"/>

@@ -23,7 +23,7 @@ namespace WeSketch.App.Data.Tools
 
         public void Activate()
         {
-            //throw new NotImplementedException();
+            
         }
 
         public void Deactivate()
