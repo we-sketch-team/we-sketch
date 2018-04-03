@@ -31,5 +31,6 @@ namespace WeSketch.App.Data.API
         void EnterQueue(User user, Board board);
         void LeaveQueue(User user, Board board);
         BoardQueue GetQueue(Board board);
+		bool UpdateUserProfile(User user, string password);
     }
 }

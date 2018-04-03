@@ -316,5 +316,31 @@ namespace WeSketch.App.Data.API
             }
 
         }
-    }
+
+		public bool UpdateUserProfile(User user, string password)
+		{
+			var data = new
+			{
+				FirstName = user.FirstName,
+				LastName = user.LastName,
+				Password = password,
+				Id = Global.CurrentUser.Id
+			};
+
+			User updatedUser = new User();
+
+			Application.Current.Dispatcher.Invoke(DispatcherPriority.Normal, new Action(() =>
+			{
+				updatedUser = userHub.Invoke<User>("UpdateUser", data).Result;
+			}));
+
+			string firstName = updatedUser.FirstName;
+			string lastName = updatedUser.LastName;
+
+			Global.CurrentUser.FirstName = string.IsNullOrEmpty(firstName) ? Global.CurrentUser.FirstName : firstName;
+			Global.CurrentUser.LastName = string.IsNullOrEmpty(lastName) ? Global.CurrentUser.LastName : lastName;
+
+			return true;
+		}
+	}
 }

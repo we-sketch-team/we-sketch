@@ -189,6 +189,8 @@ namespace WeSketch.App.Forms
 
         private void btnProfile_Click(object sender, RoutedEventArgs e)
         {
+			FormEditUser editUser = new FormEditUser();
+			editUser.ShowDialog();
         }
     }
 }
