@@ -156,7 +156,12 @@
     <Compile Include="Data\Tools\EllipseCreationalTool.cs" />
     <Compile Include="Data\Tools\LineCreationalTool.cs" />
     <Compile Include="Data\Tools\Toolbar\ToolbarItemRepresent.cs" />
+    <Compile Include="Data\Tools\Toolbar\ZoomOutToolRepresent.cs" />
+    <Compile Include="Data\Tools\Toolbar\ZoomInToolRepresent.cs" />
     <Compile Include="Data\Tools\TwoPointCreationalTool.cs" />
+    <Compile Include="Data\Tools\ZoomInTool.cs" />
+    <Compile Include="Data\Tools\ZoomOutTool.cs" />
+    <Compile Include="Data\Tools\ZoomTool.cs" />
     <Compile Include="Dialogs\CreateBoardDialog.xaml.cs">
       <DependentUpon>CreateBoardDialog.xaml</DependentUpon>
     </Compile>

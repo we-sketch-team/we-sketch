@@ -11,7 +11,7 @@
     mc:Ignorable="d"
         BorderThickness="2" 
         GlowBrush="{DynamicResource AccentColorBrush}"    
-        Title="WeSketch - Workspace" Height="447.846" Width="757.598" WindowState="Maximized" Loaded="MetroWindow_Loaded" KeyUp="MetroWindow_KeyUp" Closing="MetroWindow_Closing">
+        Title="WeSketch - Workspace" Height="500.846" Width="840.598" WindowState="Maximized" Loaded="MetroWindow_Loaded" KeyUp="MetroWindow_KeyUp" Closing="MetroWindow_Closing">
     <Window.Resources>
         <ResourceDictionary>
             <!-- MoveThumb Template -->
@@ -54,12 +54,16 @@
         <Label Content="Color:" Margin="0,44,198,0" HorizontalAlignment="Right" Width="69" Height="29" VerticalAlignment="Top"></Label>
         <xctk:ColorPicker x:Name="ColorPicker" Margin="0,70,9,0" HorizontalAlignment="Right" Width="257" Height="27" VerticalAlignment="Top" SelectedColorChanged="ColorPicker_SelectedColorChanged"/>
 
-        <Canvas x:Name="canvas" Margin="164,44,272,10" Background="#FFF8FFA4" KeyUp="canvas_KeyUp">
+        <Border BorderBrush="Gray" BorderThickness="2" Margin="164,44,272,13">
+            <DockPanel ClipToBounds="True">
+                <Canvas x:Name="canvas" Background="#FFFFFFAE" KeyUp="canvas_KeyUp" RenderTransformOrigin="0.5,0.5"/>
+            </DockPanel>
+        </Border>
 
-        </Canvas>
+
         <DataGrid x:Name="dataGridCollaborators" Margin="10,0,0,10" HorizontalAlignment="Left" Width="149" Height="101" VerticalAlignment="Bottom"/>
         <ToolBarTray HorizontalAlignment="Left" Margin="10,44,0,111" Width="149" Orientation="Vertical">
-            <ToolBar x:Name="formToolbar" HorizontalAlignment="Center" Height="238" VerticalAlignment="Top" Width="129" Margin="10,10,-98,-24"/>
+            <ToolBar x:Name="formToolbar" HorizontalAlignment="Center" Height="291" VerticalAlignment="Top" Width="129" Margin="10,10,-98,-77"/>
         </ToolBarTray>
         <TextBox x:Name="tbxChatbox" Margin="0,0,10,44" TextWrapping="Wrap" HorizontalAlignment="Right" Width="257" Height="158" VerticalAlignment="Bottom" IsReadOnly="True"/>
         <TextBox x:Name="tbxMessage" HorizontalAlignment="Right" Height="23" Margin="0,0,77,13" TextWrapping="Wrap" VerticalAlignment="Bottom" Width="189" Controls:TextBoxHelper.Watermark="Type a text message" KeyDown="tbxMessage_KeyDown"/>
