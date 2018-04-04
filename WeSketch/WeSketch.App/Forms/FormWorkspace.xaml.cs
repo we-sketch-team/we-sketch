@@ -134,6 +134,7 @@ namespace WeSketch.App.Forms
         public void RefreshCollaborators()
         {
             dataGridCollaborators.ItemsSource = workspace.LoadBoardCollaborators();
+			dataGridCollaborators.IsReadOnly = true;
         }
 
         public void RefreshCanvas()
@@ -175,9 +176,42 @@ namespace WeSketch.App.Forms
 
         private void MetroWindow_KeyUp(object sender, KeyEventArgs e)
         {
-            if (e.Key == Key.Delete)
-                controller.DeleteShape(selectedShape);
+			//if (e.Key == Key.Delete)
+			//    controller.DeleteShape(selectedShape);
+
+			if (e.Key != Key.Delete)
+				return;
+
+			RemoveCollaborator();
         }
+
+		private void RemoveCollaborator()
+		{
+			User selected = dataGridCollaborators.SelectedItem as User;
+
+			if (selected == null)
+				return;
+		
+			int workingBoardId = workspace.GetBoard().Id;
+
+			if (!CanRemoveCollaborator(workingBoardId, selected.Id)) 
+				return;
+
+			workspace.RemoveCollaborator(selected);
+			this.RefreshCollaborators();
+		}		
+
+		private bool CanRemoveCollaborator(int boardid, int userId)
+		{
+			int searchedId = 0;
+			Board board = Global.CurrentUser.Boards.Find(x => x.Id == boardid);
+
+			if (board == null)
+				return false;
+
+			searchedId = board.Id;
+			return boardid == searchedId && userId != Global.CurrentUser.Id;
+		}
 
         private void MetroWindow_Closing(object sender, System.ComponentModel.CancelEventArgs e)
         {
