@@ -42,6 +42,7 @@ namespace WeSketch.App.Forms
         private ITool selectedTool;
 
         private IShape selectedShape;
+        private double scale = 1.0;
 
         public FormWorkspace(IWorkspace model=null)
         {
@@ -69,11 +70,16 @@ namespace WeSketch.App.Forms
             toolbar.Register(new SelectToolRepresent(this));
             toolbar.Register(new RectangleToolRepresent(toolbar));
             toolbar.Register(new EllipseToolRepresent(toolbar));
+            toolbar.Register(new ZoomInToolRepresent(this));
+            toolbar.Register(new ZoomOutToolRepresent(this));
 
-            foreach (var tool in toolbar.Tools)
-            {
-                formToolbar.Items.Add(tool);
-            }
+            formToolbar.ItemsSource = toolbar.Tools;
+
+
+            //foreach (var tool in toolbar.Tools)
+            //{
+            //    formToolbar.Items.Add(tool);
+            //}
 
             if(toolbar.Tools.Count > 0)
                 toolbar.Select(toolbar.Tools[0]);

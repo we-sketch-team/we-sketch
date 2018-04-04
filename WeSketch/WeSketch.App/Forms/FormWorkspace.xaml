@@ -11,7 +11,7 @@
     mc:Ignorable="d"
         BorderThickness="2" 
         GlowBrush="{DynamicResource AccentColorBrush}"    
-        Title="WeSketch - Workspace" Height="447.846" Width="757.598" WindowState="Maximized" Loaded="MetroWindow_Loaded" KeyUp="MetroWindow_KeyUp" Closing="MetroWindow_Closing">
+        Title="WeSketch - Workspace" Height="545.846" Width="840.598" WindowState="Maximized" Loaded="MetroWindow_Loaded" KeyUp="MetroWindow_KeyUp" Closing="MetroWindow_Closing">
     <Window.Resources>
         <ResourceDictionary>
             <!-- MoveThumb Template -->
@@ -52,16 +52,20 @@
     </Window.Resources>
     <Grid>
         <Label Content="Color:" Margin="0,44,198,0" HorizontalAlignment="Right" Width="69" Height="29" VerticalAlignment="Top"></Label>
-        <xctk:ColorPicker x:Name="ColorPicker" Margin="0,70,9,0" HorizontalAlignment="Right" Width="257" Height="27" VerticalAlignment="Top" SelectedColorChanged="ColorPicker_SelectedColorChanged"/>
+        <xctk:ColorPicker x:Name="ColorPicker" Margin="0,70,10,0" HorizontalAlignment="Right" Width="257" Height="27" VerticalAlignment="Top" SelectedColorChanged="ColorPicker_SelectedColorChanged"/>
 
-        <Canvas x:Name="canvas" Margin="164,44,272,10" Background="#FFF8FFA4" KeyUp="canvas_KeyUp">
+        <Border BorderBrush="Gray" BorderThickness="2" Margin="164,44,272,13">
+            <DockPanel ClipToBounds="True">
+                <Canvas x:Name="canvas" Background="#FFFFFFAE" KeyUp="canvas_KeyUp" RenderTransformOrigin="0.5,0.5"/>
+            </DockPanel>
+        </Border>
 
-        </Canvas>
-        <DataGrid x:Name="dataGridCollaborators" Margin="10,0,0,10" HorizontalAlignment="Left" Width="149" Height="101" VerticalAlignment="Bottom"/>
-        <ToolBarTray HorizontalAlignment="Left" Margin="10,44,0,111" Width="149" Orientation="Vertical">
-            <ToolBar x:Name="formToolbar" HorizontalAlignment="Center" Height="238" VerticalAlignment="Top" Width="129" Margin="10,10,-98,-24"/>
+
+        <DataGrid x:Name="dataGridCollaborators" Margin="10,400,0,10" HorizontalAlignment="Left" Width="149"/>
+        <ToolBarTray HorizontalAlignment="Left" Margin="10,44,0,0" Width="149" Orientation="Vertical" Height="356" VerticalAlignment="Top">
+            <ToolBar x:Name="formToolbar" HorizontalAlignment="Center" Height="291" VerticalAlignment="Top" Width="129" Margin="10,10,-98,-77"/>
         </ToolBarTray>
-        <TextBox x:Name="tbxChatbox" Margin="0,0,10,44" TextWrapping="Wrap" HorizontalAlignment="Right" Width="257" Height="158" VerticalAlignment="Bottom" IsReadOnly="True"/>
+        <TextBox x:Name="tbxChatbox" Margin="0,102,10,44" TextWrapping="Wrap" HorizontalAlignment="Right" Width="257" IsReadOnly="True"/>
         <TextBox x:Name="tbxMessage" HorizontalAlignment="Right" Height="23" Margin="0,0,77,13" TextWrapping="Wrap" VerticalAlignment="Bottom" Width="189" Controls:TextBoxHelper.Watermark="Type a text message" KeyDown="tbxMessage_KeyDown"/>
         <Button x:Name="btnSendMessage" Content="Send" HorizontalAlignment="Right" Margin="0,0,9,10" VerticalAlignment="Bottom" Width="63" Click="btnSendMessage_Click"/>
         <WrapPanel x:Name="UsersQueueWrapPanel" Height="29" Margin="121,10,197,0" VerticalAlignment="Top">
@@ -69,5 +73,6 @@
         </WrapPanel>
         <Button x:Name="QueueButton" Content="Enter Queue" HorizontalAlignment="Right" Margin="0,8,337,0" VerticalAlignment="Top" Width="103" Click="QueueButton_Click"/>
         <Button x:Name="QueueButton_Copy" Content="Leave Queue" HorizontalAlignment="Right" Margin="0,8,217,0" VerticalAlignment="Top" Width="103" Click="QueueButton_Copy_Click" IsEnabled="False"/>
+        <Label Content="Users in queue:" HorizontalAlignment="Left" Margin="25,10,0,0" VerticalAlignment="Top"/>
     </Grid>
 </Controls:MetroWindow>
