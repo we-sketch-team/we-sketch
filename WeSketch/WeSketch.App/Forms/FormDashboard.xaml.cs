@@ -148,7 +148,7 @@ namespace WeSketch.App.Forms
 
         private void btnRefresh_Click(object sender, RoutedEventArgs e)
         {
-            LoadMyBoards();
+			RefreshMyBoards();			
         }
 
         private void dataSharedWithMe_MouseDoubleClickAsync(object sender, System.Windows.Input.MouseButtonEventArgs e)
