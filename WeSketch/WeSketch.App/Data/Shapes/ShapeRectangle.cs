@@ -15,11 +15,11 @@ namespace WeSketch.App.Data.Shapes
     [Serializable]
     public class ShapeRectangle: ShapeComponent
     {
-        public ShapeRectangle(int width, int height, System.Windows.Media.Color color) : base()
+        public ShapeRectangle(int width, int height) : base()
         {
             MyElement = new System.Windows.Shapes.Rectangle
             {
-                Fill = new SolidColorBrush(color),
+                Fill = new SolidColorBrush(Global.SelectedColor),
                 IsHitTestVisible = false,
                 HorizontalAlignment = HorizontalAlignment.Stretch,
                 VerticalAlignment = VerticalAlignment.Stretch,
@@ -35,7 +35,7 @@ namespace WeSketch.App.Data.Shapes
             };
         }
 
-        public ShapeRectangle():this(0, 0, System.Windows.Media.Color.FromRgb(0,0,0))
+        public ShapeRectangle():this(0, 0)
         {
             
         }

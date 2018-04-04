@@ -157,15 +157,15 @@ namespace WeSketch.App.Model
 
         public void EnterQueue()
         {
-            var service = SketchService.GetService();
             var user = Global.CurrentUser;
+            var service = SketchService.GetService();
             service.EnterQueue(user, board);
         }
 
         public void LeaveQueue()
         {
-            var service = SketchService.GetService();
             var user = Global.CurrentUser;
+            var service = SketchService.GetService();
             service.LeaveQueue(user, board);
         }
     }

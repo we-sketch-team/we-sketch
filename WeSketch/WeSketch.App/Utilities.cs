@@ -11,6 +11,7 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Controls;
 using System.Windows.Markup;
+using System.Windows.Media;
 using System.Xml;
 using System.Xml.Serialization;
 using WeSketch.App.Data;
@@ -27,7 +28,7 @@ namespace WeSketch.App
 
         public static string ExportShapes(ShapeList shapes)
         {
-            foreach(var shape in shapes)
+            foreach (var shape in shapes)
             {
                 var container = shape.GetFrameworkContainer();
                 var elem = shape.GetFrameworkShape();
@@ -35,7 +36,8 @@ namespace WeSketch.App
                 elem.Height = container.Height;
                 var left = Canvas.GetLeft(container);
                 var top = Canvas.GetTop(container);
-                elem.Uid = left + "#" + top;
+                elem.Uid = left + "$" + top + "$" + elem.Fill.ToString();
+                container.Content = elem;
             }
             string xaml = System.Xaml.XamlServices.Save(shapes);
             return xaml;
@@ -52,13 +54,14 @@ namespace WeSketch.App
                 container.Width = elem.Width;
                 container.Height = elem.Height;
                 var info = elem.Uid;
-                var parsed = info.Split('#');
+                var parsed = info.Split('$');
                 var left = Double.Parse(parsed[0]);
                 var top = Double.Parse(parsed[1]);
+                elem.Fill = new SolidColorBrush((Color)ColorConverter.ConvertFromString(parsed[2]));
                 Canvas.SetLeft(container, left);
                 Canvas.SetTop(container, top);
                 elem.Width = elem.Height = Double.NaN;
-                //elem.Margin = new System.Windows.Thickness(0, 0, 0, 0);
+                container.Content = elem;
             }
             return shapes;
         }

@@ -11,11 +11,11 @@ namespace WeSketch.App.Data.Shapes
 {
     public class ShapeEllipse:ShapeComponent
     {
-        public ShapeEllipse(int width, int height, System.Windows.Media.Color color) : base()
+        public ShapeEllipse(int width, int height) : base()
         {
             MyElement = new System.Windows.Shapes.Ellipse
             {
-                Fill = new SolidColorBrush(color),
+                Fill = new SolidColorBrush(Global.SelectedColor),
                 IsHitTestVisible = false,
                 HorizontalAlignment = HorizontalAlignment.Stretch,
                 VerticalAlignment = VerticalAlignment.Stretch,
@@ -31,7 +31,7 @@ namespace WeSketch.App.Data.Shapes
             };
         }
 
-        public ShapeEllipse() : this(0, 0, System.Windows.Media.Color.FromRgb(0, 0, 0))
+        public ShapeEllipse():this(0,0)
         {
    
         }
