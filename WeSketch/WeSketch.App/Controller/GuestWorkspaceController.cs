@@ -65,5 +65,6 @@ namespace WeSketch.App.Controller
 
             workspace.SendMessage(message);
         }
+
     }
 }

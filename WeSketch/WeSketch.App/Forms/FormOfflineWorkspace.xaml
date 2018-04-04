@@ -11,7 +11,7 @@
     mc:Ignorable="d"
         BorderThickness="2" 
         GlowBrush="{DynamicResource AccentColorBrush}"    
-        Title="WeSketch - Workspace [OFFLINE]" Height="447.846" Width="757.598" WindowState="Maximized" Loaded="MetroWindow_Loaded" KeyUp="MetroWindow_KeyUp" Closing="MetroWindow_Closing">
+        Title="WeSketch - Workspace [OFFLINE]" Height="545.846" Width="840.598" WindowState="Maximized" Loaded="MetroWindow_Loaded" KeyUp="MetroWindow_KeyUp" Closing="MetroWindow_Closing">
     <Window.Resources>
         <ResourceDictionary>
             <!-- MoveThumb Template -->
@@ -52,14 +52,17 @@
     </Window.Resources>
     <Grid>
         <Label Content="Color:" Margin="0,44,198,0" HorizontalAlignment="Right" Width="69" Height="29" VerticalAlignment="Top"></Label>
-        <xctk:ColorPicker x:Name="ColorPicker" Margin="0,70,9,0" HorizontalAlignment="Right" Width="257" Height="27" VerticalAlignment="Top" SelectedColorChanged="ColorPicker_SelectedColorChanged"/>
+        <xctk:ColorPicker x:Name="ColorPicker" Margin="0,70,10,0" HorizontalAlignment="Right" Width="257" Height="27" VerticalAlignment="Top" SelectedColorChanged="ColorPicker_SelectedColorChanged"/>
 
-        <Canvas x:Name="canvas" Margin="164,44,272,10" Background="#FFF8FFA4" KeyUp="canvas_KeyUp">
+        <Border BorderBrush="Gray" BorderThickness="2" Margin="164,44,272,13">
+            <DockPanel ClipToBounds="True">
+                <Canvas x:Name="canvas" Background="#FFFFFFAE" KeyUp="canvas_KeyUp" RenderTransformOrigin="0.5,0.5"/>
+            </DockPanel>
+        </Border>
 
-        </Canvas>
-        <Button x:Name="btnSave" Content="Save" Margin="10,10,0,0" VerticalAlignment="Top" Click="btnSave_Click" HorizontalAlignment="Left" Width="106"/>
-        <ToolBarTray HorizontalAlignment="Left" Margin="10,44,0,111" Width="149" Orientation="Vertical">
-            <ToolBar x:Name="formToolbar" HorizontalAlignment="Center" Height="238" VerticalAlignment="Top" Width="129" Margin="10,10,-98,-24"/>
+
+        <ToolBarTray HorizontalAlignment="Left" Margin="10,44,0,0" Width="149" Orientation="Vertical" Height="356" VerticalAlignment="Top">
+            <ToolBar x:Name="formToolbar" HorizontalAlignment="Center" Height="291" VerticalAlignment="Top" Width="129" Margin="10,10,-98,-77"/>
         </ToolBarTray>
     </Grid>
 </Controls:MetroWindow>

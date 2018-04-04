@@ -23,7 +23,7 @@ namespace WeSketch.App.Data.Shapes
 
         public void Delete(Canvas target)
         {
-            target.Children.Remove(MyElement);
+            target.Children.Remove(Container);
         }
         
         public void Draw(Canvas target)

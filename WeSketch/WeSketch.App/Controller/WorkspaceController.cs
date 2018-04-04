@@ -26,6 +26,8 @@ namespace WeSketch.App.Controller
 
         public void DeleteShape(IShape selectedShape)
         {
+            if (selectedShape == null)
+                return;
             workspace.DeleteShape(selectedShape);
             workspace.SaveBoard();
         }

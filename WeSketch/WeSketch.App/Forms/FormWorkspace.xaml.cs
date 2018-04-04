@@ -24,6 +24,7 @@ using WeSketch.App.Data.Tools.Toolbar;
 using WeSketch.App.Data.Shapes;
 using WeSketch.Common;
 using System.Threading;
+using System.Windows.Media.Effects;
 
 namespace WeSketch.App.Forms
 {
@@ -74,12 +75,6 @@ namespace WeSketch.App.Forms
             toolbar.Register(new ZoomOutToolRepresent(this));
 
             formToolbar.ItemsSource = toolbar.Tools;
-
-
-            //foreach (var tool in toolbar.Tools)
-            //{
-            //    formToolbar.Items.Add(tool);
-            //}
 
             if(toolbar.Tools.Count > 0)
                 toolbar.Select(toolbar.Tools[0]);
@@ -165,8 +160,10 @@ namespace WeSketch.App.Forms
 
         public void SelectShape(IShape shape)
         {
+            if (shape == null )
+                return;
+
             selectedShape = shape;
-            //_propertyGrid.SelectedObject = shape.GetFrameworkShape();
         }
 
         private void canvas_KeyUp(object sender, KeyEventArgs e)
@@ -176,10 +173,10 @@ namespace WeSketch.App.Forms
 
         private void MetroWindow_KeyUp(object sender, KeyEventArgs e)
         {
-			//if (e.Key == Key.Delete)
-			//    controller.DeleteShape(selectedShape);
+            if (e.Key == Key.Delete)
+                controller.DeleteShape(selectedShape);
 
-			if (e.Key != Key.Delete)
+            if (e.Key != Key.Delete)
 				return;
 
 			RemoveCollaborator();

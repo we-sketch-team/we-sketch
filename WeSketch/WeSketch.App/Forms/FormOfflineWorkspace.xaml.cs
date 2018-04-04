@@ -23,16 +23,19 @@ using WeSketch.App.Dialogs;
 using WeSketch.App.Data.Tools.Toolbar;
 using WeSketch.App.Data.Shapes;
 using WeSketch.Common;
+using System.Threading;
+using System.Windows.Media.Effects;
 
 namespace WeSketch.App.Forms
 {
     /// <summary>
-    /// Interaction logic for FormWorkspace.xaml
+    /// Interaction logic for FormOfflineWorkspace.xaml
     /// </summary>
     public partial class FormOfflineWorkspace : MetroWindow, IWorkspaceView, INotifySelectedToolChanged, IDrawable, IConnectionObserver
     {
         private IWorkspace workspace;
         private IWorkspaceController controller;
+        private bool isInQueue = false;
 
         private CustomDialog customDialog;
 
@@ -40,19 +43,20 @@ namespace WeSketch.App.Forms
         private ITool selectedTool;
 
         private IShape selectedShape;
+        private double scale = 1.0;
 
-
-        public FormOfflineWorkspace(IWorkspace model)
+        public FormOfflineWorkspace(IWorkspace model = null)
         {
             InitializeComponent();
-            Global.ResizeAndDragStyle = this.FindResource("DesignerItemTemplate") as ControlTemplate;
-            PopulateFormToolbar();
-            Init(model);
+            if (model == null)
+                return;
             ConnectionNotifier.Instance.Attach(this);
+            Global.ResizeAndDragStyle = this.FindResource("DesignerItemTemplate") as ControlTemplate;
+            Init(model);
+            PopulateFormToolbar();
             //_propertyGrid.PropertyValueChanged += _propertyGrid_PropertyValueChanged;
             canvas.ClipToBounds = true;
             ColorPicker.SelectedColor = Global.SelectedColor;
-
         }
 
         private void _propertyGrid_PropertyValueChanged(object sender, Xceed.Wpf.Toolkit.PropertyGrid.PropertyValueChangedEventArgs e)
@@ -67,13 +71,12 @@ namespace WeSketch.App.Forms
             toolbar.Register(new SelectToolRepresent(this));
             toolbar.Register(new RectangleToolRepresent(toolbar));
             toolbar.Register(new EllipseToolRepresent(toolbar));
-            
-            foreach (var tool in toolbar.Tools)
-            {
-                formToolbar.Items.Add(tool);
-            }
+            toolbar.Register(new ZoomInToolRepresent(this));
+            toolbar.Register(new ZoomOutToolRepresent(this));
 
-            if(toolbar.Tools.Count > 0)
+            formToolbar.ItemsSource = toolbar.Tools;
+
+            if (toolbar.Tools.Count > 0)
                 toolbar.Select(toolbar.Tools[0]);
 
             selectedTool = toolbar.SelectedTool;
@@ -82,7 +85,6 @@ namespace WeSketch.App.Forms
         public void Init(IWorkspace model)
         {
             this.workspace = model;
-            workspace.GetBoard().MyCanvas = canvas;
             workspace.Attach(this);
             MakeController();
             RefreshCanvas();
@@ -107,13 +109,13 @@ namespace WeSketch.App.Forms
         }
 
         private void canvas_MouseMove(object sender, MouseEventArgs e)
-        {            
+        {
 
         }
 
         private void btnEnableCT_Click(object sender, RoutedEventArgs e)
         {
-            
+
         }
 
         private void MetroWindow_Loaded(object sender, RoutedEventArgs e)
@@ -122,15 +124,9 @@ namespace WeSketch.App.Forms
             canvas.MouseDown += canvas_MouseDown;
         }
 
-        public void RefreshCollaborators()
-        {
-			return;
-        }
-
         public void RefreshCanvas()
         {
             var board = workspace.GetBoard();
-            board.Shapes = Utilities.ImportShapes(board.Content);
             board.MyCanvas = canvas;
             board.Draw(canvas);
             foreach (Control child in canvas.Children)
@@ -157,12 +153,11 @@ namespace WeSketch.App.Forms
         public void SelectShape(IShape shape)
         {
             selectedShape = shape;
-            //_propertyGrid.SelectedObject = shape.GetFrameworkShape();
         }
 
         private void canvas_KeyUp(object sender, KeyEventArgs e)
         {
-           
+
         }
 
         private void MetroWindow_KeyUp(object sender, KeyEventArgs e)
@@ -171,6 +166,8 @@ namespace WeSketch.App.Forms
                 controller.DeleteShape(selectedShape);
         }
 
+       
+
         private void MetroWindow_Closing(object sender, System.ComponentModel.CancelEventArgs e)
         {
             ConnectionNotifier.Instance.Detach(this);
@@ -178,10 +175,7 @@ namespace WeSketch.App.Forms
             workspace?.Dispose();
         }
 
-        public void UpdateMessage(Message message)
-        {
-			return;          
-        }
+        
 
         public void SetController(IWorkspaceController workspaceController)
         {
@@ -192,10 +186,7 @@ namespace WeSketch.App.Forms
             toolbar.Controller = this.controller;
         }
 
-        public void RefreshUserQueue()
-        {
-            return;
-        }
+        
 
         private void MoveThumb_DragDelta(object sender, System.Windows.Controls.Primitives.DragDeltaEventArgs e)
         {
@@ -226,7 +217,7 @@ namespace WeSketch.App.Forms
         public void UpdateConnectionStatus(bool hasConnection)
         {
             Application.Current.Dispatcher.Invoke((Action)delegate {
-                MessageBox.Show("Connection regained. You entered online mode!");
+                MessageBox.Show("Connection is back. You are online now!");
                 this.Close();
             });
         }
@@ -235,6 +226,21 @@ namespace WeSketch.App.Forms
         {
             if (e.NewValue.HasValue)
                 Global.SelectedColor = e.NewValue.Value;
+        }
+
+        public void RefreshCollaborators()
+        {
+            throw new NotImplementedException();
+        }
+
+        public void UpdateMessage(Message message)
+        {
+            throw new NotImplementedException();
+        }
+
+        public void RefreshUserQueue()
+        {
+            throw new NotImplementedException();
         }
     }
 }
