@@ -63,7 +63,7 @@
 
         <DataGrid x:Name="dataGridCollaborators" Margin="10,400,0,10" HorizontalAlignment="Left" Width="149"/>
         <ToolBarTray HorizontalAlignment="Left" Margin="10,44,0,0" Width="149" Orientation="Vertical" Height="356" VerticalAlignment="Top">
-            <ToolBar x:Name="formToolbar" HorizontalAlignment="Center" Height="291" VerticalAlignment="Top" Width="129" Margin="10,10,-98,-77"/>
+            <ToolBar x:Name="formToolbar" HorizontalAlignment="Center" Height="336" VerticalAlignment="Top" Width="129" Margin="10,10,-98,-122"/>
         </ToolBarTray>
         <TextBox x:Name="tbxChatbox" Margin="0,102,10,44" TextWrapping="Wrap" HorizontalAlignment="Right" Width="257" IsReadOnly="True"/>
         <TextBox x:Name="tbxMessage" HorizontalAlignment="Right" Height="23" Margin="0,0,77,13" TextWrapping="Wrap" VerticalAlignment="Bottom" Width="189" Controls:TextBoxHelper.Watermark="Type a text message" KeyDown="tbxMessage_KeyDown"/>
