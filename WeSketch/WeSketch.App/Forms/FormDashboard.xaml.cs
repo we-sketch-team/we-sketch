@@ -98,9 +98,18 @@ namespace WeSketch.App.Forms
 
         private void btnDeleteSelected_Click(object sender, RoutedEventArgs e)
         {
-            if (dataMyBoards.SelectedItem == null) return;
-            // TODO: Check if can delete
+            if (dataMyBoards.SelectedItem == null) return;      
+			
             var board = dataMyBoards.SelectedItem as Board;
+
+			if (board == null)
+				return;
+
+			var belongsToUser = Global.CurrentUser.Boards.Find(x => x.Id == board.Id);
+
+			if (belongsToUser == null)
+				return;
+
             controller.DeleteBoard(board);
         }
 
