@@ -73,6 +73,7 @@ namespace WeSketch.App.Forms
             toolbar.Register(new EllipseToolRepresent(toolbar));
             toolbar.Register(new ZoomInToolRepresent(this));
             toolbar.Register(new ZoomOutToolRepresent(this));
+			toolbar.Register(new ExportToolRepresent(toolbar, this));
 
             formToolbar.ItemsSource = toolbar.Tools;
 
