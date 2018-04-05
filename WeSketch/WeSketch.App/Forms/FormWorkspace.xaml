@@ -61,7 +61,7 @@
         </Border>
 
 
-        <DataGrid x:Name="dataGridCollaborators" Margin="10,400,0,10" HorizontalAlignment="Left" Width="149"/>
+        <DataGrid x:Name="dataGridCollaborators" Margin="10,400,0,10" HorizontalAlignment="Left" Width="149" Visibility="Hidden"/>
         <ToolBarTray HorizontalAlignment="Left" Margin="10,44,0,0" Width="149" Orientation="Vertical" Height="356" VerticalAlignment="Top">
             <ToolBar x:Name="formToolbar" HorizontalAlignment="Center" Height="336" VerticalAlignment="Top" Width="129" Margin="10,10,-98,-122"/>
         </ToolBarTray>
