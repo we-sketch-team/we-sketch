@@ -131,13 +131,17 @@ namespace WeSketch.BusinessLogic.Providers
             if (user == null)
                 return InvalidDTOFactory.InvalidUser();
 
-            SetUpdateProperties(userDetails, user);
-            unitOfWork.UserRepository.Update(user);
+			user.Password = userDetails.Password != null ? userDetails.Password : user.Password;
+			user.FirstName = userDetails.FirstName != null ? userDetails.FirstName : user.FirstName;
+			user.LastName = userDetails.LastName != null ? userDetails.LastName : user.LastName;
+
+			unitOfWork.UserRepository.Update(user);
+			unitOfWork.Save();
 
             return ConverterToDTO.UserToUserDetails(user);
         }
 
-        public void SetUpdateProperties(UserDetailsDTO userDetails, User user)
+        public void SetUpdateProperties(UserDetailsDTO userDetails, ref User user)
         {
             user.DateOfBirth = userDetails.DateOfBirth;
             user.DateRegistered = userDetails.DateRegistered;
@@ -149,6 +153,12 @@ namespace WeSketch.BusinessLogic.Providers
         {
             unitOfWork.UserRepository.Delete(id);
             unitOfWork.Save();
+        }
+
+        public UserDetailsDTO GetUserByUsername(string username)
+        {
+            var user = unitOfWork.UserRepository.GetByUsername(username);
+            return ConverterToDTO.UserToUserDetails(user);
         }
     }
 }

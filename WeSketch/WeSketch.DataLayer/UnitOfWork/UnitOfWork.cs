@@ -40,8 +40,6 @@ namespace WeSketch.DataLayer.UnitOfWork
         #endregion     
         #region Repository variables
         private BoardRepository boardRepository;
-        private ChatRoomRepository chatRoomRepository;
-        private MessageRepository messageRepository;
         private UserRepository userRepository;
         #endregion
         #region Repository properties
@@ -51,23 +49,7 @@ namespace WeSketch.DataLayer.UnitOfWork
             {
                 return this.boardRepository ?? new BoardRepository(context);
             }
-        }
-
-        public ChatRoomRepository ChatRoomRepository
-        {
-            get
-            {
-                return this.chatRoomRepository ?? new ChatRoomRepository(context);
-            }
-        }
-        
-        public MessageRepository MessageRepository
-        {
-            get
-            {
-                return this.messageRepository ?? new MessageRepository(context);
-            }
-        }
+        }      
         
         public UserRepository UserRepository
         {

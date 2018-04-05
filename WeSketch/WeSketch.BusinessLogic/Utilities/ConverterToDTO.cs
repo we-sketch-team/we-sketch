@@ -6,8 +6,6 @@ using System.Threading.Tasks;
 using WeSketch.DataLayer.Model;
 using WeSketch.BusinessLogic.DTOs;
 using WeSketch.BusinessLogic.DTOs.BoardDTOs;
-using WeSketch.BusinessLogic.DTOs.ChatRoomDTOs;
-using WeSketch.BusinessLogic.DTOs.MessageDTOs;
 
 namespace WeSketch.BusinessLogic.Utilities
 {
@@ -47,10 +45,10 @@ namespace WeSketch.BusinessLogic.Utilities
             {
                 Id = board.Id,
                 DateCreated = board.DateCreated,
-                PublicBoard = board.PublicBoard,
                 Title = board.Title,
                 Desription = board.Desription,
-                Content = board.Content
+                Content = board.Content,
+				Password = board.Password
             };
         }
 
@@ -59,10 +57,10 @@ namespace WeSketch.BusinessLogic.Utilities
             return new CreateBoardDto()
             {
                 DateCreated = board.DateCreated,
-                PublicBoard = board.PublicBoard,
                 Title = board.Title,
                 Desription = board.Desription,
-                Content = board.Content
+                Content = board.Content	,
+				Password = board.Password
             };
         }
 
@@ -73,32 +71,30 @@ namespace WeSketch.BusinessLogic.Utilities
             foreach (var board in boards)
             {
                 BoardDetailsDTO boardDetails = ConverterToDTO.BoardToBoardDetails(board);
+				boardDetails.IsPasswordProtected = Utility.IsPasswordProtected(boardDetails.Password);
                 result.Add(boardDetails);
             }
 
             return result;
         }
-        #endregion
-        #region ChatRooms
-        public static ChatRoomDetailsDTO ChatToChatDetails(ChatRoom chatRoom)
-        {
-            return new ChatRoomDetailsDTO
-            {
-                Id = chatRoom.Id,
-                ActiveChat = chatRoom.ActiveChat,
-                DateCreated = chatRoom.DateCreated
-            };
-        }
-        #endregion
-        #region Messages
-        public static MessageDetailsDTO MessageToMessageDetails(Message message)
-        {
-            return new MessageDetailsDTO
-            {
-                Content = message.Content,
-                Id = message.Id
-            };
-        }
-        #endregion
+
+		public static List<BoardDetailsDTO> ListOfBoardsToBasicInformation(List<Board> boards)
+		{
+			List<BoardDetailsDTO> result = new List<BoardDetailsDTO>();
+
+			foreach (var board in boards)
+			{
+				BoardDetailsDTO boardDetails = new BoardDetailsDTO()
+				{
+					Id = board.Id,
+					Title = board.Title,
+					Desription = board.Desription
+				};
+				result.Add(boardDetails);
+			}
+
+			return result;
+		}
+		#endregion	
     }
 }

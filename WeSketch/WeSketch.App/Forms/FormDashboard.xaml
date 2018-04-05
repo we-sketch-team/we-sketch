@@ -1,0 +1,53 @@
+﻿<Controls:MetroWindow
+        xmlns:Controls="clr-namespace:MahApps.Metro.Controls;assembly=MahApps.Metro"
+        x:Class="WeSketch.App.Forms.FormDashboard"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:iconPacks="http://metro.mahapps.com/winfx/xaml/iconpacks"
+        xmlns:local="clr-namespace:WeSketch.App.Forms"
+        mc:Ignorable="d"
+        BorderThickness="2" 
+        GlowBrush="{DynamicResource AccentColorBrush}"    
+        Title="WeSketch - Dashboard" Height="637.5" Width="1180" WindowState="Maximized" Loaded="MetroWindow_Loaded">
+    <Grid>
+        <Grid x:Name="gridDashboardHeader" Height="62" Margin="8,10,8,0" VerticalAlignment="Top">
+            <Button x:Name="btnCreateBoard" Content="{iconPacks:PackIconMaterial ShapeSquarePlus}" Style="{StaticResource AccentedSquareButtonStyle}" HorizontalAlignment="Left" Height="32" Margin="10,10,0,0" VerticalAlignment="Top" Width="100" Click="btnCreateBoard_Click"/>
+            <TextBox x:Name="tbxSearch" Height="32" Margin="325,10,325,0" TextWrapping="NoWrap" VerticalAlignment="Top" Controls:TextBoxHelper.Watermark="Search..." TextChanged="tbxSearch_TextChanged" FontSize="16" FontFamily="Segoe UI"/>
+            <Button Content="{iconPacks:PackIconMaterial Logout}" Height="32" Margin="0,10,10,0" VerticalAlignment="Top" HorizontalAlignment="Right" Width="100"/>
+            <Button x:Name="btnProfile" Content="{iconPacks:PackIconMaterial Account}" Height="32" Margin="0,10,115,0" VerticalAlignment="Top" HorizontalAlignment="Right" Width="100" Click="btnProfile_Click"/>
+            <Button Content="{iconPacks:PackIconMaterial Bell}" Height="32" Margin="0,10,220,0" VerticalAlignment="Top" HorizontalAlignment="Right" Width="100"/>
+            <Button x:Name="btnDeleteSelected" Content="{iconPacks:PackIconMaterial Delete}" HorizontalAlignment="Left" Height="32" Margin="115,10,0,0" VerticalAlignment="Top" Width="100" Click="btnDeleteSelected_Click"/>
+            <Button x:Name="btnRefresh" Content="{iconPacks:PackIconMaterial Refresh}" HorizontalAlignment="Left" Height="32" Margin="220,10,0,0" VerticalAlignment="Top" Width="100" Click="btnRefresh_Click"/>
+        </Grid>
+        <Grid x:Name="gridDashboardMain" Margin="67,77,67,0">
+            <TabControl x:Name="tabBoards" Margin="0,10,0,68">
+                <TabItem x:Name="tabItemMyBoards" Header="My boards" Margin="0,0,-12,0" Padding="0,2,20,2" FontSize="8" Foreground="Black">
+                    <DataGrid x:Name="dataMyBoards" Height="391" Margin="10,10,10,0" VerticalAlignment="Top" FontSize="16" BorderThickness="2" AutoGenerateColumns="False" IsReadOnly="True" MouseDoubleClick="dataMyBoards_MouseDoubleClick">
+                        <DataGrid.Columns>
+                            <DataGridTextColumn Header="Id" Binding="{Binding Id}"/>
+                            <DataGridTextColumn Header="Title" Binding="{Binding Title}"/>
+                            <DataGridTextColumn Header="Description"/>
+                            <DataGridTextColumn Header="Collaborators" Binding="{Binding Collaborators}"/>
+                        </DataGrid.Columns>
+                    </DataGrid>
+                </TabItem>
+                <TabItem x:Name="tabItemSharedWithMe" Header="Worldwide" Padding="0,2,20,2" FontSize="8">
+                    <DataGrid x:Name="dataSharedWithMe" Height="391" Margin="10,10,10,0" VerticalAlignment="Top" FontSize="16" BorderThickness="2" AutoGenerateColumns="False" IsReadOnly="True" MouseDoubleClick="dataSharedWithMe_MouseDoubleClickAsync">
+                        <DataGrid.Columns>
+                            <DataGridTextColumn Header="Id" Binding="{Binding Id}"/>
+                            <DataGridTextColumn Header="Title" Binding="{Binding Title}"/>
+                            <!--<DataGridTextColumn Header="Description" >Binding="{Binding Description}">/>-->
+                            <DataGridTextColumn Header="Description"/>
+                            <DataGridTextColumn Header="Collaborators" Binding="{Binding Collaborators}"/>
+                            <DataGridTextColumn Header="Password" Binding="{Binding IsPasswordProtected}"></DataGridTextColumn>
+
+                        </DataGrid.Columns>
+                    </DataGrid>
+                </TabItem>
+
+            </TabControl>
+        </Grid>
+    </Grid>
+</Controls:MetroWindow>

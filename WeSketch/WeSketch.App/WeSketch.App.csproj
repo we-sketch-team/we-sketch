@@ -13,6 +13,7 @@
     <ProjectTypeGuids>{60dc8134-eba5-43b8-bcc9-bb4bc16c2548};{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}</ProjectTypeGuids>
     <WarningLevel>4</WarningLevel>
     <AutoGenerateBindingRedirects>true</AutoGenerateBindingRedirects>
+    <TargetFrameworkProfile />
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
     <PlatformTarget>AnyCPU</PlatformTarget>
@@ -34,8 +35,63 @@
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
   <ItemGroup>
+    <Reference Include="ExtendedXmlSerializer, Version=2.0.0.0, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\packages\ExtendedXmlSerializer.2.0.0\lib\net45\ExtendedXmlSerializer.dll</HintPath>
+    </Reference>
+    <Reference Include="JetBrains.Annotations, Version=10.4.0.0, Culture=neutral, PublicKeyToken=1010a0d8d6380325, processorArchitecture=MSIL">
+      <HintPath>..\packages\JetBrains.Annotations.10.4.0\lib\net\JetBrains.Annotations.dll</HintPath>
+    </Reference>
+    <Reference Include="MahApps.Metro, Version=1.5.0.23, Culture=neutral, PublicKeyToken=f4fb5a3c4d1e5b4f, processorArchitecture=MSIL">
+      <HintPath>..\packages\MahApps.Metro.1.5.0\lib\net45\MahApps.Metro.dll</HintPath>
+    </Reference>
+    <Reference Include="MahApps.Metro.IconPacks.Material, Version=1.9.1.0, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\packages\MahApps.Metro.IconPacks.Material.1.9.1\lib\net46\MahApps.Metro.IconPacks.Material.dll</HintPath>
+    </Reference>
+    <Reference Include="Microsoft.AspNet.SignalR.Client, Version=2.2.2.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <HintPath>..\packages\Microsoft.AspNet.SignalR.Client.2.2.2\lib\net45\Microsoft.AspNet.SignalR.Client.dll</HintPath>
+    </Reference>
+    <Reference Include="Microsoft.AspNet.SignalR.Core, Version=2.2.2.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <HintPath>..\packages\Microsoft.AspNet.SignalR.Core.2.2.2\lib\net45\Microsoft.AspNet.SignalR.Core.dll</HintPath>
+    </Reference>
+    <Reference Include="Microsoft.AspNet.SignalR.SystemWeb, Version=2.2.2.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <HintPath>..\packages\Microsoft.AspNet.SignalR.SystemWeb.2.2.2\lib\net45\Microsoft.AspNet.SignalR.SystemWeb.dll</HintPath>
+    </Reference>
+    <Reference Include="Microsoft.Owin, Version=2.1.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <HintPath>..\packages\Microsoft.Owin.2.1.0\lib\net45\Microsoft.Owin.dll</HintPath>
+    </Reference>
+    <Reference Include="Microsoft.Owin.Host.HttpListener, Version=4.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <HintPath>..\packages\Microsoft.Owin.Host.HttpListener.4.0.0-preview1\lib\net451\Microsoft.Owin.Host.HttpListener.dll</HintPath>
+    </Reference>
+    <Reference Include="Microsoft.Owin.Host.SystemWeb, Version=2.1.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <HintPath>..\packages\Microsoft.Owin.Host.SystemWeb.2.1.0\lib\net45\Microsoft.Owin.Host.SystemWeb.dll</HintPath>
+    </Reference>
+    <Reference Include="Microsoft.Owin.Security, Version=2.1.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <HintPath>..\packages\Microsoft.Owin.Security.2.1.0\lib\net45\Microsoft.Owin.Security.dll</HintPath>
+    </Reference>
+    <Reference Include="Newtonsoft.Json, Version=10.0.0.0, Culture=neutral, PublicKeyToken=30ad4fe6b2a6aeed, processorArchitecture=MSIL">
+      <HintPath>..\packages\Newtonsoft.Json.10.0.3\lib\net45\Newtonsoft.Json.dll</HintPath>
+    </Reference>
+    <Reference Include="Owin, Version=1.0.0.0, Culture=neutral, PublicKeyToken=f0ebd12fd5e55cc5, processorArchitecture=MSIL">
+      <HintPath>..\packages\Owin.1.0\lib\net40\Owin.dll</HintPath>
+    </Reference>
+    <Reference Include="RestSharp, Version=106.2.0.0, Culture=neutral, PublicKeyToken=598062e77f915f75, processorArchitecture=MSIL">
+      <HintPath>..\packages\RestSharp.106.2.0\lib\net452\RestSharp.dll</HintPath>
+    </Reference>
     <Reference Include="System" />
+    <Reference Include="System.Collections.Immutable, Version=1.2.1.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a, processorArchitecture=MSIL">
+      <HintPath>..\packages\System.Collections.Immutable.1.3.1\lib\portable-net45+win8+wp8+wpa81\System.Collections.Immutable.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
     <Reference Include="System.Data" />
+    <Reference Include="System.Drawing" />
+    <Reference Include="System.Runtime.Serialization" />
+    <Reference Include="System.ValueTuple, Version=4.0.2.0, Culture=neutral, PublicKeyToken=cc7b13ffcd2ddd51, processorArchitecture=MSIL">
+      <HintPath>..\packages\System.ValueTuple.4.4.0\lib\net461\System.ValueTuple.dll</HintPath>
+    </Reference>
+    <Reference Include="System.Web" />
+    <Reference Include="System.Windows.Interactivity, Version=4.5.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <HintPath>..\packages\MahApps.Metro.1.5.0\lib\net45\System.Windows.Interactivity.dll</HintPath>
+    </Reference>
     <Reference Include="System.Xml" />
     <Reference Include="Microsoft.CSharp" />
     <Reference Include="System.Core" />
@@ -48,23 +104,153 @@
     <Reference Include="WindowsBase" />
     <Reference Include="PresentationCore" />
     <Reference Include="PresentationFramework" />
+    <Reference Include="Xceed.Wpf.AvalonDock, Version=3.2.0.0, Culture=neutral, PublicKeyToken=3e4669d2f30244f4, processorArchitecture=MSIL">
+      <HintPath>..\packages\Extended.Wpf.Toolkit.3.2.0\lib\net40\Xceed.Wpf.AvalonDock.dll</HintPath>
+    </Reference>
+    <Reference Include="Xceed.Wpf.AvalonDock.Themes.Aero, Version=3.2.0.0, Culture=neutral, PublicKeyToken=3e4669d2f30244f4, processorArchitecture=MSIL">
+      <HintPath>..\packages\Extended.Wpf.Toolkit.3.2.0\lib\net40\Xceed.Wpf.AvalonDock.Themes.Aero.dll</HintPath>
+    </Reference>
+    <Reference Include="Xceed.Wpf.AvalonDock.Themes.Metro, Version=3.2.0.0, Culture=neutral, PublicKeyToken=3e4669d2f30244f4, processorArchitecture=MSIL">
+      <HintPath>..\packages\Extended.Wpf.Toolkit.3.2.0\lib\net40\Xceed.Wpf.AvalonDock.Themes.Metro.dll</HintPath>
+    </Reference>
+    <Reference Include="Xceed.Wpf.AvalonDock.Themes.VS2010, Version=3.2.0.0, Culture=neutral, PublicKeyToken=3e4669d2f30244f4, processorArchitecture=MSIL">
+      <HintPath>..\packages\Extended.Wpf.Toolkit.3.2.0\lib\net40\Xceed.Wpf.AvalonDock.Themes.VS2010.dll</HintPath>
+    </Reference>
+    <Reference Include="Xceed.Wpf.DataGrid, Version=3.2.0.0, Culture=neutral, PublicKeyToken=3e4669d2f30244f4, processorArchitecture=MSIL">
+      <HintPath>..\packages\Extended.Wpf.Toolkit.3.2.0\lib\net40\Xceed.Wpf.DataGrid.dll</HintPath>
+    </Reference>
+    <Reference Include="Xceed.Wpf.Toolkit, Version=3.2.0.0, Culture=neutral, PublicKeyToken=3e4669d2f30244f4, processorArchitecture=MSIL">
+      <HintPath>..\packages\Extended.Wpf.Toolkit.3.2.0\lib\net40\Xceed.Wpf.Toolkit.dll</HintPath>
+    </Reference>
   </ItemGroup>
   <ItemGroup>
     <ApplicationDefinition Include="App.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </ApplicationDefinition>
-    <Page Include="MainWindow.xaml">
+    <Compile Include="ConnectionNotifier.cs" />
+    <Compile Include="Controller\DashboardController.cs" />
+    <Compile Include="Controller\GuestWorkspaceController.cs" />
+    <Compile Include="Controller\IDashboardController.cs" />
+    <Compile Include="Controller\ILoginController.cs" />
+    <Compile Include="Controller\IWorkspaceController.cs" />
+    <Compile Include="Controller\LoginController.cs" />
+    <Compile Include="Controller\OfflineWorkspaceController.cs" />
+    <Compile Include="Controller\WorkspaceController.cs" />
+    <Compile Include="Data\API\ApiService.cs" />
+    <Compile Include="Data\BoardQueue.cs" />
+    <Compile Include="Data\DatabaseSyncronizer.cs" />
+    <Compile Include="Data\Global.cs" />
+    <Compile Include="Data\Shapes\MoveThumb.cs" />
+    <Compile Include="Data\Shapes\ResizeThumb.cs" />
+    <Compile Include="Data\Shapes\ShapeEllipse.cs" />
+    <Compile Include="Data\Shapes\ShapeList.cs" />
+    <Compile Include="Data\Shapes\ShapesFactory.cs" />
+    <Compile Include="Data\Syncronizer.cs" />
+    <Compile Include="Data\Tools\ExportTool.cs" />
+    <Compile Include="Data\Tools\ITool.cs" />
+    <Compile Include="Data\Tools\SelectTool.cs" />
+    <Compile Include="Data\Tools\Toolbar\EllipseToolRepresent.cs" />
+    <Compile Include="Data\Tools\Toolbar\ExportToolRepresent.cs" />
+    <Compile Include="Data\Tools\Toolbar\RectangleToolRepresent.cs" />
+    <Compile Include="Data\Tools\Toolbar\SelectToolRepresent.cs" />
+    <Compile Include="Data\Tools\Toolbar\Toolbar.cs" />
+    <Compile Include="Data\Tools\EllipseCreationalTool.cs" />
+    <Compile Include="Data\Tools\LineCreationalTool.cs" />
+    <Compile Include="Data\Tools\Toolbar\ToolbarItemRepresent.cs" />
+    <Compile Include="Data\Tools\Toolbar\ZoomOutToolRepresent.cs" />
+    <Compile Include="Data\Tools\Toolbar\ZoomInToolRepresent.cs" />
+    <Compile Include="Data\Tools\TwoPointCreationalTool.cs" />
+    <Compile Include="Data\Tools\ZoomInTool.cs" />
+    <Compile Include="Data\Tools\ZoomOutTool.cs" />
+    <Compile Include="Data\Tools\ZoomTool.cs" />
+    <Compile Include="Dialogs\CreateBoardDialog.xaml.cs">
+      <DependentUpon>CreateBoardDialog.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Data\API\IAPI.cs" />
+    <Compile Include="Data\API\ProxyService.cs" />
+    <Compile Include="Data\API\SketchService.cs" />
+    <Compile Include="Data\API\UserRegistrationOptions.cs" />
+    <Compile Include="Data\Board.cs" />
+    <Compile Include="Data\CollaboratorList.cs" />
+    <Compile Include="Data\Shapes\IShape.cs" />
+    <Compile Include="Data\Shapes\ShapeComponent.cs" />
+    <Compile Include="Data\Shapes\ShapeComposite.cs" />
+    <Compile Include="Data\Shapes\ShapeRectangle.cs" />
+    <Compile Include="Data\Tools\ICreationalTool.cs" />
+    <Compile Include="Data\Tools\RectangleCreationalTool.cs" />
+    <Compile Include="Data\User.cs" />
+    <Compile Include="Dialogs\JoinPasswordProtectedBoardDialog.xaml.cs">
+      <DependentUpon>JoinPasswordProtectedBoardDialog.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Forms\FormDashboard.xaml.cs">
+      <DependentUpon>FormDashboard.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Forms\FormEditUser.xaml.cs">
+      <DependentUpon>FormEditUser.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Forms\FormOfflineWorkspace.xaml.cs">
+      <DependentUpon>FormOfflineWorkspace.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Forms\FormWorkspace.xaml.cs">
+      <DependentUpon>FormWorkspace.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Forms\IDrawable.cs" />
+    <Compile Include="Forms\INotifySelectedToolChanged.cs" />
+    <Compile Include="IConnectionObserver.cs" />
+    <Compile Include="Model\Dashboard.cs" />
+    <Compile Include="Model\IDashboard.cs" />
+    <Compile Include="Model\ILogin.cs" />
+    <Compile Include="Model\ISketch.cs" />
+    <Compile Include="Model\IWorkspace.cs" />
+    <Compile Include="Model\Login.cs" />
+    <Compile Include="Model\Workspace.cs" />
+    <Compile Include="Utilities.cs" />
+    <Compile Include="View\IDashboardView.cs" />
+    <Compile Include="View\ILoginView.cs" />
+    <Compile Include="View\IWorkspaceView.cs" />
+    <Compile Include="View\ViewManager.cs" />
+    <Page Include="Dialogs\CreateBoardDialog.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Dialogs\JoinPasswordProtectedBoardDialog.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Forms\FormDashboard.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Forms\FormEditUser.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Forms\FormLogin.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Forms\FormRegister.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Forms\FormOfflineWorkspace.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
+    </Page>
+    <Page Include="Forms\FormWorkspace.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
     </Page>
     <Compile Include="App.xaml.cs">
       <DependentUpon>App.xaml</DependentUpon>
       <SubType>Code</SubType>
     </Compile>
-    <Compile Include="MainWindow.xaml.cs">
-      <DependentUpon>MainWindow.xaml</DependentUpon>
-      <SubType>Code</SubType>
+    <Compile Include="Forms\FormLogin.xaml.cs">
+      <DependentUpon>FormLogin.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Forms\FormRegister.xaml.cs">
+      <DependentUpon>FormRegister.xaml</DependentUpon>
     </Compile>
   </ItemGroup>
   <ItemGroup>
@@ -85,6 +271,7 @@
       <Generator>ResXFileCodeGenerator</Generator>
       <LastGenOutput>Resources.Designer.cs</LastGenOutput>
     </EmbeddedResource>
+    <None Include="packages.config" />
     <None Include="Properties\Settings.settings">
       <Generator>SettingsSingleFileGenerator</Generator>
       <LastGenOutput>Settings.Designer.cs</LastGenOutput>
@@ -92,6 +279,25 @@
   </ItemGroup>
   <ItemGroup>
     <None Include="App.config" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Images\logo-circle.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Images\logo.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="Scripts\jquery-1.6.4-vsdoc.js" />
+    <Content Include="Scripts\jquery-1.6.4.js" />
+    <Content Include="Scripts\jquery-1.6.4.min.js" />
+    <Content Include="Scripts\jquery.signalR-2.2.2.js" />
+    <Content Include="Scripts\jquery.signalR-2.2.2.min.js" />
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\WeSketch.Common\WeSketch.Common.csproj">
+      <Project>{b3a793b5-aa54-4943-9bac-747c5dfbcf09}</Project>
+      <Name>WeSketch.Common</Name>
+    </ProjectReference>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>

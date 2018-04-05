@@ -7,15 +7,13 @@ using WeSketch.BusinessLogic.Providers;
 using WeSketch.BusinessLogic.Utilities;
 using WeSketch.BusinessLogic.DTOs;
 using WeSketch.BusinessLogic.DTOs.BoardDTOs;
-using WeSketch.BusinessLogic.DTOs.ChatRoomDTOs;
-using WeSketch.BusinessLogic.DTOs.MessageDTOs;
+using WeSketch.Common.CommonClasses;
 
 namespace WeSketch.BusinessLogic.Services
 {
     public class DataService
     {
         private BoardProvider boardProvider;
-        private ChatRoomProvider chatRoomProvider;
         private UserProvider userProvider;
         private Mediator mediator;
 
@@ -23,8 +21,12 @@ namespace WeSketch.BusinessLogic.Services
         {
             mediator = ObjectFactory.GetMediator();
             boardProvider = ObjectFactory.GetBoardProvider(mediator);
-            chatRoomProvider = ObjectFactory.GetChatRoomProvider(mediator);
             userProvider = ObjectFactory.GetUserProvider(mediator);
+        }
+
+        public List<BoardDetailsDTO> GetAllBoards(int userId)
+        {
+            return boardProvider.GetAllBoards(userId);
         }
 
         public UserDetailsDTO Login(LoginDTO login)
@@ -53,38 +55,39 @@ namespace WeSketch.BusinessLogic.Services
             return boardProvider.GetAllUserBoards();
         }
 
-        public BoardDetailsDTO GetBoard(int id)
+		public List<BoardDetailsDTO> GetMyBoardsBasicInformation(int userId)
+		{
+			userProvider.SetMediatorUser(userId);
+			return boardProvider.GetMyBoardsBasicInformation();
+		}
+
+		public BoardDetailsDTO GetBoard(int id)
         {
             return boardProvider.GetBoard(id);
         }
 
-        public UserDetailsDTO UpdateUser(UserDetailsDTO userDetails)
+		public BoardDetailsDTO GetBoardWithRole(int userId, int boardId)
+		{
+			userProvider.SetMediatorUser(userId);
+			return boardProvider.GetBoadWithRole(boardId);
+		}
+
+		public UserDetailsDTO UpdateUser(UserDetailsDTO userDetails)
         {
             return userProvider.UpdateUser(userDetails);
         }
 
-        public CreateBoardDto CreateAndAttacheBoard(CreateBoardDto userBoard)
+        public CreateBoardDto CreateBoard(CreateBoardDto userBoard)
         {
             int userId = userBoard.UserId;
             userProvider.SetMediatorUser(userId);
-            return boardProvider.CreateAndAttacheBoard(userBoard);
-        }
-
-        public BoardDetailsDTO CreateBoard(CreateBoardDto userBoard)
-        {           
             return boardProvider.CreateBoard(userBoard);
-        }
+        }      
 
-
-        public List<BoardDetailsDTO> AllBoards()
+        public BoardDetailsDTO SetBoardPreference(BoardPreferenceDTO boardPreferenceDTO)
         {
-            return boardProvider.AllBoards();
-        }
-
-        public BoardDetailsDTO SetBoardPreference(int userId, int boardId)
-        {
-            userProvider.SetMediatorUser(userId);
-            return boardProvider.SetBoardPreference(boardId);
+            userProvider.SetMediatorUser(boardPreferenceDTO.UserId);
+            return boardProvider.SetBoardPreference(boardPreferenceDTO);
         }
 
         public BoardDetailsDTO UpdateBoard(BoardDetailsDTO boardDetails)
@@ -100,53 +103,45 @@ namespace WeSketch.BusinessLogic.Services
         public void DeleteUser(int id)
         {
             userProvider.DeleteUser(id);
+        }            
+
+        public bool AddCollaborator(CollaboratorDTO collaboratorDTO)
+        {
+            userProvider.SetMediatorUser(collaboratorDTO.UserId);
+            return boardProvider.AddCollaborator(collaboratorDTO);
         }
 
-        public ChatRoomDetailsDTO GetChatRoom(int id)
+        public List<UserDetailsDTO> GetAllBoardCollaboratros(int id)
         {
-            return chatRoomProvider.GetChatRoom(id);
+            return boardProvider.GetAllBoardCollaboratros(id);
         }
 
-        public List<ChatRoomDetailsDTO> GetAllChatRoom()
+        public void RemoveCollaborator(CollaboratorDTO collaboratorDTO)
         {
-            return chatRoomProvider.GetAllChatRooms();
+            userProvider.SetMediatorUser(collaboratorDTO.UserId);
+            boardProvider.RemoveCollaborator(collaboratorDTO);
         }
 
-        public ChatRoomDetailsDTO CreateChatRoom()
+        public BoardDetailsDTO UpdateBoardContent(BoardDetailsDTO boardDetailsDTO)
         {
-            return chatRoomProvider.CreateChatRoom();
+            return boardProvider.UpdateBoardContent(boardDetailsDTO);
         }
 
-        public ChatRoomDetailsDTO UpdateChatRoom(UpdateChatRoomDTO updateChatRoom)
+        public UserDetailsDTO GetUserByUsername(string username)
         {
-            return chatRoomProvider.UpdateChatRoom(updateChatRoom);
+            return userProvider.GetUserByUsername(username);
         }
 
-        public void DeleteChatRoom(int id)
+        public List<BoardDetailsDTO> GetBoardsSharedWithUser(int userId)
         {
-            chatRoomProvider.DeleteChatRoom(id);
+            userProvider.SetMediatorUser(userId);
+            return boardProvider.GetSharedBoardsWithUser();
         }
 
-        public MessageDetailsDTO GetMessage(int id)
-        {
-            return chatRoomProvider.GetMessage(id);
-        }
-
-        public List<MessageDetailsDTO> GetAllMessages()
-        {
-            return chatRoomProvider.GetAllMessages();
-        }
-
-        public MessageDetailsDTO CreateMessage(CreateMessageDTO createMessage)
-        {
-            userProvider.SetMediatorUser(createMessage.UserId);
-            return chatRoomProvider.CreateMessage(createMessage);
-        }        
-
-        public void DeleteMessage(int id)
-        {
-            chatRoomProvider.DeleteMessage(id);
-        }
-
+		public void SyncOfllineMode(SyncerData data)
+		{
+			Syncer syncer = new Syncer(data);
+			syncer.Sync();
+		}
     }
 }

@@ -15,5 +15,6 @@ namespace WeSketch.BusinessLogic.DTOs
         public string LastName { get; set; }
         public DateTime DateRegistered { get; set; }
         public DateTime DateOfBirth { get; set; }
-    }
+		public string Password { get; set; }
+	}
 }

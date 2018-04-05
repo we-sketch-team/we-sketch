@@ -10,10 +10,12 @@ namespace WeSketch.BusinessLogic.DTOs.BoardDTOs
     {
         public int Id { get; set; }
         public DateTime DateCreated { get; set; }
-        public bool PublicBoard { get; set; }
+        public string Password { get; set; }
         public string Title { get; set; }
         public string Desription { get; set; }
         public string Content { get; set; }
         public bool IsFavoriteToUser { get; set; }
-    }
+        public string Role { get; set; }
+		public bool IsPasswordProtected { get; set; }
+	}
 }

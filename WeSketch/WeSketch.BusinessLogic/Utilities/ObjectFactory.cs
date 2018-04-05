@@ -26,11 +26,6 @@ namespace WeSketch.BusinessLogic.Utilities
             return new BoardProvider(mediator);
         }
 
-        public static ChatRoomProvider GetChatRoomProvider(Mediator mediator)
-        {
-            return new ChatRoomProvider(mediator);
-        }
-
         public static UserProvider GetUserProvider(Mediator mediator)
         {
             return new UserProvider(mediator);

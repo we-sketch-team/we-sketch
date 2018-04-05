@@ -1,0 +1,19 @@
+﻿<Window x:Class="WeSketch.App.Forms.FormEditUser"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:WeSketch.App.Forms"
+        mc:Ignorable="d"
+        Title="Edit profile" Height="170.666" Width="292">
+    <Grid>
+        <Button x:Name="btn_Edit" Content="Edit" HorizontalAlignment="Left" Margin="220,103,0,0" VerticalAlignment="Top" Width="54" RenderTransformOrigin="0.667,3.034" Height="27" Click="btn_Edit_Click"/>
+        <TextBox x:Name="tb_FirstName" HorizontalAlignment="Left" Height="23" Margin="91,10,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="183"/>
+        <TextBox x:Name="tb_LastName" HorizontalAlignment="Left" Height="23" Margin="91,41,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="183" RenderTransformOrigin="1.117,-1.077"/>
+        <TextBox x:Name="tb_Password" HorizontalAlignment="Left" Height="23" Margin="91,72,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="183"/>
+        <Label x:Name="lb_firstName" Content="First name" HorizontalAlignment="Left" Margin="10,10,0,0" VerticalAlignment="Top"/>
+        <Label x:Name="lb_lastName" Content="Last Name" HorizontalAlignment="Left" Margin="10,41,0,0" VerticalAlignment="Top" Height="26"/>
+        <Label x:Name="lb_password" Content="Password" HorizontalAlignment="Left" Margin="10,72,0,0" VerticalAlignment="Top" RenderTransformOrigin="0.817,2.885" Height="26"/>
+
+    </Grid>
+</Window>

@@ -45,7 +45,6 @@ namespace WeSketch.BusinessLogic.Utilities
                 Id = boardDetails.Id,
                 Content = boardDetails.Content,
                 DateCreated = boardDetails.DateCreated,
-                PublicBoard = boardDetails.PublicBoard,
                 Title = boardDetails.Title,
                 Desription = boardDetails.Desription
             };
@@ -57,9 +56,9 @@ namespace WeSketch.BusinessLogic.Utilities
             {
                 Content = createBoard.Content,
                 DateCreated = createBoard.DateCreated,
-                PublicBoard = createBoard.PublicBoard,
                 Title = createBoard.Title,
-                Desription = createBoard.Desription
+                Desription = createBoard.Desription,
+				Password = createBoard.Password
             };
         }
     }
